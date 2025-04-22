@@ -69,14 +69,14 @@ class MainMenuPage extends StatelessWidget {
                 );
               },
             ),
-            // _buildMenuCard('Mental Health', 'img-project/mental health.jpeg'),
-            // _buildMenuCard(
-            //   'Consultation',
-            //   'img-project/consultation.jpeg',
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (_) => KonsultasiPage()),
+            _buildMenuCard('Mental Health', 'img-project/mental health.jpeg'),
+            _buildMenuCard(
+              'Consultation',
+              'img-project/consultation.jpeg',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => KonsultasiPage()),
                 );
               },
             ),
