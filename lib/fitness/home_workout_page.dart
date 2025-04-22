@@ -19,7 +19,7 @@ class _home_workout_pageState extends State<home_workout_page> {
       'category': 'Abs',
     },
     {
-      'name': 'push up',
+      'name': 'push ups',
       'desc': 'mulai posisi plank dengan tangan lurus, lalu turunkan tubuh ke bawah dengan menekuk siku.',
       'image': 'img-project/pushup.jpg',
       'category': 'chest',
