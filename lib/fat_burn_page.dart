@@ -6,7 +6,7 @@ class FatBurnPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Home Workout")),
+      appBar: AppBar(title: Text("fat burn")),
       body: Center(child: Text("Ini halaman Home Workout")),
     );
   }
