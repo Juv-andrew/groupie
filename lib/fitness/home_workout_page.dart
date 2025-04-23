@@ -40,7 +40,7 @@ class _home_workout_pageState extends State<home_workout_page> {
       'name': 'burpee',
       'desc': 'burpee adalah latihan yang menggabungkan squat, push-up, dan lompatan.',
       'image': 'img-project/burpees.jpg',
-      'category': 'full body',
+      'category': 'shoulder',
     },
     {
       'name': 'lunge',
@@ -87,7 +87,6 @@ class _home_workout_pageState extends State<home_workout_page> {
     'shoulder',
     'back',
     'legs',
-    'full body',
   ];
 
   List<Map<String, String>> get filteredList {
