@@ -89,7 +89,7 @@ class KonsultasiPage extends StatelessWidget {
       body: Column(
         children: [
           const SizedBox(height: 16),
-          Image.asset('img-project/logo.png', height: 100,),
+          Image.asset('img-project/logo.png', height: 100),
           const Text(
             'Medan Doctor',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -235,12 +235,12 @@ class KonsultasiPage extends StatelessWidget {
               break;
           }
         },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-        ],
+        // items: const [
+        //   BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        //   BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
+        //   BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
+        //   BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
+        // ],
       ),
     );
   }
