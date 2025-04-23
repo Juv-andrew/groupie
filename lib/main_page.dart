@@ -3,7 +3,6 @@ import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/consultation.dart';
 import 'package:project/fitness.dart';
-// import 'package:project/fitness.dart';
 import 'notification.dart' show NotificationsPage;
 import 'package:project/healthy_food.dart';
 import 'package:project/notification.dart';
