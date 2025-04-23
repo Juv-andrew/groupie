@@ -6,7 +6,7 @@ import 'package:project/fitness.dart';
 import 'notification.dart' show NotificationsPage;
 import 'package:project/healthy_food.dart';
 import 'package:project/notification.dart';
-import 'fitness.dart' show FitnessHomePage;
+// import 'fitness.dart' show FitnessHomePage;
 import 'consultation.dart' show KonsultasiPage;
 
 class MainMenuPage extends StatelessWidget {
