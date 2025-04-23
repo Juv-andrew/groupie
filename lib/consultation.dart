@@ -89,7 +89,7 @@ class KonsultasiPage extends StatelessWidget {
       body: Column(
         children: [
           const SizedBox(height: 16),
-          Icon(Icons.favorite, color: Colors.green[800], size: 50),
+          Image.asset('img-project/logo.png', height: 100,),
           const Text(
             'Medan Doctor',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
