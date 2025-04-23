@@ -235,12 +235,12 @@ class KonsultasiPage extends StatelessWidget {
               break;
           }
         },
-        // items: const [
-        //   BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        //   BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
-        //   BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
-        //   BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-        // ],
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
+        ],
       ),
     );
   }
