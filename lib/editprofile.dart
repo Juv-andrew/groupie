@@ -1,13 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:project/ProfilPage.dart';
 
-class EditProfilePage extends StatelessWidget {
+class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
+
+  @override
+  _EditProfilePageState createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends State<EditProfilePage> {
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController usernameController = TextEditingController(
+    text: '',
+  );
+  final TextEditingController emailController = TextEditingController(
+    text: 'groupie@gmail.com',
+  );
+  final TextEditingController passwordController = TextEditingController(
+    text: '12345678',
+  );
+  final TextEditingController phoneController = TextEditingController(
+    text: '081234567890',
+  );
+  final TextEditingController weightController = TextEditingController(
+    text: '89',
+  );
+  final TextEditingController heightController = TextEditingController(
+    text: '160',
+  );
+
+  String selectedGender = 'Female';
+  String selectedBloodType = 'O';
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    phoneController.dispose();
+    weightController.dispose();
+    heightController.dispose();
+    super.dispose();
+  }
+
+  void saveProfile() {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Profile berhasil disimpan!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      // Bisa lanjut save ke backend atau database di sini
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFB9F6CA),
+      backgroundColor: const Color(0xFFA3EDB3),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -27,129 +79,176 @@ class EditProfilePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            Center(
-              child: Stack(
-                children: [
-                  const CircleAvatar(
-                    radius: 55,
-                    backgroundColor: Colors.black,
-                    child: Icon(Icons.person, size: 60, color: Colors.white),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 4,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(color: Colors.black26, blurRadius: 4),
-                        ],
-                      ),
-                      child: IconButton(
-                        icon: const Icon(Icons.edit, size: 18),
-                        onPressed: () {},
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              Center(
+                child: Stack(
+                  children: [
+                    const CircleAvatar(
+                      radius: 55,
+                      backgroundColor: Colors.black,
+                      child: Icon(Icons.person, size: 60, color: Colors.white),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 4,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(color: Colors.black26, blurRadius: 4),
+                          ],
+                        ),
+                        child: IconButton(
+                          icon: const Icon(Icons.edit, size: 18),
+                          onPressed: () {},
+                        ),
                       ),
                     ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 30),
+
+              // Field
+              _buildTextField(
+                controller: usernameController,
+                icon: Icons.person_outline,
+                label: 'Username',
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Username wajib diisi';
+                  return null;
+                },
+              ),
+
+              _buildTextField(
+                controller: emailController,
+                icon: Icons.email_outlined,
+                label: 'Email',
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Email wajib diisi';
+                  if (!value.contains('@') || !value.contains('.'))
+                    return 'Format email tidak valid';
+                  return null;
+                },
+              ),
+
+              _buildTextField(
+                controller: passwordController,
+                icon: Icons.lock_outline,
+                label: 'Password',
+                isPassword: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Password wajib diisi';
+                  if (value.length < 8) return 'Password minimal 8 karakter';
+                  return null;
+                },
+              ),
+
+              _buildTextField(
+                controller: phoneController,
+                icon: Icons.phone_outlined,
+                label: 'Phone Number',
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Nomor telepon wajib diisi';
+                  if (!RegExp(r'^[0-9]+$').hasMatch(value))
+                    return 'Nomor telepon hanya boleh angka';
+                  return null;
+                },
+              ),
+
+              _buildDropdown(
+                icon: Icons.female,
+                label: 'Gender',
+                value: selectedGender,
+                items: ['Male', 'Female', 'Other'],
+                onChanged: (value) {
+                  setState(() {
+                    selectedGender = value!;
+                  });
+                },
+              ),
+
+              _buildTextField(
+                controller: weightController,
+                icon: Icons.monitor_weight_outlined,
+                label: 'Weight (kg)',
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Berat badan wajib diisi';
+                  return null;
+                },
+              ),
+
+              _buildTextField(
+                controller: heightController,
+                icon: Icons.height_outlined,
+                label: 'Height (cm)',
+                validator: (value) {
+                  if (value == null || value.isEmpty)
+                    return 'Tinggi badan wajib diisi';
+                  return null;
+                },
+              ),
+
+              _buildDropdown(
+                icon: Icons.bloodtype_outlined,
+                label: 'Blood Type',
+                value: selectedBloodType,
+                items: ['A', 'B', 'AB', 'O'],
+                onChanged: (value) {
+                  setState(() {
+                    selectedBloodType = value!;
+                  });
+                },
+              ),
+
+              const SizedBox(height: 25),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.pop(context, usernameController.text);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 14,
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 30),
-
-            // Pre-filled fields
-            _buildProfileCard(
-              icon: Icons.person_outline,
-              title: 'Username',
-              hint: '',
-              initialValue: 'Groupie',
-            ),
-            _buildProfileCard(
-              icon: Icons.email_outlined,
-              title: 'Email',
-              hint: '',
-              initialValue: 'groupie@gmail.com',
-            ),
-            _buildProfileCard(
-              icon: Icons.lock_outline,
-              title: 'Password',
-              hint: '',
-              initialValue: '12345678',
-              isPassword: true,
-            ),
-            _buildProfileCard(
-              icon: Icons.phone_outlined,
-              title: 'Phone Number',
-              hint: '',
-              initialValue: '0812 3456 7890',
-            ),
-            _buildProfileCard(
-              icon: Icons.female,
-              title: 'Gender',
-              hint: '',
-              initialValue: 'Female',
-            ),
-            _buildProfileCard(
-              icon: Icons.monitor_weight_outlined,
-              title: 'Weight',
-              hint: '',
-              initialValue: '89 kg',
-            ),
-            _buildProfileCard(
-              icon: Icons.height_outlined,
-              title: 'Height',
-              hint: '',
-              initialValue: '160 cm',
-            ),
-            _buildProfileCard(
-              icon: Icons.bloodtype_outlined,
-              title: 'Blood Type',
-              hint: '',
-              initialValue: 'O',
-            ),
-
-            const SizedBox(height: 25),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                            context, 
-                            MaterialPageRoute(builder: (context) => const ProfilePage()),
-                );
-                // Simpan data di sini
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 14,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  elevation: 5,
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                child: const Text(
+                  'Save Profile',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
-                elevation: 5,
               ),
-              child: const Text(
-                'Save Profile',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-            ),
-            const SizedBox(height: 30),
-          ],
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildProfileCard({
+  Widget _buildTextField({
+    required TextEditingController controller,
     required IconData icon,
-    required String title,
-    required String hint,
-    String initialValue = '',
+    required String label,
     bool isPassword = false,
+    String? Function(String?)? validator,
   }) {
     return Card(
       elevation: 3,
@@ -158,14 +257,44 @@ class EditProfilePage extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: TextFormField(
+          controller: controller,
           obscureText: isPassword,
-          initialValue: initialValue,
+          validator: validator,
           decoration: InputDecoration(
             icon: Icon(icon),
-            labelText: title,
-            hintText: hint,
+            labelText: label,
             border: InputBorder.none,
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDropdown({
+    required IconData icon,
+    required String label,
+    required String value,
+    required List<String> items,
+    required void Function(String?) onChanged,
+  }) {
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        child: DropdownButtonFormField<String>(
+          value: value,
+          decoration: InputDecoration(
+            icon: Icon(icon),
+            labelText: label,
+            border: InputBorder.none,
+          ),
+          onChanged: onChanged,
+          items:
+              items.map((String item) {
+                return DropdownMenuItem<String>(value: item, child: Text(item));
+              }).toList(),
         ),
       ),
     );
