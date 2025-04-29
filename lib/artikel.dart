@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ArticleDetailPage.dart'; // Import detail page
+import 'ArticleDetailPage.dart';
 
 class ArticlePage extends StatelessWidget {
   const ArticlePage({super.key});
@@ -52,7 +52,7 @@ class ArticlePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.dark
         ? Colors.black
-        : const Color(0xFFDFFFE1), // Light mode background
+        : const Color(0xFFDFFFE1), 
 
     appBar: AppBar(
       title: const Text("Artikel"),

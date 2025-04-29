@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/editprofile.dart';
 import 'package:provider/provider.dart';
-import 'package:konsultasi/editprofile.dart';
 import 'main.dart';
 
 class ProfilePage extends StatefulWidget {

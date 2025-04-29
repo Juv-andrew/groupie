@@ -8,7 +8,7 @@ class NotificationsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.dark
       ? Colors.black
-      : const Color(0xFFDFFFE1), // warna pink lembut
+      : const Color(0xFFDFFFE1), 
       body: SafeArea(
         child: Column(
           children: [
