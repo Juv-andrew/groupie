@@ -1,7 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, unused_import
-
 import 'package:flutter/material.dart';
-import 'package:project/ProfilPage.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -13,24 +10,12 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController usernameController = TextEditingController(
-    text: '',
-  );
-  final TextEditingController emailController = TextEditingController(
-    text: 'groupie@gmail.com',
-  );
-  final TextEditingController passwordController = TextEditingController(
-    text: '12345678',
-  );
-  final TextEditingController phoneController = TextEditingController(
-    text: '081234567890',
-  );
-  final TextEditingController weightController = TextEditingController(
-    text: '89',
-  );
-  final TextEditingController heightController = TextEditingController(
-    text: '160',
-  );
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController weightController = TextEditingController();
+  final TextEditingController heightController = TextEditingController();
 
   String selectedGender = 'Female';
   String selectedBloodType = 'O';
@@ -46,33 +31,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.dispose();
   }
 
-  void saveProfile() {
-    if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Profile berhasil disimpan!'),
-          backgroundColor: Colors.green,
-        ),
-      );
-      // Bisa lanjut save ke backend atau database di sini
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFA3EDB3),
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+      ? Colors.black
+      : const Color(0xFFDFFFE1),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.blue),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Edit Profile',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.blue,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
@@ -116,7 +91,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
               const SizedBox(height: 30),
 
-              // Field
               _buildTextField(
                 controller: usernameController,
                 icon: Icons.person_outline,
@@ -217,6 +191,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Profile berhasil disimpan!'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
                     Navigator.pop(context, usernameController.text);
                   }
                 },
@@ -293,10 +273,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
             border: InputBorder.none,
           ),
           onChanged: onChanged,
-          items:
-              items.map((String item) {
-                return DropdownMenuItem<String>(value: item, child: Text(item));
-              }).toList(),
+          items: items.map((String item) {
+            return DropdownMenuItem<String>(value: item, child: Text(item));
+          }).toList(),
         ),
       ),
     );

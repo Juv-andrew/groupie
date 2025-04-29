@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project/ProfilPage.dart';
-import 'package:project/artikel.dart';
-import 'package:project/main_page.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});
@@ -9,7 +6,9 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFB9F6CA), // warna pink lembut
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+      ? Colors.black
+      : const Color(0xFFDFFFE1), // warna pink lembut
       body: SafeArea(
         child: Column(
           children: [
@@ -19,7 +18,7 @@ class NotificationsPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.grey[900],
+                color: Colors.blue,
               ),
             ),
             SizedBox(height: 20),
@@ -75,44 +74,6 @@ class NotificationsPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1B5E20),
-        selectedItemColor: Color(0xFFB9F6CA),
-        unselectedItemColor: Colors.white,
-        currentIndex: 1, // karena sedang di halaman Inbox/Notifikasi
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const MainMenuPage()),
-              );
-              break;
-            case 1:
-              // Jangan navigasi ulang ke halaman ini sendiri
-              break;
-            case 2:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => ArticlePage()),
-              );
-              break;
-            case 3:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
-              );
-              break;
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-        ],
-      ),
     );
   }
 }
@@ -158,7 +119,10 @@ class NotificationCard extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
-              Text(time, style: TextStyle(color: Colors.black, fontSize: 12)),
+              Text(
+                time,
+                style: TextStyle(color: Colors.grey, fontSize: 12),
+              )
             ],
           ),
           SizedBox(height: 8),
@@ -175,10 +139,9 @@ class NotificationCard extends StatelessWidget {
                 child: Text(
                   action1,
                   style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 14,
-                    decoration: TextDecoration.underline,
-                  ),
+                      color: Colors.blue,
+                      fontSize: 14,
+                      decoration: TextDecoration.underline),
                 ),
               ),
               if (action2 != null)
@@ -187,10 +150,9 @@ class NotificationCard extends StatelessWidget {
                   child: Text(
                     action2!,
                     style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 14,
-                      decoration: TextDecoration.underline,
-                    ),
+                        color: Colors.blue,
+                        fontSize: 14,
+                        decoration: TextDecoration.underline),
                   ),
                 ),
             ],

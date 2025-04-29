@@ -1,11 +1,7 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
-import 'package:project/artikel.dart';
-import 'package:project/editprofile.dart';
-import 'package:project/main_page.dart';
-import 'package:project/notification.dart';
-import 'package:project/onboarding.dart';
+import 'package:provider/provider.dart';
+import 'package:konsultasi/editprofile.dart';
+import 'main.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -15,25 +11,29 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String username = 'Groupie'; // <- Awalnya default Groupie
+  String username = 'Groupie'; // <- gnti sini kalau mau ganti nama default nya 
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    bool isDarkMode = themeProvider.isDarkMode;
     return Scaffold(
-      backgroundColor: const Color(0xFFA3EDB3),
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+      ? Colors.black
+      : const Color(0xFFDFFFE1),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: [
-          const Icon(Icons.person_outline, color: Colors.black),
-          const SizedBox(width: 16),
-          const Icon(Icons.menu, color: Colors.black),
-          const SizedBox(width: 16),
+        actions: const [
+          Icon(Icons.person_outline, color: Colors.blue),
+          SizedBox(width: 16),
+          Icon(Icons.menu, color: Colors.blue),
+          SizedBox(width: 16),
         ],
         title: const Text(
           'My Profile',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.blue,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -49,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           const SizedBox(height: 12),
           Text(
-            username, // <- Menampilkan username dinamis!
+            username,
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
@@ -67,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                   if (newUsername != null && newUsername.isNotEmpty) {
                     setState(() {
-                      username = newUsername; // <- Update username di sini
+                      username = newUsername; 
                     });
                   }
                 },
@@ -93,6 +93,24 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
           const SizedBox(height: 24),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Dark Mode',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                Switch(
+                  value: isDarkMode,
+                  onChanged: (value) {
+                    themeProvider.toggleTheme(value);
+                  },
+                ),
+              ],
+            ),
+          ),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -114,7 +132,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildMiniButton(IconData icon, String label) {
     return ElevatedButton.icon(
       onPressed: () {
-        // Aksi tambahan
       },
       icon: Icon(icon, color: Colors.black),
       label: Text(
@@ -137,17 +154,15 @@ class _ProfilePageState extends State<ProfilePage> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
-        leading: Icon(icon, color: Colors.black),
+        leading: Icon(icon, color: Colors.blue),
         title: Text(
           title,
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         trailing: const Icon(Icons.chevron_right),
         onTap: () {
-          // Tambah aksi navigasi jika perlu
         },
       ),
     );
   }
 }
-

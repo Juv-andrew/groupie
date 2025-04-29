@@ -50,19 +50,16 @@ class ArticlePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FDF9),
-      appBar: AppBar(
-        title: const Text(
-          'Artikel Kesehatan',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+        ? Colors.black
+        : const Color(0xFFDFFFE1), // Light mode background
+
+    appBar: AppBar(
+      title: const Text("Artikel"),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
         centerTitle: true,
-        leading: const BackButton(color: Colors.black),
+        leading: const BackButton(color: Colors.blue),
       ),
       body: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
