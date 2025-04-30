@@ -15,11 +15,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-<<<<<<< HEAD
   String username = 'Groupie';
-=======
-  String username = 'Groupie'; // <- gnti sini kalau mau ganti nama default nya
->>>>>>> de58742767bc03a8ff098bd422113c6ea55432d0
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
     bool isDarkMode = themeProvider.isDarkMode;
 
     return Scaffold(
-<<<<<<< HEAD
-      backgroundColor: isDarkMode ? Colors.black : const Color(0xFFDFFFE1),
-=======
-      backgroundColor:
-          Theme.of(context).brightness == Brightness.dark
-              ? Colors.black
-              : const Color(0xFFDFFFE1),
->>>>>>> de58742767bc03a8ff098bd422113c6ea55432d0
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -53,56 +42,41 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Column(
         children: [
           const SizedBox(height: 16),
-          const CircleAvatar(
+          CircleAvatar(
             radius: 50,
-            backgroundColor: Colors.black,
-            child: Icon(Icons.person, size: 60, color: Colors.white),
+            backgroundColor: isDarkMode ? Colors.white : Colors.black,
+            child: Icon(
+              Icons.person,
+              size: 60,
+              color: isDarkMode ? Colors.black : Colors.white,
+            ),
           ),
           const SizedBox(height: 12),
           Text(
             username,
-            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: isDarkMode ? Colors.white : Colors.black,
+            ),
           ),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton.icon(
-                onPressed: () async {
-                  final newUsername = await Navigator.push<String>(
-                    context,
-                    MaterialPageRoute(builder: (_) => const EditProfilePage()),
-                  );
-                  if (newUsername != null && newUsername.isNotEmpty) {
-                    setState(() {
-                      username = newUsername;
-                    });
-                  }
-                },
-                icon: const Icon(Icons.edit, color: Colors.black),
-                label: const Text(
-                  'edit profile',
-                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white.withOpacity(0.9),
-                  elevation: 0,
-<<<<<<< HEAD
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-=======
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
->>>>>>> de58742767bc03a8ff098bd422113c6ea55432d0
-                ),
-              ),
+              _buildMiniButton(Icons.edit, 'edit profile', () async {
+                final newUsername = await Navigator.push<String>(
+                  context,
+                  MaterialPageRoute(builder: (_) => const EditProfilePage()),
+                );
+                if (newUsername != null && newUsername.isNotEmpty) {
+                  setState(() {
+                    username = newUsername;
+                  });
+                }
+              }),
               const SizedBox(width: 10),
-              _buildMiniButton(Icons.settings, 'settings'),
+              _buildMiniButton(Icons.settings, 'settings', () {}),
             ],
           ),
           const SizedBox(height: 24),
@@ -131,12 +105,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 _buildProfileOption(Icons.language, 'Language'),
                 _buildProfileOption(Icons.location_on_outlined, 'Location'),
                 _buildProfileOption(Icons.history, 'History Activity'),
-                _buildProfileOption(Icons.logout, 'Logout', onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (_) => const OnboardingScreen()),
-                  );
-                }),
+                _buildProfileOption(
+                  Icons.logout,
+                  'Logout',
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const OnboardingScreen(),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -182,13 +162,10 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildMiniButton(IconData icon, String label) {
+  Widget _buildMiniButton(IconData icon, String label, VoidCallback onPressed) {
     return ElevatedButton.icon(
-      onPressed: () {},
+      onPressed: onPressed,
       icon: Icon(icon, color: Colors.black),
-<<<<<<< HEAD
-      label: Text(label, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500)),
-=======
       label: Text(
         label,
         style: const TextStyle(
@@ -196,7 +173,6 @@ class _ProfilePageState extends State<ProfilePage> {
           fontWeight: FontWeight.w500,
         ),
       ),
->>>>>>> de58742767bc03a8ff098bd422113c6ea55432d0
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white.withOpacity(0.9),
         elevation: 0,
@@ -206,7 +182,11 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildProfileOption(IconData icon, String title, {VoidCallback? onTap}) {
+  Widget _buildProfileOption(
+    IconData icon,
+    String title, {
+    VoidCallback? onTap,
+  }) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -214,11 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
         leading: Icon(icon, color: Colors.blue),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
         trailing: const Icon(Icons.chevron_right),
-<<<<<<< HEAD
         onTap: onTap,
-=======
-        onTap: () {},
->>>>>>> de58742767bc03a8ff098bd422113c6ea55432d0
       ),
     );
   }
