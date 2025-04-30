@@ -3,11 +3,14 @@ import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/consultation.dart';
 import 'package:project/fitness.dart';
+import 'package:project/mentalhealth.dart';
 import 'notification.dart' show NotificationsPage;
 import 'package:project/healthy_food.dart';
 import 'package:project/notification.dart';
-// import 'fitness.dart' show FitnessHomePage;
+import 'fitness.dart' show FitnessHomePage;
 import 'consultation.dart' show KonsultasiPage;
+
+
 
 class MainMenuPage extends StatelessWidget {
   const MainMenuPage({super.key});
@@ -49,7 +52,7 @@ class MainMenuPage extends StatelessWidget {
         child: Column(
           children: [
             _buildMenuCard(
-              'Fitness', 
+              'Fitness',
               'img-project/fitness.jpeg',
               onTap: () {
                 Navigator.push(
@@ -68,7 +71,16 @@ class MainMenuPage extends StatelessWidget {
                 );
               },
             ),
-            _buildMenuCard('Mental Health', 'img-project/mental health.jpeg'),
+            _buildMenuCard(
+              'Mental Health',
+              'img-project/mental health.jpeg',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => SelfAwarenessPage()),
+                );
+              },
+            ),
             _buildMenuCard(
               'Consultation',
               'img-project/consultation.jpeg',

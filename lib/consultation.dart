@@ -1,11 +1,111 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:project/DoctorDetailPage.dart';
 import 'package:project/ProfilPage.dart';
-import 'package:project/artikel.dart';
-import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
-import 'DoctorDetailPage.dart';
+import 'package:provider/provider.dart';
+import 'artikel.dart';
+
+
+class ThemeProvider extends ChangeNotifier {
+  ThemeMode themeMode = ThemeMode.light;
+
+  bool get isDarkMode => themeMode == ThemeMode.dark;
+
+  void toggleTheme(bool isOn) {
+    themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
+    notifyListeners();
+  }
+}
+
+class MedanDoctorApp extends StatelessWidget {
+  const MedanDoctorApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: themeProvider.themeMode,
+      theme: ThemeData(
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: Color(0xFFDFFFE1),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color(0xFF1E1E1E),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+      ),
+      home: MainNavigation(),
+    );
+  }
+}
+
+class MainNavigation extends StatefulWidget {
+  @override
+  _MainNavigationState createState() => _MainNavigationState();
+}
+
+class _MainNavigationState extends State<MainNavigation> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = [
+    KonsultasiPage(),
+    NotificationsPage(),
+    ArticlePage(),
+    ProfilePage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor:
+            Theme.of(context).brightness == Brightness.dark
+                ? Colors.black
+                : const Color(0xFFDFFFE1),
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.blue,
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.mail_outline),
+            label: 'Inbox',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.article_outlined),
+            label: 'Article',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: 'Profil',
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class KonsultasiPage extends StatelessWidget {
   final List<Map<String, String>> doctorList = [
@@ -53,45 +153,30 @@ class KonsultasiPage extends StatelessWidget {
     },
   ];
 
+  KonsultasiPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlue[100],
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : const Color(0xFFDFFFE1),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.person_outline, color: Colors.black),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
-            onPressed: () {
-              // Arahkan ke menu atau drawer
-            },
-          ),
+          Icon(Icons.person_outline, color: Colors.black),
+          SizedBox(width: 16),
+          Icon(Icons.menu, color: Colors.black),
+          SizedBox(width: 16),
         ],
-        title: const Text(
-          'Consultation',
-          style: TextStyle(color: Colors.white),
-        ),
       ),
       body: Column(
         children: [
-          const SizedBox(height: 16),
-          Image.asset('img-project/logo.png', height: 100),
-          const Text(
-            'Medan Doctor',
+          Icon(Icons.favorite, color: Colors.green[800], size: 50),
+          Text(
+            'medan doctor',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           Padding(
@@ -99,9 +184,9 @@ class KonsultasiPage extends StatelessWidget {
             child: TextField(
               decoration: InputDecoration(
                 hintText: "Search Doctor...",
-                prefixIcon: const Icon(Icons.search),
+                prefixIcon: Icon(Icons.search),
                 filled: true,
-                fillColor: Colors.grey[300],
+                fillColor: Colors.green[100],
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide.none,
@@ -113,7 +198,7 @@ class KonsultasiPage extends StatelessWidget {
             child: ListView.builder(
               itemCount: doctorList.length,
               itemBuilder: (context, index) {
-                final doctor = doctorList[index];
+                var doctor = doctorList[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -121,13 +206,13 @@ class KonsultasiPage extends StatelessWidget {
                   ),
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
+                      gradient: LinearGradient(
                         colors: [Colors.white, Color(0xFFE9FFED)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(25),
-                      boxShadow: const [
+                      boxShadow: [
                         BoxShadow(
                           color: Colors.black12,
                           blurRadius: 8,
@@ -136,14 +221,14 @@ class KonsultasiPage extends StatelessWidget {
                       ],
                     ),
                     child: ListTile(
-                      contentPadding: const EdgeInsets.all(16),
+                      contentPadding: EdgeInsets.all(16),
                       leading: CircleAvatar(
                         backgroundImage: NetworkImage(doctor['image']!),
                         radius: 30,
                       ),
                       title: Text(
                         doctor['name']!,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -157,16 +242,16 @@ class KonsultasiPage extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.location_pin,
                                 size: 16,
                                 color: Colors.grey,
                               ),
-                              const SizedBox(width: 4),
+                              SizedBox(width: 4),
                               Text(doctor['hospital']!),
                             ],
                           ),
-                          const SizedBox(height: 4),
+                          SizedBox(height: 4),
                           Align(
                             alignment: Alignment.centerRight,
                             child: GestureDetector(
@@ -175,12 +260,13 @@ class KonsultasiPage extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder:
-                                        (_) => DoctorDetailPage(doctor: doctor),
+                                        (context) =>
+                                            DoctorDetailPage(doctor: doctor),
                                   ),
                                 );
                               },
-                              child: const Text(
-                                'Selengkapnya',
+                              child: Text(
+                                'selengkapnya',
                                 style: TextStyle(
                                   color: Colors.blue,
                                   fontSize: 12,
@@ -197,49 +283,6 @@ class KonsultasiPage extends StatelessWidget {
               },
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1B5E20),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white,
-        currentIndex: 0, // Sesuaikan ini jika kamu ingin aktifkan tab lain
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const MainMenuPage()),
-              );
-              break;
-            case 1:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationsPage(),
-                ),
-              );
-              break;
-            case 2:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => ArticlePage()),
-              );
-              break;
-            case 3:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
-              );
-              break;
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/editprofile.dart';
 import 'package:provider/provider.dart';
-import 'main.dart';
+import 'consultation.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
