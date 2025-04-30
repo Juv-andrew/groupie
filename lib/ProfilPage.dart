@@ -11,16 +11,17 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String username = 'Groupie'; // <- gnti sini kalau mau ganti nama default nya 
+  String username = 'Groupie'; // <- gnti sini kalau mau ganti nama default nya
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     bool isDarkMode = themeProvider.isDarkMode;
     return Scaffold(
-      backgroundColor: Theme.of(context).brightness == Brightness.dark
-      ? Colors.black
-      : const Color(0xFFDFFFE1),
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : const Color(0xFFDFFFE1),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -32,10 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
         title: const Text(
           'My Profile',
-          style: TextStyle(
-            color: Colors.blue,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -67,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                   if (newUsername != null && newUsername.isNotEmpty) {
                     setState(() {
-                      username = newUsername; 
+                      username = newUsername;
                     });
                   }
                 },
@@ -85,7 +83,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -131,19 +132,19 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildMiniButton(IconData icon, String label) {
     return ElevatedButton.icon(
-      onPressed: () {
-      },
+      onPressed: () {},
       icon: Icon(icon, color: Colors.black),
       label: Text(
         label,
-        style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+        ),
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white.withOpacity(0.9),
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     );
@@ -155,13 +156,9 @@ class _ProfilePageState extends State<ProfilePage> {
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
         leading: Icon(icon, color: Colors.blue),
-        title: Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.w500),
-        ),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
         trailing: const Icon(Icons.chevron_right),
-        onTap: () {
-        },
+        onTap: () {},
       ),
     );
   }
