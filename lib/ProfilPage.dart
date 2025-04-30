@@ -15,7 +15,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+<<<<<<< HEAD
   String username = 'Groupie';
+=======
+  String username = 'Groupie'; // <- gnti sini kalau mau ganti nama default nya
+>>>>>>> de58742767bc03a8ff098bd422113c6ea55432d0
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,14 @@ class _ProfilePageState extends State<ProfilePage> {
     bool isDarkMode = themeProvider.isDarkMode;
 
     return Scaffold(
+<<<<<<< HEAD
       backgroundColor: isDarkMode ? Colors.black : const Color(0xFFDFFFE1),
+=======
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : const Color(0xFFDFFFE1),
+>>>>>>> de58742767bc03a8ff098bd422113c6ea55432d0
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -76,8 +87,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white.withOpacity(0.9),
                   elevation: 0,
+<<<<<<< HEAD
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+=======
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+>>>>>>> de58742767bc03a8ff098bd422113c6ea55432d0
                 ),
               ),
               const SizedBox(width: 10),
@@ -165,7 +186,17 @@ class _ProfilePageState extends State<ProfilePage> {
     return ElevatedButton.icon(
       onPressed: () {},
       icon: Icon(icon, color: Colors.black),
+<<<<<<< HEAD
       label: Text(label, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500)),
+=======
+      label: Text(
+        label,
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+>>>>>>> de58742767bc03a8ff098bd422113c6ea55432d0
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white.withOpacity(0.9),
         elevation: 0,
@@ -183,7 +214,11 @@ class _ProfilePageState extends State<ProfilePage> {
         leading: Icon(icon, color: Colors.blue),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
         trailing: const Icon(Icons.chevron_right),
+<<<<<<< HEAD
         onTap: onTap,
+=======
+        onTap: () {},
+>>>>>>> de58742767bc03a8ff098bd422113c6ea55432d0
       ),
     );
   }
