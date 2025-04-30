@@ -96,8 +96,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 icon: Icons.person_outline,
                 label: 'Username',
                 validator: (value) {
-                  if (value == null || value.isEmpty)
+                  if (value == null || value.isEmpty) {
                     return 'Username wajib diisi';
+                  }
                   return null;
                 },
               ),
@@ -107,10 +108,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 icon: Icons.email_outlined,
                 label: 'Email',
                 validator: (value) {
-                  if (value == null || value.isEmpty)
+                  if (value == null || value.isEmpty) {
                     return 'Email wajib diisi';
-                  if (!value.contains('@') || !value.contains('.'))
+                  }
+                  if (!value.contains('@') || !value.contains('.')) {
                     return 'Format email tidak valid';
+                  }
                   return null;
                 },
               ),
@@ -121,8 +124,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 label: 'Password',
                 isPassword: true,
                 validator: (value) {
-                  if (value == null || value.isEmpty)
+                  if (value == null || value.isEmpty) {
                     return 'Password wajib diisi';
+                  }
                   if (value.length < 8) return 'Password minimal 8 karakter';
                   return null;
                 },
@@ -133,10 +137,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 icon: Icons.phone_outlined,
                 label: 'Phone Number',
                 validator: (value) {
-                  if (value == null || value.isEmpty)
+                  if (value == null || value.isEmpty) {
                     return 'Nomor telepon wajib diisi';
-                  if (!RegExp(r'^[0-9]+$').hasMatch(value))
+                  }
+                  if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
                     return 'Nomor telepon hanya boleh angka';
+                  }
                   return null;
                 },
               ),
@@ -158,8 +164,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 icon: Icons.monitor_weight_outlined,
                 label: 'Weight (kg)',
                 validator: (value) {
-                  if (value == null || value.isEmpty)
+                  if (value == null || value.isEmpty) {
                     return 'Berat badan wajib diisi';
+                  }
                   return null;
                 },
               ),
@@ -169,8 +176,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 icon: Icons.height_outlined,
                 label: 'Height (cm)',
                 validator: (value) {
-                  if (value == null || value.isEmpty)
+                  if (value == null || value.isEmpty) {
                     return 'Tinggi badan wajib diisi';
+                  }
                   return null;
                 },
               ),
