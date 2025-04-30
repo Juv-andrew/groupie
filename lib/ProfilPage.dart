@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:project/editprofile.dart';
+import 'package:project/consultation.dart';
 import 'package:provider/provider.dart';
-import 'consultation.dart';
+import 'package:project/editprofile.dart';
+import 'package:project/main_page.dart';
+import 'package:project/notification.dart';
+import 'package:project/artikel.dart';
+import 'package:project/onboarding.dart'; // Pastikan ini sesuai dengan lokasi ThemeProvider kamu
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -11,16 +15,15 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String username = 'Groupie'; // <- gnti sini kalau mau ganti nama default nya 
+  String username = 'Groupie';
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     bool isDarkMode = themeProvider.isDarkMode;
+
     return Scaffold(
-      backgroundColor: Theme.of(context).brightness == Brightness.dark
-      ? Colors.black
-      : const Color(0xFFDFFFE1),
+      backgroundColor: isDarkMode ? Colors.black : const Color(0xFFDFFFE1),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -32,10 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
         title: const Text(
           'My Profile',
-          style: TextStyle(
-            color: Colors.blue,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -60,31 +60,23 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () async {
                   final newUsername = await Navigator.push<String>(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => const EditProfilePage(),
-                    ),
+                    MaterialPageRoute(builder: (_) => const EditProfilePage()),
                   );
-
                   if (newUsername != null && newUsername.isNotEmpty) {
                     setState(() {
-                      username = newUsername; 
+                      username = newUsername;
                     });
                   }
                 },
                 icon: const Icon(Icons.edit, color: Colors.black),
                 label: const Text(
                   'edit profile',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white.withOpacity(0.9),
                   elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 ),
               ),
@@ -104,9 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Switch(
                   value: isDarkMode,
-                  onChanged: (value) {
-                    themeProvider.toggleTheme(value);
-                  },
+                  onChanged: (value) => themeProvider.toggleTheme(value),
                 ),
               ],
             ),
@@ -120,10 +110,52 @@ class _ProfilePageState extends State<ProfilePage> {
                 _buildProfileOption(Icons.language, 'Language'),
                 _buildProfileOption(Icons.location_on_outlined, 'Location'),
                 _buildProfileOption(Icons.history, 'History Activity'),
-                _buildProfileOption(Icons.logout, 'Logout'),
+                _buildProfileOption(Icons.logout, 'Logout', onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (_) => const OnboardingScreen()),
+                  );
+                }),
               ],
             ),
           ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0xFF1B5E20),
+        selectedItemColor: const Color(0xFFB9F6CA),
+        unselectedItemColor: Colors.white,
+        currentIndex: 3,
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => const MainMenuPage()),
+              );
+              break;
+            case 1:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => const NotificationsPage()),
+              );
+              break;
+            case 2:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => const ArticlePage()),
+              );
+              break;
+            case 3:
+              break;
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),
     );
@@ -131,37 +163,27 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildMiniButton(IconData icon, String label) {
     return ElevatedButton.icon(
-      onPressed: () {
-      },
+      onPressed: () {},
       icon: Icon(icon, color: Colors.black),
-      label: Text(
-        label,
-        style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-      ),
+      label: Text(label, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500)),
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white.withOpacity(0.9),
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     );
   }
 
-  Widget _buildProfileOption(IconData icon, String title) {
+  Widget _buildProfileOption(IconData icon, String title, {VoidCallback? onTap}) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
         leading: Icon(icon, color: Colors.blue),
-        title: Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.w500),
-        ),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
         trailing: const Icon(Icons.chevron_right),
-        onTap: () {
-        },
+        onTap: onTap,
       ),
     );
   }

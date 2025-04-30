@@ -1,65 +1,70 @@
 import 'package:flutter/material.dart';
-import 'ArticleDetailPage.dart';
+import 'package:project/ProfilPage.dart';
+import 'package:project/main_page.dart';
+import 'package:project/notification.dart';
 
 class ArticlePage extends StatelessWidget {
   const ArticlePage({super.key});
 
   final List<Map<String, String>> articles = const [
     {
-      'category': 'Hidup Sehat',
+      'category': 'Kecantikan',
       'title': 'Cara Merawat Kulit Wajah yang Baik dan Benar',
-      'image': '',
+      'image': 'https://awsimages.detik.net.id/community/media/visual/2019/10/24/453c1300-a714-49b4-9ab8-760f2f73ea32.jpeg?w=1200',
     },
     {
-      'category': 'Kesehatan',
+      'category': 'Kecantikan',
       'title': 'Makin Cantik setelah Tahu Cara Membersihkan Wajah dengan Benar',
-      'image': '',
-    },
-    {
-      'category': 'Hidup Sehat',
-      'title': 'Makan Banyak tapi Tetap Kurus? Ini Kemungkinan Penyebabnya',
-      'image': '',
+      'image': 'https://res.cloudinary.com/dk0z4ums3/image/upload/v1623652646/attached_image/perawatan-wajah-kusam-agar-tampil-lebih-cerah-0-alodokter.jpg',
     },
     {
       'category': 'Kesehatan Mental',
-      'title': 'Cara Mengatasi Overthinking dengan Teknik Pernapasan',
-      'image': '',
+      'title': 'Cara Healing yang cocok untuk introvert agar tak gampang stress',
+      'image': 'https://cdn1-production-images-kly.akamaized.net/MJP69y9UBONvwEboVO43yB20lRk=/0x154:3000x1845/500x281/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4090631/original/047923700_1657944348-rekomendasi_buku_bagus.jpg',
     },
     {
-      'category': 'Kesehatan Mental',
-      'title': 'Pentingnya Self-Care untuk Menjaga Kesehatan Mental',
-      'image': '',
+      'category': 'Fitness',
+      'title': 'Tips Menghilangkan pegal di kaki dan paha setelah olahraga lari',
+      'image': 'https://www.neorheumacyl.com/public/files/Tips-Menghilangkan-Pegal-di-Kaki-dan-Paha-Setelah-Olahraga-Lari.jpg',
     },
     {
-      'category': 'Kesehatan Mental',
-      'title': 'Tips Mengelola Stres di Tengah Kesibukan Sehari-hari',
-      'image': '',
+      'category': 'Makanan Sehat',
+      'title': 'Alasan dan Bahaya Makan Mie Pakai Nasi untuk tubuh',
+      'image': 'https://mmc.tirto.id/image/2024/04/05/ilustrasi-makan-mie-pakai-nasi-tirto-01_ratio-16x9.jpg',
+    },
+    {
+      'category': 'Makanan Sehat',
+      'title': 'Ini Kriteria Makanan Sehat untuk Anak',
+      'image': 'https://www.vidoran.com/public/files/kriteria_makanan_sehat_untuk_anak.jpg',
     },
     {
       'category': 'Kesehatan Mental',
       'title': 'Kenali Tanda-Tanda Burnout dan Cara Mengatasinya',
-      'image': '',
+      'image': 'https://media.kompas.tv/library/image/content_article/article_img/20210207164102.jpg',
     },
     {
-      'category': 'Kesehatan Mental',
-      'title': 'Manfaat Journaling untuk Kesehatan Emosional',
-      'image': '',
+      'category': 'Fitness',
+      'title': 'Bukan Cuma Sit Up, ini beberapa latihan untuk membentuk Otot Perut',
+      'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy5jb1iwtKu_0TiflcFG5EMYMIuHJRY4itaWLCAdnIJqvgt9iwjVrpOtfKhSRq2sBMQnU&usqp=CAU',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).brightness == Brightness.dark
-        ? Colors.black
-        : const Color(0xFFDFFFE1), 
-
-    appBar: AppBar(
-      title: const Text("Artikel"),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
+      backgroundColor: const Color(0xFFB9F6CA),
+      appBar: AppBar(
+        title: const Text(
+          'Artikel Kesehatan',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         centerTitle: true,
-        leading: const BackButton(color: Colors.blue),
+        leading: const BackButton(color: Colors.black),
       ),
       body: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -69,17 +74,7 @@ class ArticlePage extends StatelessWidget {
           final article = articles[index];
           return GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ArticleDetailPageFancy(
-                    title: article['title'] ?? '',
-                    category: article['category'] ?? '',
-                    content: 'Ini adalah isi lengkap dari artikel berjudul "${article['title']}". Nanti bisa kamu ganti sesuai kebutuhan.',
-                    imageUrl: article['image'] ?? '',
-                  ),
-                ),
-              );
+              // arahkan ke halaman detail jika mau
             },
             child: Container(
               decoration: BoxDecoration(
@@ -150,6 +145,43 @@ class ArticlePage extends StatelessWidget {
             ),
           );
         },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0xFF1B5E20),
+        selectedItemColor: Color(0xFFB9F6CA),
+        unselectedItemColor: Colors.white,
+        currentIndex: 2, // karena sedang di halaman Inbox/Notifikasi
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MainMenuPage()),
+              );
+              break;
+            case 1:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationsPage()),
+              );
+              break;
+            case 2:
+              break;
+            case 3:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+              break;
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
+        ],
       ),
     );
   }

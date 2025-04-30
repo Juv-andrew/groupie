@@ -32,6 +32,7 @@ class FitnessHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      backgroundColor: Colors.grey[200], // <-- Ubah background jadi abu-abu
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 196, 36, 36),
         centerTitle: true,
@@ -40,26 +41,13 @@ class FitnessHomePage extends StatelessWidget {
           onSelected: (value) {
             print('Kamu memilih: $value');
           },
-          itemBuilder:
-              (BuildContext context) => <PopupMenuEntry<String>>[
-                const PopupMenuItem<String>(value: 'Home', child: Text('Home')),
-                const PopupMenuItem<String>(
-                  value: 'menu 2',
-                  child: Text('menu 2'),
-                ),
-                const PopupMenuItem<String>(
-                  value: 'menu 3',
-                  child: Text('Menu 3'),
-                ),
-                const PopupMenuItem<String>(
-                  value: 'Menu 4',
-                  child: Text('Menu 4'),
-                ),
-                const PopupMenuItem<String>(
-                  value: 'menu 5',
-                  child: Text('Menu 5'),
-                ),
-              ],
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            const PopupMenuItem<String>(value: 'Home', child: Text('Home')),
+            const PopupMenuItem<String>(value: 'menu 2', child: Text('menu 2')),
+            const PopupMenuItem<String>(value: 'menu 3', child: Text('Menu 3')),
+            const PopupMenuItem<String>(value: 'Menu 4', child: Text('Menu 4')),
+            const PopupMenuItem<String>(value: 'menu 5', child: Text('Menu 5')),
+          ],
         ),
         title: Row(
           mainAxisSize: MainAxisSize.min,
@@ -87,8 +75,9 @@ class FitnessHomePage extends StatelessWidget {
       ),
       body: Stack(
         children: [
+          // Ganti gambar background dengan warna abu-abu
           Positioned.fill(
-            child: Image.asset('img-project/main_bg.jpg', fit: BoxFit.cover),
+            child: Container(color: Colors.grey[200]),
           ),
           SafeArea(
             child: SingleChildScrollView(
@@ -129,41 +118,29 @@ class FitnessHomePage extends StatelessWidget {
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize:
-                                        MediaQuery.of(context).size.width *
-                                        0.08,
+                                        MediaQuery.of(context).size.width * 0.08,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.02,
+                                  height: MediaQuery.of(context).size.height * 0.02,
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder:
-                                            (context) =>
-                                                const SubscriptionPage(),
+                                        builder: (context) =>
+                                            const SubscriptionPage(),
                                       ),
                                     );
                                   },
-
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color.fromARGB(
-                                      255,
-                                      255,
-                                      69,
-                                      69,
-                                    ),
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 255, 69, 69),
                                     padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          MediaQuery.of(context).size.width *
-                                          0.1,
-                                      vertical:
-                                          MediaQuery.of(context).size.height *
-                                          0.02,
+                                      horizontal: MediaQuery.of(context).size.width * 0.1,
+                                      vertical: MediaQuery.of(context).size.height * 0.02,
                                     ),
                                   ),
                                   child: Text(
@@ -171,8 +148,7 @@ class FitnessHomePage extends StatelessWidget {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize:
-                                          MediaQuery.of(context).size.width *
-                                          0.04,
+                                          MediaQuery.of(context).size.width * 0.04,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -191,19 +167,15 @@ class FitnessHomePage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder:
-                                  (_) => SavedWorkoutPage(
-                                    savedWorkouts: ['Fat Burn', 'Yoga'],
-                                  ),
+                              builder: (_) =>
+                                  SavedWorkoutPage(savedWorkouts: ['Fat Burn', 'Yoga']),
                             ),
                           );
                         },
                         child: Container(
                           width: double.infinity,
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 16,
-                          ),
+                          margin:
+                              const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           decoration: BoxDecoration(
                             color: Colors.redAccent,
@@ -286,10 +258,10 @@ class FitnessHomePage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color.fromARGB(255, 255, 9, 0),
+        backgroundColor: const Color(0xFF1B5E20),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
-        currentIndex: 0, // Sesuaikan ini jika kamu ingin aktifkan tab lain
+        currentIndex: 0,
         onTap: (index) {
           switch (index) {
             case 0:
@@ -301,9 +273,7 @@ class FitnessHomePage extends StatelessWidget {
             case 1:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationsPage(),
-                ),
+                MaterialPageRoute(builder: (context) => const NotificationsPage()),
               );
               break;
             case 2:
@@ -372,9 +342,7 @@ class FitnessHomePage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(12),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
               child: Image.asset(
                 imageAsset,
                 height: imageHeight,

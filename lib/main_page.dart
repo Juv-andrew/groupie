@@ -83,7 +83,7 @@ class MainMenuPage extends StatelessWidget {
             ),
             _buildMenuCard(
               'Consultation',
-              'img-project/consultation.jpeg',
+              'img-project/consultation-1.jpeg',
               onTap: () {
                 Navigator.push(
                   context,
