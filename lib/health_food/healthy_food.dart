@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
@@ -5,6 +7,7 @@ import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
 import 'package:project/health_food/recipe_page.dart' show RecipePage;
 import 'package:project/health_food/top3_health.dart';
+import 'package:project/favorite_page.dart';
 
 class FoodMenuPage extends StatefulWidget {
   const FoodMenuPage({super.key});
@@ -21,6 +24,7 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
     'Dessert',
   ];
   String selectedCategory = 'All';
+  String searchQuery = ''; // Untuk pencarian
 
   final List<Map<String, String>> foods = [
     {
@@ -52,7 +56,6 @@ Cara Membuat:
 2. Haluskan bahan saus kacang lalu tambahkan air hangat hingga konsistensi yang diinginkan.
 3. Susun sayuran, tahu, tempe, dan telur di piring, siram dengan saus kacang.
 ''',
-
       'rating': '4.5',
     },
     {
@@ -222,8 +225,19 @@ Cara Membuat
   ];
 
   List<Map<String, String>> get filteredFoods {
-    if (selectedCategory == 'All') return foods;
-    return foods.where((food) => food['category'] == selectedCategory).toList();
+    final query = searchQuery.trim().toLowerCase();
+
+    // Jika user sedang mencari sesuatu
+    if (query.isNotEmpty) {
+      return foods.where((food) {
+        return food['title']!.toLowerCase().contains(query);
+      }).toList();
+    }
+
+    // Jika tidak ada pencarian, filter berdasarkan kategori
+    return selectedCategory == 'All'
+        ? foods
+        : foods.where((food) => food['category'] == selectedCategory).toList();
   }
 
   @override
@@ -247,18 +261,68 @@ Cara Membuat
               );
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
-            onPressed: () {
-              // Arahkan ke menu atau drawer
-            },
+          Builder(
+            builder:
+                (context) => IconButton(
+                  icon: const Icon(Icons.menu, color: Colors.black),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                ),
           ),
         ],
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(color: Color(0xFFB9F6CA)),
+              child: const Text(
+                'Menu',
+                style: TextStyle(fontSize: 24, color: Colors.black),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.favorite),
+              title: const Text('Favorite'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FavoriteRecipesDrawer(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.article),
+              title: const Text('Artikel'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ArticlePage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.notifications),
+              title: const Text('Notifikasi'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const NotificationsPage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: SafeArea(
         child: Column(
           children: [
-            // Header: Gambar + teks sejajar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -293,7 +357,7 @@ Cara Membuat
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Image.asset('img-project/fruit.png', height: 200),
+                  Image.asset('assets/img-project/fruit.png', height: 200),
                 ],
               ),
             ),
@@ -308,13 +372,20 @@ Cara Membuat
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.search),
-                    SizedBox(width: 10),
+                    const Icon(Icons.search),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: TextField(
-                        decoration: InputDecoration(
+                        onChanged: (value) {
+                          setState(() {
+                            searchQuery = value;
+                            selectedCategory =
+                                'All'; // Optional: Reset kategori saat mencari
+                          });
+                        },
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Find Recipe Here...',
                         ),
@@ -383,9 +454,7 @@ Cara Membuat
                                 (_) => RecipePage(
                                   title: food['title']!,
                                   image: food['image']!,
-                                  description:
-                                      food['description'] ??
-                                      'Deskripsi belum tersedia',
+                                  description: food['description'] ?? '',
                                   rating: food['rating'] ?? '0.0',
                                 ),
                           ),
@@ -402,11 +471,6 @@ Cara Membuat
                               top: 8,
                               right: 8,
                               child: Icon(Icons.chevron_right),
-                            ),
-                            const Positioned(
-                              bottom: 8,
-                              left: 8,
-                              child: Icon(Icons.favorite_border),
                             ),
                             Center(
                               child: Column(
@@ -442,51 +506,6 @@ Cara Membuat
             ),
           ],
         ),
-      ),
-
-      // Bottom Navigation
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1B5E20),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white,
-        currentIndex: 0, // Sesuaikan ini jika kamu ingin aktifkan tab lain
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const MainMenuPage()),
-              );
-              break;
-            case 1:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationsPage(),
-                ),
-              );
-              break;
-            case 2:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => ArticlePage()),
-              );
-              break;
-            case 3:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
-              );
-              break;
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-        ],
       ),
     );
   }
