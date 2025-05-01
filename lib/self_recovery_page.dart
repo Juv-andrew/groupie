@@ -203,7 +203,12 @@
 //     );
 //   }
 // }
+
 import 'package:flutter/material.dart';
+import 'package:project/main_page.dart';
+// import 'package:project/notification.dart';
+import 'package:project/artikel.dart';
+import 'package:project/ProfilPage.dart';
 
 class SelfRecoveryPage extends StatelessWidget {
   const SelfRecoveryPage({super.key});
@@ -237,6 +242,44 @@ class SelfRecoveryPage extends StatelessWidget {
           MenuItem(title: 'Journaling', subtitle: 'Be Kind To Your Mind'),
           MenuItem(title: 'Need Some Quotes?'),
           MenuItem(title: 'Listen To Your Music Now'),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1, // Sesuaikan dengan halaman ini (1 untuk Self-Recovery).
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MainMenuPage()),
+              );
+              break;
+            case 1:
+              // Tetap di halaman ini.
+              break;
+            case 2:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const ArticlePage()),
+              );
+              break;
+            case 3:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+              break;
+          }
+        },
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+        backgroundColor: const Color(0xFF1B3C40),
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.inbox), label: 'Inbox'),
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),
     );
@@ -282,3 +325,4 @@ class MenuItem extends StatelessWidget {
     );
   }
 }
+
