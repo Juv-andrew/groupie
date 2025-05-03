@@ -47,9 +47,8 @@ class _SignUpState extends State<SignUp> {
 
     _showSnackbar("Pendaftaran berhasil!");
 
-    // Menunggu 2 detik untuk memberikan waktu kepada pengguna untuk membaca pesan
     Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {  // Pastikan widget masih terpasang
+      if (mounted) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => const SignIn()),
@@ -59,7 +58,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   void _showSnackbar(String message) {
-    if (mounted) {  // Pastikan widget masih terpasang
+    if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(message),
@@ -71,77 +70,138 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
-  Widget _buildInput(String hint, TextEditingController controller, {bool obscure = false}) {
+  Widget _buildTextField(
+      {required String hint,
+      required IconData icon,
+      required TextEditingController controller,
+      bool obscure = false}) {
     return TextField(
       controller: controller,
       obscureText: obscure,
       decoration: InputDecoration(
+        prefixIcon: Icon(icon),
         hintText: hint,
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         filled: true,
         fillColor: Colors.white,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+        border: const UnderlineInputBorder(),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: const Color(0xFFB9F6CA),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            margin: const EdgeInsets.all(24),
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 12,
-                  offset: Offset(0, 6),
-                ),
-              ],
-            ),
+      body: Stack(
+        children: [
+          // Atas: Icon dan Judul
+          // Inside the Positioned widget for the icon
+          Positioned(
+            top: 40,
+            left: 0,
+            right: 0,
             child: Column(
               children: [
+                // Replace Icon with Image
+                Image.asset(
+                  'img-project/logo.png', // Path to your image
+                  width: 200,  // Adjust the size as needed
+                  height: 200, // Adjust the size as needed
+                ),
                 const Text(
-                  "Sign Up",
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 20),
-                _buildInput("Name", nameController),
-                const SizedBox(height: 12),
-                _buildInput("Email", emailController),
-                const SizedBox(height: 12),
-                _buildInput("Password", passwordController, obscure: true),
-                const SizedBox(height: 12),
-                _buildInput("Confirm Password", confirmPasswordController, obscure: true),
-                const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: _handleSignUp,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00C853),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                    textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                  'Lively',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
                   ),
-                  child: const Text("SIGN UP"),
-                ),
-                const SizedBox(height: 16),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const SignIn()));
-                  },
-                  child: const Text("Sudah punya akun? Login"),
                 ),
               ],
             ),
           ),
-        ),
+
+          Positioned(
+            top: 300,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(32),
+                  topRight: Radius.circular(32),
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _buildTextField(
+                        hint: "enter your name",
+                        icon: Icons.person,
+                        controller: nameController),
+                    const SizedBox(height: 16),
+                    _buildTextField(
+                        hint: "enter your email",
+                        icon: Icons.email,
+                        controller: emailController),
+                    const SizedBox(height: 16),
+                    _buildTextField(
+                        hint: "enter your password",
+                        icon: Icons.lock,
+                        controller: passwordController,
+                        obscure: true),
+                    const SizedBox(height: 16),
+                    _buildTextField(
+                        hint: "confirm your password",
+                        icon: Icons.lock_outline,
+                        controller: confirmPasswordController,
+                        obscure: true),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: _handleSignUp,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFB9F6CA),
+                        foregroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: const BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      child: const Text("SIGN UP"),
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Have an account? "),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (_) => const SignIn()),
+                            );
+                          },
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
