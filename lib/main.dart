@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.white70,
         ),
       ),
-      themeMode: themeProvider.themeMode, // ⬅ ini yang penting
+      themeMode: themeProvider.themeMode, 
       home: const SplashScreen(),
     );
   }
