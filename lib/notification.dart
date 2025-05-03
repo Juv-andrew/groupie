@@ -9,7 +9,10 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFB9F6CA), // warna pink lembut
+      backgroundColor:
+            Theme.of(context).brightness == Brightness.dark
+                ? Colors.black
+                : const Color(0xFFDFFFE1),
       body: SafeArea(
         child: Column(
           children: [
