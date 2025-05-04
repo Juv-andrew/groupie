@@ -5,20 +5,11 @@ import 'package:project/DoctorDetailPage.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
-import 'package:provider/provider.dart';
 import 'artikel.dart';
+import 'package:provider/provider.dart';
+import 'favorite_provider.dart';
+import 'package:project/shop_page.dart';
 
-
-class ThemeProvider extends ChangeNotifier {
-  ThemeMode themeMode = ThemeMode.light;
-
-  bool get isDarkMode => themeMode == ThemeMode.dark;
-
-  void toggleTheme(bool isOn) {
-    themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
-    notifyListeners();
-  }
-}
 
 class MedanDoctorApp extends StatelessWidget {
   const MedanDoctorApp({super.key});
