@@ -3,11 +3,11 @@ import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/fitness/fat_burn_page.dart';
 import 'package:project/fitness/home_workout_page.dart';
+import 'package:project/fitness/librarypage.dart';
 import 'package:project/fitness/saved_workout_page.dart';
 import 'package:project/fitness/subscriptionpage.dart';
 import 'package:project/fitness/weight_training_page.dart';
 import 'package:project/fitness/yoga_page.dart';
-import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
 
 class FitnessApp extends StatelessWidget {
@@ -32,7 +32,7 @@ class FitnessHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.grey[200], // <-- Ubah background jadi abu-abu
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 196, 36, 36),
         centerTitle: true,
@@ -75,10 +75,7 @@ class FitnessHomePage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Ganti gambar background dengan warna abu-abu
-          Positioned.fill(
-            child: Container(color: Colors.grey[200]),
-          ),
+          Positioned.fill(child: Container(color: Colors.grey[200])),
           SafeArea(
             child: SingleChildScrollView(
               child: Padding(
@@ -86,7 +83,6 @@ class FitnessHomePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Banner Promo
                     Container(
                       height: MediaQuery.of(context).size.width * 0.5,
                       margin: const EdgeInsets.symmetric(vertical: 16),
@@ -117,8 +113,7 @@ class FitnessHomePage extends StatelessWidget {
                                   'Promo Coaching Online!',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width * 0.08,
+                                    fontSize: MediaQuery.of(context).size.width * 0.08,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -139,8 +134,10 @@ class FitnessHomePage extends StatelessWidget {
                                     backgroundColor:
                                         const Color.fromARGB(255, 255, 69, 69),
                                     padding: EdgeInsets.symmetric(
-                                      horizontal: MediaQuery.of(context).size.width * 0.1,
-                                      vertical: MediaQuery.of(context).size.height * 0.02,
+                                      horizontal:
+                                          MediaQuery.of(context).size.width * 0.1,
+                                      vertical:
+                                          MediaQuery.of(context).size.height * 0.02,
                                     ),
                                   ),
                                   child: Text(
@@ -159,16 +156,14 @@ class FitnessHomePage extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    // Saved Workouts Button
                     Center(
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) =>
-                                  SavedWorkoutPage(savedWorkouts: ['Fat Burn', 'Yoga']),
+                              builder: (_) => SavedWorkoutPage(
+                                  savedWorkouts: ['Fat Burn', 'Yoga']),
                             ),
                           );
                         },
@@ -201,10 +196,7 @@ class FitnessHomePage extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 10),
-
-                    // Grid Latihan
                     Column(
                       children: [
                         Row(
@@ -258,17 +250,13 @@ class FitnessHomePage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1B5E20),
+        backgroundColor: const Color.fromARGB(255, 228, 4, 4),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
         currentIndex: 0,
         onTap: (index) {
           switch (index) {
             case 0:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const MainMenuPage()),
-              );
               break;
             case 1:
               Navigator.pushReplacement(
@@ -285,6 +273,12 @@ class FitnessHomePage extends StatelessWidget {
             case 3:
               Navigator.pushReplacement(
                 context,
+                MaterialPageRoute(builder: (context) => const LibraryPage()),
+              );
+              break;
+            case 4:
+              Navigator.pushReplacement(
+                context,
                 MaterialPageRoute(builder: (context) => const ProfilePage()),
               );
               break;
@@ -294,6 +288,7 @@ class FitnessHomePage extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
           BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
+          BottomNavigationBarItem(icon: Icon(Icons.library_books), label: 'Library'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),
@@ -314,7 +309,7 @@ class FitnessHomePage extends StatelessWidget {
         if (nama.toLowerCase() == 'home workout') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const home_workout_page()),
+            MaterialPageRoute(builder: (_) => const HomeWorkoutPage()),
           );
         } else if (nama.toLowerCase() == 'weight training') {
           Navigator.push(
@@ -365,7 +360,7 @@ class FitnessHomePage extends StatelessWidget {
                   Text(
                     deskripsi,
                     style: TextStyle(
-                      fontSize: screenWidth * 0.02,
+                      fontSize: screenWidth * 0.03,
                       fontWeight: FontWeight.normal,
                     ),
                   ),
