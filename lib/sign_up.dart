@@ -1,189 +1,207 @@
 import 'package:flutter/material.dart';
-import 'package:project/profile_setup.dart';
-import 'package:project/sign_in.dart';
-import 'profile_setup.dart' show ProfileSetupPage;
-class SignUp extends StatelessWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+import 'sign_in.dart';
+
+class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
   @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
+  bool isEmailValid(String email) {
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+  }
+
+  Future<void> _handleSignUp() async {
+    String name = nameController.text.trim();
+    String email = emailController.text.trim();
+    String password = passwordController.text;
+    String confirmPassword = confirmPasswordController.text;
+
+    if (name.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+      _showSnackbar("Semua field harus diisi!");
+      return;
+    }
+
+    if (!isEmailValid(email)) {
+      _showSnackbar("Format email tidak valid!");
+      return;
+    }
+
+    if (password != confirmPassword) {
+      _showSnackbar("Password dan konfirmasi tidak cocok!");
+      return;
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('email', email);
+    await prefs.setString('password', password);
+    await prefs.setString('name', name);
+
+    _showSnackbar("Pendaftaran berhasil!");
+
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const SignIn()),
+        );
+      }
+    });
+  }
+
+  void _showSnackbar(String message) {
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.all(16),
+        ),
+      );
+    }
+  }
+
+  Widget _buildTextField(
+      {required String hint,
+      required IconData icon,
+      required TextEditingController controller,
+      bool obscure = false}) {
+    return TextField(
+      controller: controller,
+      obscureText: obscure,
+      decoration: InputDecoration(
+        prefixIcon: Icon(icon),
+        hintText: hint,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        filled: true,
+        fillColor: Colors.white,
+        border: const UnderlineInputBorder(),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: const Color(0xFFB9F6CA),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header Hijau + Logo
-            Container(
-              width: double.infinity,
-              height: 360,
-              color: const Color(0xFFB9F6CA),
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 40,
-                    left: 10,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Colors.black),
-                      onPressed: () => Navigator.pop(context),
-                    ),
+      body: Stack(
+        children: [
+          // Atas: Icon dan Judul
+          // Inside the Positioned widget for the icon
+          Positioned(
+            top: 40,
+            left: 0,
+            right: 0,
+            child: Column(
+              children: [
+                // Replace Icon with Image
+                Image.asset(
+                  'img-project/logo.png', // Path to your image
+                  width: 200,  // Adjust the size as needed
+                  height: 200, // Adjust the size as needed
+                ),
+                const Text(
+                  'Lively',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
                   ),
-                  Center(
-                    child: Column(
+                ),
+              ],
+            ),
+          ),
+
+          Positioned(
+            top: 300,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(32),
+                  topRight: Radius.circular(32),
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _buildTextField(
+                        hint: "enter your name",
+                        icon: Icons.person,
+                        controller: nameController),
+                    const SizedBox(height: 16),
+                    _buildTextField(
+                        hint: "enter your email",
+                        icon: Icons.email,
+                        controller: emailController),
+                    const SizedBox(height: 16),
+                    _buildTextField(
+                        hint: "enter your password",
+                        icon: Icons.lock,
+                        controller: passwordController,
+                        obscure: true),
+                    const SizedBox(height: 16),
+                    _buildTextField(
+                        hint: "confirm your password",
+                        icon: Icons.lock_outline,
+                        controller: confirmPasswordController,
+                        obscure: true),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: _handleSignUp,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFB9F6CA),
+                        foregroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: const BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      child: const Text("SIGN UP"),
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 5),
-                        Image.asset(
-                          'img-project/logo.png', // Ganti sesuai path gambar logo
-                          height: 210, // Logo lebih besar
-                        ), 
-                        const SizedBox(height: 0.10),// Jarak teks dan logo lebih rapat
-                        const Text(
-                          'Lively',
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF1B5E20),
+                        const Text("Have an account? "),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (_) => const SignIn()),
+                            );
+                          },
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
-
-            // Body Form Putih Full Height
-            Container(
-              width: double.infinity,
-              constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height - 230,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 38),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 10),
-
-                  // Email
-                  const Row(
-                    children: [
-                      Icon(Icons.email, size: 28),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'enter your email',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            border: UnderlineInputBorder(),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 30),
-
-                  // Password
-                  const Row(
-                    children: [
-                      Icon(Icons.lock, size: 28),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: 'enter your password',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            border: UnderlineInputBorder(),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 30),
-
-                  const Row(
-                    children: [
-                      Icon(Icons.lock, size: 28),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: 'confirm your password',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            border: UnderlineInputBorder(),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 30),
-
-                  
-                 
-                  const SizedBox(height: 10),
-
-                  // Tombol Sign In
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                            context, 
-                            MaterialPageRoute(builder: (context) => const ProfileSetupPage()),
-                      );
-                      // Navigasi ke halaman berikutnya
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFB9F6CA),
-                      foregroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: const BorderSide(color: Colors.black),
-                      ),
-                    ),
-                    child: const Text(
-                      'SIGN UP',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // Register
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("have an account? "),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context, 
-                            MaterialPageRoute(builder: (context) => const SignIn()),
-                          );
-                        },
-                        child: const Text(
-                          "Login now",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 30),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

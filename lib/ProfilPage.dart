@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:project/artikel.dart';
 import 'package:project/editprofile.dart';
+import 'package:project/main_page.dart';
+import 'package:project/notification.dart';
+import 'package:provider/provider.dart';
+import 'favorite.dart';
+import 'theme_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -10,6 +18,21 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String username = 'Groupie'; // <- Ganti sini kalau mau ubah nama default
+  String userName = '';
+  String userEmail = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+  Future<void> _loadUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.getString('name') ?? 'Guest';
+      userEmail = prefs.getString('email') ?? 'No email';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +64,12 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           const SizedBox(height: 12),
           Text(
-            username,
+            userName,
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            userEmail,
+            style: const TextStyle(fontSize: 16, color: Colors.black54),
           ),
           const SizedBox(height: 8),
           Row(
@@ -60,6 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   if (newUsername != null && newUsername.isNotEmpty) {
                     setState(() {
                       username = newUsername; // PERBAIKAN DI SINI
+
                     });
                   }
                 },
@@ -76,8 +104,125 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
           const SizedBox(height: 24),
+
+//           Padding(
+//             padding: const EdgeInsets.symmetric(horizontal: 20),
+//             child: Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 const Text(
+//                   'Dark Mode',
+//                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+//                 ),
+//                 Switch(
+//                   value: isDarkMode,
+//                   onChanged: (value) {
+//                     themeProvider.toggleTheme(value);
+//                   },
+//                 ),
+//               ],
+//             ),
+//           ),
+//           Expanded(
+//             child: ListView(
+//               padding: const EdgeInsets.symmetric(horizontal: 20),
+//               children: [
+//                 _buildProfileOption(Icons.favorite_border, 'Favorites'),
+//                 _buildProfileOption(Icons.logout, 'Logout'),
+//               ],
+//             ),
+//           ),
+// >>>>>>> 25b5930ccda050cf8dcdbdc1d5cb908e99503ab9
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0xFF1B5E20),
+        selectedItemColor: Colors.white,
+        currentIndex: 3, // Sesuaikan ini jika kamu ingin aktifkan tab lain
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MainMenuPage()),
+              );
+              break;
+            case 1:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationsPage(),
+                ),
+              );
+              break;
+            case 2:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => ArticlePage()),
+              );
+              break;
+            case 3:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+              break;
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),
     );
   }
+
+  Widget _buildMiniButton(IconData icon, String label) {
+    return ElevatedButton.icon(
+      onPressed: () {
+        if (label == 'Favorites') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => FavoriteDoctorsPage()),
+          );
+        }
+      },
+      icon: Icon(icon, color: Colors.black),
+      label: Text(
+        label,
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white.withOpacity(0.9),
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      ),
+    );
+  }
+
+  Widget _buildProfileOption(IconData icon, String title) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        leading: Icon(icon, color: Colors.blue),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => FavoriteDoctorsPage()),
+          );
+        },
+      ),
+    );
+  }
+
 }

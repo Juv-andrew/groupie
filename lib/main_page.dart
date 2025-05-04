@@ -3,9 +3,9 @@ import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/consultation.dart';
 import 'package:project/fitness.dart';
+import 'package:project/health_food/healthy_food.dart';
 import 'package:project/self_awareness_page.dart';
 import 'notification.dart' show NotificationsPage;
-import 'package:project/health_food/healthy_food.dart';
 import 'package:project/notification.dart';
 import 'fitness.dart' show FitnessHomePage;
 import 'consultation.dart' show KonsultasiPage;
@@ -16,7 +16,10 @@ class MainMenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFB9F6CA),
+      backgroundColor:
+            Theme.of(context).brightness == Brightness.dark
+                ? Colors.black
+                : const Color(0xFFDFFFE1),
       appBar: AppBar(
         backgroundColor: const Color(0xFFB9F6CA),
         elevation: 0,
@@ -89,6 +92,7 @@ class MainMenuPage extends StatelessWidget {
               ),
             ],
           ),
+
         ),
       ),
 
@@ -97,7 +101,7 @@ class MainMenuPage extends StatelessWidget {
         backgroundColor: const Color(0xFF1B5E20),
         selectedItemColor: Color(0xFFB9F6CA),
         unselectedItemColor: Colors.white,
-        currentIndex: 0, // Sesuaikan ini jika kamu ingin aktifkan tab lain
+        currentIndex: 0,
         onTap: (index) {
           switch (index) {
             case 0:

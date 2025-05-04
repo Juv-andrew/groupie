@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:project/provider/shop_provider.dart';
-
+import 'theme_provider.dart';
 import 'package:provider/provider.dart';
-import 'onboarding.dart'; // Pastikan file ini ada
+import 'onboarding.dart';
+import 'package:project/favorite_provider.dart'; // Pastikan file ini ada
+
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-
         ChangeNotifierProvider(create: (_) => ShopProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+       
       ],
       child: const MyApp(),
     ),
@@ -21,11 +25,39 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        brightness: Brightness.light,
         scaffoldBackgroundColor: const Color(0xFFB9F6CA),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
+          elevation: 0,
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Color(0xFF1B5E20),
+          selectedItemColor: Color(0xFFB9F6CA),
+          unselectedItemColor: Colors.white,
+        ),
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color(0xFF121212),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.white,
+          elevation: 0,
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.black,
+          selectedItemColor: Color(0xFFB9F6CA),
+          unselectedItemColor: Colors.white70,
+        ),
+      ),
+      themeMode: themeProvider.themeMode, 
       home: const SplashScreen(),
     );
   }
@@ -90,5 +122,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
-

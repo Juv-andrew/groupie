@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
+import 'ArticleDetailPage.dart'; // Import detail page
 
 class ArticlePage extends StatelessWidget {
   const ArticlePage({super.key});
 
   final List<Map<String, String>> articles = const [
     {
-      'category': 'Kecantikan',
+      'category': 'Hidup Sehat',
       'title': 'Cara Merawat Kulit Wajah yang Baik dan Benar',
+
       'image':
           'https://awsimages.detik.net.id/community/media/visual/2019/10/24/453c1300-a714-49b4-9ab8-760f2f73ea32.jpeg?w=1200',
     },
     {
-      'category': 'Kecantikan',
+      'category': 'Kesehatan',
       'title': 'Makin Cantik setelah Tahu Cara Membersihkan Wajah dengan Benar',
       'image':
           'https://res.cloudinary.com/dk0z4ums3/image/upload/v1623652646/attached_image/perawatan-wajah-kusam-agar-tampil-lebih-cerah-0-alodokter.jpg',
@@ -44,6 +46,26 @@ class ArticlePage extends StatelessWidget {
       'title': 'Ini Kriteria Makanan Sehat untuk Anak',
       'image':
           'https://www.vidoran.com/public/files/kriteria_makanan_sehat_untuk_anak.jpg',
+    },
+    {
+      'category': 'Hidup Sehat',
+      'title': 'Makan Banyak tapi Tetap Kurus? Ini Kemungkinan Penyebabnya',
+      'image': '',
+    },
+    {
+      'category': 'Kesehatan Mental',
+      'title': 'Cara Mengatasi Overthinking dengan Teknik Pernapasan',
+      'image': '',
+    },
+    {
+      'category': 'Kesehatan Mental',
+      'title': 'Pentingnya Self-Care untuk Menjaga Kesehatan Mental',
+      'image': '',
+    },
+    {
+      'category': 'Kesehatan Mental',
+      'title': 'Tips Mengelola Stres di Tengah Kesibukan Sehari-hari',
+      'image': '',
     },
     {
       'category': 'Kesehatan Mental',
@@ -84,7 +106,19 @@ class ArticlePage extends StatelessWidget {
           final article = articles[index];
           return GestureDetector(
             onTap: () {
-              // arahkan ke halaman detail jika mau
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) => ArticleDetailPageFancy(
+                        title: article['title'] ?? '',
+                        category: article['category'] ?? '',
+                        content:
+                            'Ini adalah isi lengkap dari artikel berjudul "${article['title']}". Nanti bisa kamu ganti sesuai kebutuhan.',
+                        imageUrl: article['image'] ?? '',
+                      ),
+                ),
+              );
             },
             child: Container(
               decoration: BoxDecoration(
@@ -169,9 +203,8 @@ class ArticlePage extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFF1B5E20),
-        selectedItemColor: Color(0xFFB9F6CA),
-        unselectedItemColor: Colors.white,
-        currentIndex: 2, // karena sedang di halaman Inbox/Notifikasi
+        selectedItemColor: Colors.white,
+        currentIndex: 2, // Sesuaikan ini jika kamu ingin aktifkan tab lain
         onTap: (index) {
           switch (index) {
             case 0:
@@ -183,10 +216,16 @@ class ArticlePage extends StatelessWidget {
             case 1:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => NotificationsPage()),
+                MaterialPageRoute(
+                  builder: (context) => const NotificationsPage(),
+                ),
               );
               break;
             case 2:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => ArticlePage()),
+              );
               break;
             case 3:
               Navigator.pushReplacement(
