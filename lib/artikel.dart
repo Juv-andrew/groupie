@@ -86,7 +86,11 @@ class ArticlePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor:  const Color(0xFFB9F6CA),
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : const Color(0xFFDFFFE1),
+
       appBar: AppBar(
         title: const Text(
           'Artikel Kesehatan',
