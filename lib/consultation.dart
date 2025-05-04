@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 import 'favorite_provider.dart';
 import 'package:project/shop_page.dart';
 
-
 class MedanDoctorApp extends StatelessWidget {
   const MedanDoctorApp({super.key});
 
@@ -216,9 +215,9 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: doctorList.length,
+              itemCount: filteredDoctors.length,
               itemBuilder: (context, index) {
-                final doctor = doctorList[index];
+                final doctor = filteredDoctors[index];
                 final isFavorited = favoriteProvider.isFavorite(
                   doctor['name']!,
                 );

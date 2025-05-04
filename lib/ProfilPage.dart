@@ -8,7 +8,6 @@ import 'favorite.dart';
 import 'theme_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -17,7 +16,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String username = 'Groupie'; // <- Ganti sini kalau mau ubah nama default
   String userName = '';
   String userEmail = '';
 
@@ -36,9 +34,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    bool isDarkMode = themeProvider.isDarkMode;
     return Scaffold(
-      backgroundColor:const Color(0xFFDFFFE1),
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : const Color(0xFFDFFFE1),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -86,53 +88,62 @@ class _ProfilePageState extends State<ProfilePage> {
 
                   if (newUsername != null && newUsername.isNotEmpty) {
                     setState(() {
-                      username = newUsername; // PERBAIKAN DI SINI
-
+                      userName = newUsername;
                     });
                   }
                 },
-                icon: const Icon(Icons.edit),
-                label: const Text("Edit Profile"),
+                icon: const Icon(Icons.edit, color: Colors.black),
+                label: const Text(
+                  'edit profile',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.white.withOpacity(0.9),
+                  elevation: 0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
                   ),
                 ),
               ),
+              const SizedBox(width: 10),
+              _buildMiniButton(Icons.settings, 'settings'),
             ],
           ),
           const SizedBox(height: 24),
-
-//           Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 20),
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 const Text(
-//                   'Dark Mode',
-//                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-//                 ),
-//                 Switch(
-//                   value: isDarkMode,
-//                   onChanged: (value) {
-//                     themeProvider.toggleTheme(value);
-//                   },
-//                 ),
-//               ],
-//             ),
-//           ),
-//           Expanded(
-//             child: ListView(
-//               padding: const EdgeInsets.symmetric(horizontal: 20),
-//               children: [
-//                 _buildProfileOption(Icons.favorite_border, 'Favorites'),
-//                 _buildProfileOption(Icons.logout, 'Logout'),
-//               ],
-//             ),
-//           ),
-// >>>>>>> 25b5930ccda050cf8dcdbdc1d5cb908e99503ab9
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Dark Mode',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                Switch(
+                  value: isDarkMode,
+                  onChanged: (value) {
+                    themeProvider.toggleTheme(value);
+                  },
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              children: [
+                _buildProfileOption(Icons.favorite_border, 'Favorites'),
+                _buildProfileOption(Icons.logout, 'Logout'),
+              ],
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -224,5 +235,4 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-
 }
