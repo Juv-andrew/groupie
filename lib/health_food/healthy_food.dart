@@ -1,5 +1,3 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
@@ -8,6 +6,7 @@ import 'package:project/notification.dart';
 import 'package:project/health_food/recipe_page.dart' show RecipePage;
 import 'package:project/health_food/top3_health.dart';
 import 'package:project/favorite_page.dart';
+import 'package:project/health_food/shop/shop_page.dart';
 
 class FoodMenuPage extends StatefulWidget {
   const FoodMenuPage({super.key});
@@ -253,6 +252,15 @@ Cara Membuat
         ),
         actions: [
           IconButton(
+            icon: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ShopPage()),
+              );
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.person_outline, color: Colors.black),
             onPressed: () {
               Navigator.push(
@@ -357,7 +365,7 @@ Cara Membuat
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Image.asset('assets/img-project/fruit.png', height: 200),
+                  Image.asset('img-project/fruit.png', height: 200),
                 ],
               ),
             ),
@@ -506,6 +514,47 @@ Cara Membuat
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0xFF1B5E20),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
+        currentIndex: 0,
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MainMenuPage()),
+              );
+              break;
+            case 1:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const NotificationsPage()),
+              );
+              break;
+            case 2:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => ArticlePage()),
+              );
+              break;
+            case 3:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+              break;
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
+        ],
       ),
     );
   }

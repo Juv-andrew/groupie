@@ -63,7 +63,7 @@ class Top3Health extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Image.asset(
-                    'assets/img-project/fruit.png',
+                    'img-project/fruit.png',
                     height: 80,
                     errorBuilder: (_, __, ___) =>
                         const Icon(Icons.broken_image, size: 80),
@@ -76,7 +76,7 @@ class Top3Health extends StatelessWidget {
             // Menu Items
             buildMenuItem(
               context,
-              imagePath: 'assets/img-project/es_buah_yogurt.jpeg',
+              imagePath: 'img-project/Es buah yogurt.jpeg',
               title: 'Es Buah with Yogurt',
               shortDescription:
                   'A fruity, refreshing dessert with mixed fruits and tangy yogurt.',
@@ -96,7 +96,7 @@ Cara Membuat:
             ),
             buildMenuItem(
               context,
-              imagePath: 'assets/img-project/pepes_ikan_kembung.jpg',
+              imagePath: 'img-project/pepes ikan kembung.jpg',
               title: 'Pepes Ikan Kembung',
               shortDescription:
                   'A traditional dish of mackerel wrapped in banana leaves with spices.',
@@ -120,7 +120,7 @@ Cara Membuat:
             ),
             buildMenuItem(
               context,
-              imagePath: 'assets/img-project/kolak_pisang.jpeg',
+              imagePath: 'img-project/kolak pisang.jpeg',
               title: 'Kolak Pisang',
               shortDescription:
                   'A sweet dessert of bananas in coconut milk and palm sugar.',

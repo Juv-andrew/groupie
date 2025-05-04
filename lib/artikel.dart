@@ -10,61 +10,71 @@ class ArticlePage extends StatelessWidget {
     {
       'category': 'Kecantikan',
       'title': 'Cara Merawat Kulit Wajah yang Baik dan Benar',
-      'image': 'https://awsimages.detik.net.id/community/media/visual/2019/10/24/453c1300-a714-49b4-9ab8-760f2f73ea32.jpeg?w=1200',
+      'image':
+          'https://awsimages.detik.net.id/community/media/visual/2019/10/24/453c1300-a714-49b4-9ab8-760f2f73ea32.jpeg?w=1200',
     },
     {
       'category': 'Kecantikan',
       'title': 'Makin Cantik setelah Tahu Cara Membersihkan Wajah dengan Benar',
-      'image': 'https://res.cloudinary.com/dk0z4ums3/image/upload/v1623652646/attached_image/perawatan-wajah-kusam-agar-tampil-lebih-cerah-0-alodokter.jpg',
+      'image':
+          'https://res.cloudinary.com/dk0z4ums3/image/upload/v1623652646/attached_image/perawatan-wajah-kusam-agar-tampil-lebih-cerah-0-alodokter.jpg',
     },
     {
       'category': 'Kesehatan Mental',
-      'title': 'Cara Healing yang cocok untuk introvert agar tak gampang stress',
-      'image': 'https://cdn1-production-images-kly.akamaized.net/MJP69y9UBONvwEboVO43yB20lRk=/0x154:3000x1845/500x281/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4090631/original/047923700_1657944348-rekomendasi_buku_bagus.jpg',
+      'title':
+          'Cara Healing yang cocok untuk introvert agar tak gampang stress',
+      'image':
+          'https://cdn1-production-images-kly.akamaized.net/MJP69y9UBONvwEboVO43yB20lRk=/0x154:3000x1845/500x281/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4090631/original/047923700_1657944348-rekomendasi_buku_bagus.jpg',
     },
     {
       'category': 'Fitness',
-      'title': 'Tips Menghilangkan pegal di kaki dan paha setelah olahraga lari',
-      'image': 'https://www.neorheumacyl.com/public/files/Tips-Menghilangkan-Pegal-di-Kaki-dan-Paha-Setelah-Olahraga-Lari.jpg',
+      'title':
+          'Tips Menghilangkan pegal di kaki dan paha setelah olahraga lari',
+      'image':
+          'https://www.neorheumacyl.com/public/files/Tips-Menghilangkan-Pegal-di-Kaki-dan-Paha-Setelah-Olahraga-Lari.jpg',
     },
     {
       'category': 'Makanan Sehat',
       'title': 'Alasan dan Bahaya Makan Mie Pakai Nasi untuk tubuh',
-      'image': 'https://mmc.tirto.id/image/2024/04/05/ilustrasi-makan-mie-pakai-nasi-tirto-01_ratio-16x9.jpg',
+      'image':
+          'https://mmc.tirto.id/image/2024/04/05/ilustrasi-makan-mie-pakai-nasi-tirto-01_ratio-16x9.jpg',
     },
     {
       'category': 'Makanan Sehat',
       'title': 'Ini Kriteria Makanan Sehat untuk Anak',
-      'image': 'https://www.vidoran.com/public/files/kriteria_makanan_sehat_untuk_anak.jpg',
+      'image':
+          'https://www.vidoran.com/public/files/kriteria_makanan_sehat_untuk_anak.jpg',
     },
     {
       'category': 'Kesehatan Mental',
       'title': 'Kenali Tanda-Tanda Burnout dan Cara Mengatasinya',
-      'image': 'https://media.kompas.tv/library/image/content_article/article_img/20210207164102.jpg',
+      'image':
+          'https://media.kompas.tv/library/image/content_article/article_img/20210207164102.jpg',
     },
     {
       'category': 'Fitness',
-      'title': 'Bukan Cuma Sit Up, ini beberapa latihan untuk membentuk Otot Perut',
-      'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy5jb1iwtKu_0TiflcFG5EMYMIuHJRY4itaWLCAdnIJqvgt9iwjVrpOtfKhSRq2sBMQnU&usqp=CAU',
+      'title':
+          'Bukan Cuma Sit Up, ini beberapa latihan untuk membentuk Otot Perut',
+      'image':
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy5jb1iwtKu_0TiflcFG5EMYMIuHJRY4itaWLCAdnIJqvgt9iwjVrpOtfKhSRq2sBMQnU&usqp=CAU',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      backgroundColor: const Color(0xFFB9F6CA),
+      backgroundColor:  const Color(0xFFB9F6CA),
       appBar: AppBar(
         title: const Text(
           'Artikel Kesehatan',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.transparent,
+        foregroundColor:  Colors.black,
         elevation: 0,
         centerTitle: true,
-        leading: const BackButton(color: Colors.black),
+        leading: BackButton(color: Colors.black),
       ),
       body: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -91,21 +101,28 @@ class ArticlePage extends StatelessWidget {
               child: Column(
                 children: [
                   ClipRRect(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
-                    child: article['image']!.isNotEmpty
-                        ? Image.network(
-                            article['image']!,
-                            width: double.infinity,
-                            height: 160,
-                            fit: BoxFit.cover,
-                          )
-                        : Container(
-                            height: 160,
-                            color: const Color(0xFFE6F3EB),
-                            child: const Center(
-                              child: Icon(Icons.image, size: 50, color: Colors.grey),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(18),
+                    ),
+                    child:
+                        article['image']!.isNotEmpty
+                            ? Image.network(
+                              article['image']!,
+                              width: double.infinity,
+                              height: 160,
+                              fit: BoxFit.cover,
+                            )
+                            : Container(
+                              height: 160,
+                              color: const Color(0xFFE6F3EB),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.image,
+                                  size: 50,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ),
-                          ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16),
@@ -113,7 +130,10 @@ class ArticlePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
                             color: const Color(0xFF58C48E).withOpacity(0.15),
                             borderRadius: BorderRadius.circular(12),

@@ -10,8 +10,6 @@ import 'package:project/notification.dart';
 import 'fitness.dart' show FitnessHomePage;
 import 'consultation.dart' show KonsultasiPage;
 
-
-
 class MainMenuPage extends StatelessWidget {
   const MainMenuPage({super.key});
 
@@ -45,55 +43,55 @@ class MainMenuPage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 4,
-        ), // lebih rapat ke sisi
-        child: Column(
-          children: [
-            _buildMenuCard(
-              'Fitness',
-              'img-project/fitness.jpeg',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => FitnessHomePage()),
-                );
-              },
-            ),
-            _buildMenuCard(
-              'Healthy Food',
-              'img-project/healthy food.jpeg',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const FoodMenuPage()),
-                );
-              },
-            ),
-            _buildMenuCard(
-              'Mental Health',
-              'img-project/mental health.jpeg',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => SelfAwarenessPage()),
-                );
-              },
-            ),
-            _buildMenuCard(
-              'Consultation',
-              'img-project/consultation-1.jpeg',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => KonsultasiPage()),
-                );
-              },
-            ),
-          ],
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildMenuCard(
+                'Fitness',
+                'img-project/fitness.jpeg',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => FitnessHomePage()),
+                  );
+                },
+              ),
+              _buildMenuCard(
+                'Healthy Food',
+                'img-project/healthy food.jpeg',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const FoodMenuPage()),
+                  );
+                },
+              ),
+              _buildMenuCard(
+                'Mental Health',
+                'img-project/mental health.jpeg',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => SelfAwarenessPage()),
+                  );
+                },
+              ),
+              _buildMenuCard(
+                'Consultation',
+                'img-project/consultation-1.jpeg',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => KonsultasiPage()),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFF1B5E20),

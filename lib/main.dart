@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:project/provider/shop_provider.dart';
+
+import 'package:provider/provider.dart';
 import 'onboarding.dart'; // Pastikan file ini ada
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+
+        ChangeNotifierProvider(create: (_) => ShopProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -19,6 +30,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
