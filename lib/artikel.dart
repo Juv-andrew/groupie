@@ -56,7 +56,7 @@ class ArticlePage extends StatelessWidget {
       backgroundColor:
           Theme.of(context).brightness == Brightness.dark
               ? Colors.black
-              : const Color(0xFFDFFFE1),
+              : const Color(0xFFDFFFE1), // Light mode background
 
       appBar: AppBar(
         title: const Text("Artikel"),
