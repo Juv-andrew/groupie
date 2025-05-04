@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class RecipePage extends StatelessWidget {
+class RecipePage extends StatefulWidget {
   final String title;
   final String image;
   final String description;
@@ -15,117 +18,169 @@ class RecipePage extends StatelessWidget {
   });
 
   @override
+  State<RecipePage> createState() => _RecipePageState();
+}
+
+class _RecipePageState extends State<RecipePage> {
+  bool isFavorited = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFavoriteStatus();
+  }
+
+  Future<void> _loadFavoriteStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isFavorited = prefs.getBool('fav_${widget.title}') ?? false;
+    });
+  }
+
+  Future<void> _toggleFavorite() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isFavorited = !isFavorited;
+    });
+    await prefs.setBool('fav_${widget.title}', isFavorited);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          isFavorited ? 'Ditambahkan ke Favorit' : 'Dihapus dari Favorit',
+        ),
+        duration: const Duration(seconds: 1),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double parsedRating = double.tryParse(rating) ?? 0.0;
+    final parsedRating = double.tryParse(widget.rating) ?? 0.0;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFB9F6CA),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.share, color: Colors.black),
-            onPressed: () {
-              // Share action
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.bookmark_border, color: Colors.black),
-            onPressed: () {
-              // Bookmark action
-            },
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // CARD PUTIH: Gambar, judul, dan rating
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 8,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: const Color(0xFFF1F8E9),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 280,
+            backgroundColor: Colors.green.shade300,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Stack(
+                fit: StackFit.expand,
                 children: [
-                  // Gambar
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      image,
-                      width: 150,
-                      height: 130,
-                      fit: BoxFit.cover,
+                  Image.asset(widget.image, fit: BoxFit.cover),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.black.withOpacity(0.4), Colors.transparent],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                      ),
                     ),
                   ),
-                  const SizedBox(width: 16),
-
-                  // Judul dan Rating
-                  Expanded(
+                  Positioned(
+                    left: 16,
+                    bottom: 20,
+                    right: 16,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          title,
+                          widget.title,
                           style: const TextStyle(
-                            fontSize: 24,
+                            color: Colors.white,
+                            fontSize: 26,
                             fontWeight: FontWeight.bold,
+                            shadows: [Shadow(blurRadius: 4, color: Colors.black)],
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 8),
                         Row(
-                          children: List.generate(5, (index) {
-                            if (parsedRating >= index + 1) {
-                              return const Icon(Icons.star, color: Colors.amber, size: 20);
-                            } else if (parsedRating > index && parsedRating < index + 1) {
-                              return const Icon(Icons.star_half, color: Colors.amber, size: 20);
-                            } else {
-                              return const Icon(Icons.star_border, color: Colors.amber, size: 20);
-                            }
-                          }),
+                          children: [
+                            ...List.generate(5, (index) {
+                              if (parsedRating >= index + 1) {
+                                return const Icon(Icons.star, color: Colors.amber, size: 20);
+                              } else if (parsedRating > index) {
+                                return const Icon(Icons.star_half, color: Colors.amber, size: 20);
+                              } else {
+                                return const Icon(Icons.star_border, color: Colors.amber, size: 20);
+                              }
+                            }),
+                            const SizedBox(width: 8),
+                            Text(
+                              '${widget.rating} / 5',
+                              style: const TextStyle(color: Colors.white, fontSize: 16),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 6),
-                        Text('$rating / 5', style: const TextStyle(fontSize: 16)),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-
-            const SizedBox(height: 24),
-
-            // Heading
-            const Text(
-              'Description:',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => Navigator.pop(context),
+            ),
+            actions: [
+              IconButton(
+                icon: Icon(
+                  isFavorited ? Icons.favorite : Icons.favorite_border,
+                  color: Colors.pinkAccent,
+                ),
+                onPressed: _toggleFavorite,
+              ),
+              IconButton(
+                icon: const Icon(Icons.share, color: Colors.white),
+                onPressed: () {
+                  Share.share(
+                    'Cek resep ini: ${widget.title}\n\nRating: ${widget.rating}/5\n\n${widget.description}',
+                    subject: 'Resep: ${widget.title}',
+                  );
+                },
+              ),
+            ],
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(18),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Deskripsi Resep',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Divider(thickness: 1.2),
+                    const SizedBox(height: 10),
+                    ..._buildFormattedDescription(widget.description),
+                  ],
+                ),
               ),
             ),
-            const Divider(thickness: 1.2),
-            const SizedBox(height: 10),
-
-            // Deskripsi diformat
-            ..._buildFormattedDescription(description),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -137,7 +192,6 @@ class RecipePage extends StatelessWidget {
     for (final line in lines) {
       if (line.trim().isEmpty) continue;
 
-      // Heading seperti "Bahan-bahan:"
       if (line.endsWith(':')) {
         widgets.add(
           Padding(
@@ -145,16 +199,14 @@ class RecipePage extends StatelessWidget {
             child: Text(
               line.trim(),
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
+                color: Colors.black87,
               ),
             ),
           ),
         );
-      }
-
-      // Langkah (angka di depan)
-      else if (RegExp(r'^\d+\.\s').hasMatch(line)) {
+      } else if (RegExp(r'^\d+\.\s').hasMatch(line)) {
         widgets.add(
           Padding(
             padding: const EdgeInsets.only(left: 12, bottom: 4),
@@ -164,10 +216,7 @@ class RecipePage extends StatelessWidget {
             ),
           ),
         );
-      }
-
-      // Bullet point
-      else if (line.trim().startsWith('-')) {
+      } else if (line.trim().startsWith('-')) {
         widgets.add(
           Padding(
             padding: const EdgeInsets.only(left: 16, bottom: 4),
@@ -185,10 +234,7 @@ class RecipePage extends StatelessWidget {
             ),
           ),
         );
-      }
-
-      // Paragraf biasa
-      else {
+      } else {
         widgets.add(
           Padding(
             padding: const EdgeInsets.only(bottom: 8),

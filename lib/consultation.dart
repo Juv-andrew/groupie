@@ -1,45 +1,25 @@
-// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
+// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:project/DoctorDetailPage.dart';
 import 'package:project/ProfilPage.dart';
+import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
-import 'package:provider/provider.dart';
 import 'artikel.dart';
-
-
-class ThemeProvider extends ChangeNotifier {
-  ThemeMode themeMode = ThemeMode.light;
-
-  bool get isDarkMode => themeMode == ThemeMode.dark;
-
-  void toggleTheme(bool isOn) {
-    themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
-    notifyListeners();
-  }
-}
+import 'package:provider/provider.dart';
+import 'favorite_provider.dart';
+import 'package:project/shop_page.dart';
 
 class MedanDoctorApp extends StatelessWidget {
   const MedanDoctorApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: themeProvider.themeMode,
       theme: ThemeData(
         brightness: Brightness.light,
-        scaffoldBackgroundColor: Color(0xFFDFFFE1),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF1E1E1E),
+        scaffoldBackgroundColor: const Color(0xFFDFFFE1),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -107,7 +87,16 @@ class _MainNavigationState extends State<MainNavigation> {
   }
 }
 
-class KonsultasiPage extends StatelessWidget {
+class KonsultasiPage extends StatefulWidget {
+  const KonsultasiPage({super.key});
+
+  @override
+  State<KonsultasiPage> createState() => _KonsultasiPageState();
+}
+
+class _KonsultasiPageState extends State<KonsultasiPage> {
+  final TextEditingController _searchController = TextEditingController();
+
   final List<Map<String, String>> doctorList = [
     {
       'name': 'Clarrisa',
@@ -153,10 +142,39 @@ class KonsultasiPage extends StatelessWidget {
     },
   ];
 
-  KonsultasiPage({super.key});
+  List<Map<String, String>> filteredDoctors = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredDoctors = doctorList;
+    _searchController.addListener(_filterDoctors);
+  }
+
+  void _filterDoctors() {
+    final query = _searchController.text.toLowerCase();
+    setState(() {
+      filteredDoctors =
+          doctorList.where((doctor) {
+            final name = doctor['name']!.toLowerCase();
+            final specialist = doctor['specialist']!.toLowerCase();
+            final hospital = doctor['hospital']!.toLowerCase();
+            return name.contains(query) ||
+                specialist.contains(query) ||
+                hospital.contains(query);
+          }).toList();
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final favoriteProvider = Provider.of<FavoriteProvider>(context);
     return Scaffold(
       backgroundColor:
           Theme.of(context).brightness == Brightness.dark
@@ -165,7 +183,7 @@ class KonsultasiPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: [
+        actions: const [
           Icon(Icons.person_outline, color: Colors.black),
           SizedBox(width: 16),
           Icon(Icons.menu, color: Colors.black),
@@ -174,17 +192,18 @@ class KonsultasiPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Icon(Icons.favorite, color: Colors.green[800], size: 50),
-          Text(
+          Image.asset('img-project/logo.png', width: 200, height: 150),
+          const Text(
             'medan doctor',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
+              controller: _searchController,
               decoration: InputDecoration(
                 hintText: "Search Doctor...",
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 filled: true,
                 fillColor: Colors.green[100],
                 border: OutlineInputBorder(
@@ -198,7 +217,10 @@ class KonsultasiPage extends StatelessWidget {
             child: ListView.builder(
               itemCount: doctorList.length,
               itemBuilder: (context, index) {
-                var doctor = doctorList[index];
+                final doctor = doctorList[index];
+                final isFavorited = favoriteProvider.isFavorite(
+                  doctor['name']!,
+                );
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -206,13 +228,13 @@ class KonsultasiPage extends StatelessWidget {
                   ),
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [Colors.white, Color(0xFFE9FFED)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(25),
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           color: Colors.black12,
                           blurRadius: 8,
@@ -221,17 +243,26 @@ class KonsultasiPage extends StatelessWidget {
                       ],
                     ),
                     child: ListTile(
-                      contentPadding: EdgeInsets.all(16),
+                      contentPadding: const EdgeInsets.all(16),
                       leading: CircleAvatar(
                         backgroundImage: NetworkImage(doctor['image']!),
                         radius: 30,
                       ),
                       title: Text(
                         doctor['name']!,
-                        style: TextStyle(
-                          fontSize: 18,
+                        style: const TextStyle(
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(
+                          isFavorited ? Icons.favorite : Icons.favorite_border,
+                          color: isFavorited ? Colors.red : Colors.grey,
+                        ),
+                        onPressed: () {
+                          favoriteProvider.toggleFavorite(doctor);
+                        },
                       ),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -242,16 +273,16 @@ class KonsultasiPage extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.location_pin,
                                 size: 16,
                                 color: Colors.grey,
                               ),
-                              SizedBox(width: 4),
+                              const SizedBox(width: 4),
                               Text(doctor['hospital']!),
                             ],
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Align(
                             alignment: Alignment.centerRight,
                             child: GestureDetector(
@@ -265,11 +296,11 @@ class KonsultasiPage extends StatelessWidget {
                                   ),
                                 );
                               },
-                              child: Text(
+                              child: const Text(
                                 'selengkapnya',
                                 style: TextStyle(
                                   color: Colors.blue,
-                                  fontSize: 12,
+                                  fontSize: 16,
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
@@ -284,6 +315,61 @@ class KonsultasiPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0xFF1B5E20),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
+        currentIndex: 0, // gnti ini klau mau ke tmpt lain
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MainMenuPage()),
+              );
+              break;
+            case 1:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationsPage(),
+                ),
+              );
+              break;
+            case 2:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => ArticlePage()),
+              );
+              break;
+            case 3:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+              break;
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ShopPage()),
+          );
+        },
+        backgroundColor: const Color(0xFF1B5E20),
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.shopping_cart),
+        label: const Text("online pharmacy"),
       ),
     );
   }

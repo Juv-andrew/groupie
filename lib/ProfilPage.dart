@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:project/artikel.dart';
 import 'package:project/editprofile.dart';
+import 'package:project/main_page.dart';
+import 'package:project/notification.dart';
 import 'package:provider/provider.dart';
-import 'consultation.dart';
+import 'favorite.dart';
+import 'theme_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -11,7 +16,21 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String username = 'Groupie'; // <- gnti sini kalau mau ganti nama default nya
+  String userName = '';
+  String userEmail = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+  Future<void> _loadUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.getString('name') ?? 'Guest';
+      userEmail = prefs.getString('email') ?? 'No email';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +66,12 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           const SizedBox(height: 12),
           Text(
-            username,
+            userName,
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            userEmail,
+            style: const TextStyle(fontSize: 16, color: Colors.black54),
           ),
           const SizedBox(height: 8),
           Row(
@@ -65,7 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                   if (newUsername != null && newUsername.isNotEmpty) {
                     setState(() {
-                      username = newUsername;
+                      userName = newUsername;
                     });
                   }
                 },
@@ -116,15 +139,53 @@ class _ProfilePageState extends State<ProfilePage> {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               children: [
-                _buildProfileOption(Icons.receipt, 'Save receipts'),
                 _buildProfileOption(Icons.favorite_border, 'Favorites'),
-                _buildProfileOption(Icons.language, 'Language'),
-                _buildProfileOption(Icons.location_on_outlined, 'Location'),
-                _buildProfileOption(Icons.history, 'History Activity'),
                 _buildProfileOption(Icons.logout, 'Logout'),
               ],
             ),
           ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0xFF1B5E20),
+        selectedItemColor: Colors.white,
+        currentIndex: 3, // Sesuaikan ini jika kamu ingin aktifkan tab lain
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MainMenuPage()),
+              );
+              break;
+            case 1:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationsPage(),
+                ),
+              );
+              break;
+            case 2:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => ArticlePage()),
+              );
+              break;
+            case 3:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+              break;
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),
     );
@@ -132,7 +193,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildMiniButton(IconData icon, String label) {
     return ElevatedButton.icon(
-      onPressed: () {},
+      onPressed: () {
+        if (label == 'Favorites') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => FavoriteDoctorsPage()),
+          );
+        }
+      },
       icon: Icon(icon, color: Colors.black),
       label: Text(
         label,
@@ -158,7 +226,12 @@ class _ProfilePageState extends State<ProfilePage> {
         leading: Icon(icon, color: Colors.blue),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
         trailing: const Icon(Icons.chevron_right),
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => FavoriteDoctorsPage()),
+          );
+        },
       ),
     );
   }

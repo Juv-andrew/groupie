@@ -1,100 +1,291 @@
+// import 'package:flutter/material.dart';
+
+// class SelfAwarenessPage extends StatelessWidget {
+//   const SelfAwarenessPage({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: const Color(0xFFA7ECEE),
+//       appBar: AppBar(
+//         backgroundColor: const Color(0xFFA7ECEE),
+//         elevation: 0,
+//         leading: const Icon(Icons.arrow_back, color: Colors.black),
+//         actions: const [
+//           Icon(Icons.person, color: Colors.black),
+//           SizedBox(width: 12),
+//           Icon(Icons.menu, color: Colors.black),
+//           SizedBox(width: 12),
+//         ],
+//       ),
+//       body: SingleChildScrollView(
+//         padding: const EdgeInsets.symmetric(horizontal: 16),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             const Text(
+//               'Self-\nAwareness',
+//               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+//             ),
+//             const SizedBox(height: 4),
+//             const Text(
+//               'YOU ALWAYS HAVE A CHOICE',
+//               style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+//             ),
+//             const SizedBox(height: 16),
+//             Container(
+//               padding: const EdgeInsets.all(16),
+//               decoration: BoxDecoration(
+//                 color: const Color(0xFF6BC5D2),
+//                 borderRadius: BorderRadius.circular(20),
+//               ),
+//               child: Column(
+//                 children: [
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     children: [
+//                       ElevatedButton(
+//                         onPressed: () {
+//                           Navigator.pushNamed(context, '/self-recovery');
+//                         },
+//                         style: ElevatedButton.styleFrom(
+//                           backgroundColor: Colors.black87,
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(10),
+//                           ),
+//                         ),
+//                         child: const Text('Self-Recovery'),
+//                       ),
+//                       const Column(
+//                         crossAxisAlignment: CrossAxisAlignment.end,
+//                         children: [
+//                           Text(
+//                             'Small Steps\nEvery Day',
+//                             style: TextStyle(
+//                               fontSize: 16,
+//                               fontWeight: FontWeight.bold,
+//                             ),
+//                             textAlign: TextAlign.right,
+//                           ),
+//                           SizedBox(height: 4),
+//                           Text(
+//                             'To make you feel better',
+//                             style: TextStyle(fontSize: 12),
+//                           ),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                   const SizedBox(height: 24),
+//                   Container(
+//                     padding: const EdgeInsets.all(16),
+//                     decoration: BoxDecoration(
+//                       color: const Color(0xFF3E8E9F),
+//                       borderRadius: BorderRadius.circular(16),
+//                     ),
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         const Text(
+//                           'Take a\nMental Health Test',
+//                           style: TextStyle(
+//                             fontSize: 18,
+//                             color: Colors.white,
+//                             fontWeight: FontWeight.bold,
+//                           ),
+//                         ),
+//                         const SizedBox(height: 12),
+//                         ElevatedButton(
+//                           onPressed: () {
+//                             Navigator.pushNamed(context, '/self-care');
+//                           },
+//                           style: ElevatedButton.styleFrom(
+//                             backgroundColor: Colors.black87,
+//                             shape: RoundedRectangleBorder(
+//                               borderRadius: BorderRadius.circular(10),
+//                             ),
+//                           ),
+//                           child: const Text('Self-Care'),
+//                         ),
+//                         const SizedBox(height: 12),
+//                         const Text(
+//                           'Mental health conditions, such as depression or\nanxiety, are real, common and treatable. And\nrecovery is possible.',
+//                           style: TextStyle(color: Colors.white, fontSize: 12),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
+import 'package:project/main_page.dart';
+// import 'package:project/notification.dart';
+import 'package:project/artikel.dart';
+import 'package:project/ProfilPage.dart';
 
 class SelfAwarenessPage extends StatelessWidget {
+  const SelfAwarenessPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFA7ECEE),
       appBar: AppBar(
-        title: const Text(
-          'Self-Recovery',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 22, // Ukuran font sesuai desain
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color(0xFFA7ECEE),
         elevation: 0,
         leading: const Icon(Icons.arrow_back, color: Colors.black),
-        actions: [
-          const Icon(Icons.person, color: Colors.black),
-          const SizedBox(width: 16),
+        actions: const [
+          Icon(Icons.person, color: Colors.black),
+          SizedBox(width: 12),
+          Icon(Icons.menu, color: Colors.black),
+          SizedBox(width: 12),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              'TO MAKE YOU FEEL BETTER',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Self-\nAwareness',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            const Text(
+              'YOU ALWAYS HAVE A CHOICE',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF6BC5D2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/self-recovery');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black87,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text('Self-Recovery'),
+                      ),
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Small Steps\nEvery Day',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.right,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'To make you feel better',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF3E8E9F),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Take a\nMental Health Test',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/self-care');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black87,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: const Text('Self-Care'),
+                        ),
+                        const SizedBox(height: 12),
+                        const Text(
+                          'Mental health conditions, such as depression or\nanxiety, are real, common and treatable. And\nrecovery is possible.',
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          Expanded(
-            child: ListView(
-              children: [
-                MenuItem(title: 'Journaling', subtitle: 'Be Kind To Your Mind'),
-                MenuItem(title: 'Need Some Quotes?'),
-                MenuItem(title: 'Listen To Your Music Now'),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
+        currentIndex: 1, // Sesuaikan indeks dengan halaman ini (1 untuk Self Awareness).
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MainMenuPage()),
+              );
+              break;
+            case 1:
+              // Tetap di halaman ini.
+              break;
+            case 2:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const ArticlePage()),
+              );
+              break;
+            case 3:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+              break;
+          }
+        },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Inbox'),
           BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
     );
   }
 }
-
-class MenuItem extends StatelessWidget {
-  final String title;
-  final String? subtitle;
-
-  const MenuItem({required this.title, this.subtitle});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Container(
-        decoration: BoxDecoration(
-          color: const Color(0xFF294A63), // Warna sesuai desain
-          borderRadius: BorderRadius.circular(8),
-        ),
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18, // Ukuran font sesuai desain
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            if (subtitle != null)
-              Text(
-                subtitle!,
-                style: const TextStyle(color: Colors.white70, fontSize: 14),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-

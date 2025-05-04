@@ -7,31 +7,31 @@ class Top3Health extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFB9F6CA),
+      backgroundColor: const Color(0xFFEBF5EE),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: const Color(0xFF1B5E20),
+        title: const Text(
+          'Top 3 Health Menus',
+          style: TextStyle(color: Colors.white),
+        ),
+        elevation: 2,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.person, color: Colors.black),
-            onPressed: () {
-              // Arahkan ke profil
-            },
+            icon: const Icon(Icons.person, color: Colors.white),
+            onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
-            onPressed: () {
-              // Arahkan ke menu drawer
-            },
+            icon: const Icon(Icons.menu, color: Colors.white),
+            onPressed: () {},
           ),
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -41,77 +41,69 @@ class Top3Health extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 8,
+                    offset: Offset(0, 4),
+                  ),
+                ],
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: RichText(
-                      text: const TextSpan(
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Arial',
-                        ),
-                        children: [
-                          TextSpan(
-                            text: 'Top 3 ',
-                            style: TextStyle(color: Color(0xFF1B5E20), fontSize: 24), // hijau
-                          ),
-                          TextSpan(
-                            text: 'favorite menu Today !!!',
-                            style: TextStyle(color: Colors.red, fontSize: 20),
-                          ),
-                        ],
+                    child: Text(
+                      'Today\'s Top 3 Healthy Menus!',
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1B5E20),
                       ),
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Image.asset('img-project/fruit.png', height: 130),
+                  Image.asset(
+                    'assets/img-project/fruit.png',
+                    height: 80,
+                    errorBuilder: (_, __, ___) =>
+                        const Icon(Icons.broken_image, size: 80),
+                  ),
                 ],
               ),
             ),
-
             const SizedBox(height: 20),
 
-            // Menu 1
-            // Menu 1
+            // Menu Items
             buildMenuItem(
               context,
-              imagePath: 'img-project/Es Buah yogurt.jpeg',
-              title: 'Es Buah with Yogurt ',
+              imagePath: 'assets/img-project/es_buah_yogurt.jpeg',
+              title: 'Es Buah with Yogurt',
               shortDescription:
-                  'Es buah yogurt is a fruity, refreshing dessert with mixed fruits and tangy yogurt.',
-              fullDescription:
-                  '''
+                  'A fruity, refreshing dessert with mixed fruits and tangy yogurt.',
+              fullDescription: '''
 Kolak pisang dengan rendah lemak yang disarankan menggunakan santan encer agar lebih sehat.
 
-Bahan
+Bahan:
 - 2 buah pisang kepok, potong serong
 - 200ml santan encer
 - 1 sdt gula merah
 - 1 lembar daun pandan
 
-Cara Membuat
+Cara Membuat:
 1. Rebus santan dengan gula merah dan pandan hingga mendidih.
-2. Masukkan pisang, masak 5 menit. ''',
+2. Masukkan pisang, masak 5 menit.''',
               rating: '5',
             ),
-
-            const SizedBox(height: 16),
-
-            // Menu 2
             buildMenuItem(
               context,
-              imagePath: 'img-project/pepes ikan kembung.jpg',
+              imagePath: 'assets/img-project/pepes_ikan_kembung.jpg',
               title: 'Pepes Ikan Kembung',
               shortDescription:
-                  'Pepes ikan kembung is an Indonesian dish of mackerel with aromatic spices, wrapped in banana leaves.',
+                  'A traditional dish of mackerel wrapped in banana leaves with spices.',
               fullDescription: '''
-Pepes ikan kembung yang dikukus tanpa minyak , kaya akan omega-3
+Pepes ikan kembung yang dikukus tanpa minyak, kaya akan omega-3.
 
-Bahan
+Bahan:
 - 1 ekor ikan kembung, bersihkan
 - 1 batang serai, memarkan
 - 2 lembar daun salam
@@ -120,37 +112,32 @@ Bahan
 - 1/2 sdt lada
 - 1 sdm air jeruk nipis
 
-Cara Membuat
+Cara Membuat:
 1. Lumuri ikan dengan garam, lada, dan air jeruk nipis, diamkan 15 menit.
 2. Bungkus dengan daun salam, serai, dan tomat.
 3. Kukus selama 30 menit hingga matang.''',
               rating: '5',
             ),
-
-            const SizedBox(height: 16),
-
-            // Menu 3
             buildMenuItem(
               context,
-              imagePath: 'img-project/kolak pisang.jpeg',
+              imagePath: 'assets/img-project/kolak_pisang.jpeg',
               title: 'Kolak Pisang',
               shortDescription:
-                  'Kolak pisang is an Indonesian dessert made of bananas in coconut milk and palm sugar — sweet and creamy!',
+                  'A sweet dessert of bananas in coconut milk and palm sugar.',
               fullDescription: '''
 Kolak pisang dengan rendah lemak yang disarankan menggunakan santan encer agar lebih sehat.
 
-Bahan
+Bahan:
 - 2 buah pisang kepok, potong serong
 - 200ml santan encer
 - 1 sdt gula merah
 - 1 lembar daun pandan
 
-Cara Membuat
+Cara Membuat:
 1. Rebus santan dengan gula merah dan pandan hingga mendidih.
-2. Masukkan pisang, masak 5 menit. ''',
+2. Masukkan pisang, masak 5 menit.''',
               rating: '5',
             ),
-
             const SizedBox(height: 30),
           ],
         ),
@@ -166,95 +153,83 @@ Cara Membuat
     required String fullDescription,
     required String rating,
   }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            height: 150,
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset(imagePath, fit: BoxFit.cover),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RecipePage(
+              title: title,
+              image: imagePath,
+              description: fullDescription,
+              rating: rating,
             ),
           ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          flex: 2,
-          child: Container(
-            height: 150,
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 6,
+              offset: Offset(0, 2),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+          ],
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                imagePath,
+                height: 100,
+                width: 100,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) =>
+                    const Icon(Icons.broken_image, size: 100),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  shortDescription,
-                  style: const TextStyle(fontSize: 8),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  children: List.generate(
-                    5,
-                    (index) =>
-                        const Icon(Icons.star, color: Colors.amber, size: 14),
+                  const SizedBox(height: 6),
+                  Text(
+                    shortDescription,
+                    style: const TextStyle(fontSize: 13),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-                const Spacer(),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder:
-                              (context) => RecipePage(
-                                title: title,
-                                image: imagePath,
-                                description: fullDescription,
-                                rating: rating,
-                              ),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1B5E20),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 6,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: List.generate(
+                      5,
+                      (index) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 16,
                       ),
                     ),
-                    child: const Text('Recipe', style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 253, 255, 253))),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
