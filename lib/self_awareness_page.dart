@@ -1,135 +1,10 @@
-// import 'package:flutter/material.dart';
-
-// class SelfAwarenessPage extends StatelessWidget {
-//   const SelfAwarenessPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: const Color(0xFFA7ECEE),
-//       appBar: AppBar(
-//         backgroundColor: const Color(0xFFA7ECEE),
-//         elevation: 0,
-//         leading: const Icon(Icons.arrow_back, color: Colors.black),
-//         actions: const [
-//           Icon(Icons.person, color: Colors.black),
-//           SizedBox(width: 12),
-//           Icon(Icons.menu, color: Colors.black),
-//           SizedBox(width: 12),
-//         ],
-//       ),
-//       body: SingleChildScrollView(
-//         padding: const EdgeInsets.symmetric(horizontal: 16),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             const Text(
-//               'Self-\nAwareness',
-//               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-//             ),
-//             const SizedBox(height: 4),
-//             const Text(
-//               'YOU ALWAYS HAVE A CHOICE',
-//               style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-//             ),
-//             const SizedBox(height: 16),
-//             Container(
-//               padding: const EdgeInsets.all(16),
-//               decoration: BoxDecoration(
-//                 color: const Color(0xFF6BC5D2),
-//                 borderRadius: BorderRadius.circular(20),
-//               ),
-//               child: Column(
-//                 children: [
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       ElevatedButton(
-//                         onPressed: () {
-//                           Navigator.pushNamed(context, '/self-recovery');
-//                         },
-//                         style: ElevatedButton.styleFrom(
-//                           backgroundColor: Colors.black87,
-//                           shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(10),
-//                           ),
-//                         ),
-//                         child: const Text('Self-Recovery'),
-//                       ),
-//                       const Column(
-//                         crossAxisAlignment: CrossAxisAlignment.end,
-//                         children: [
-//                           Text(
-//                             'Small Steps\nEvery Day',
-//                             style: TextStyle(
-//                               fontSize: 16,
-//                               fontWeight: FontWeight.bold,
-//                             ),
-//                             textAlign: TextAlign.right,
-//                           ),
-//                           SizedBox(height: 4),
-//                           Text(
-//                             'To make you feel better',
-//                             style: TextStyle(fontSize: 12),
-//                           ),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                   const SizedBox(height: 24),
-//                   Container(
-//                     padding: const EdgeInsets.all(16),
-//                     decoration: BoxDecoration(
-//                       color: const Color(0xFF3E8E9F),
-//                       borderRadius: BorderRadius.circular(16),
-//                     ),
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         const Text(
-//                           'Take a\nMental Health Test',
-//                           style: TextStyle(
-//                             fontSize: 18,
-//                             color: Colors.white,
-//                             fontWeight: FontWeight.bold,
-//                           ),
-//                         ),
-//                         const SizedBox(height: 12),
-//                         ElevatedButton(
-//                           onPressed: () {
-//                             Navigator.pushNamed(context, '/self-care');
-//                           },
-//                           style: ElevatedButton.styleFrom(
-//                             backgroundColor: Colors.black87,
-//                             shape: RoundedRectangleBorder(
-//                               borderRadius: BorderRadius.circular(10),
-//                             ),
-//                           ),
-//                           child: const Text('Self-Care'),
-//                         ),
-//                         const SizedBox(height: 12),
-//                         const Text(
-//                           'Mental health conditions, such as depression or\nanxiety, are real, common and treatable. And\nrecovery is possible.',
-//                           style: TextStyle(color: Colors.white, fontSize: 12),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:project/main_page.dart';
-// import 'package:project/notification.dart';
 import 'package:project/artikel.dart';
 import 'package:project/ProfilPage.dart';
+import 'package:project/notification.dart';
+import 'package:project/self_care_page.dart';
+import 'package:project/self_recovery_page.dart';
 
 class SelfAwarenessPage extends StatelessWidget {
   const SelfAwarenessPage({super.key});
@@ -141,12 +16,15 @@ class SelfAwarenessPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFFA7ECEE),
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
-        actions: const [
-          Icon(Icons.person, color: Colors.black),
-          SizedBox(width: 12),
-          Icon(Icons.menu, color: Colors.black),
-          SizedBox(width: 12),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        actions: [
+          const Icon(Icons.person, color: Colors.black),
+          const SizedBox(width: 12),
+          const Icon(Icons.menu, color: Colors.black),
+          const SizedBox(width: 12),
         ],
       ),
       body: SingleChildScrollView(
@@ -154,17 +32,37 @@ class SelfAwarenessPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Self-\nAwareness',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                const Expanded(
+                  child: Text(
+                    'Self-\nAwareness',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Image.asset(
+                  'img-project/logo.png', // Ganti path jika perlu
+                  width: 250,
+                  height: 220,
+                ),
+              ],
             ),
             const SizedBox(height: 4),
             const Text(
               'YOU ALWAYS HAVE A CHOICE',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
             Container(
+              width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: const Color(0xFF6BC5D2),
@@ -177,10 +75,15 @@ class SelfAwarenessPage extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/self-recovery');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SelfRecoveryPage(),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black87,
+                          backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -195,65 +98,77 @@ class SelfAwarenessPage extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                             textAlign: TextAlign.right,
                           ),
                           SizedBox(height: 4),
                           Text(
                             'To make you feel better',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: 12, color: Colors.white),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  const SizedBox(height: 24),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF3E8E9F),
-                      borderRadius: BorderRadius.circular(16),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20), // Jarak antar kotak
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF3E8E9F),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Take a\nMental Health Test',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Take a\nMental Health Test',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                  ),
+                  const SizedBox(height: 12),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SelfCarePage(),
                         ),
-                        const SizedBox(height: 12),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/self-care');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black87,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: const Text('Self-Care'),
-                        ),
-                        const SizedBox(height: 12),
-                        const Text(
-                          'Mental health conditions, such as depression or\nanxiety, are real, common and treatable. And\nrecovery is possible.',
-                          style: TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      ],
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
+                    child: const Text('Self-Care'),
+                  ),
+                  const SizedBox(height: 12),
+                  const Text(
+                    'Mental health conditions, such as depression or\nanxiety, are real, common and treatable. And\nrecovery is possible.',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ],
               ),
             ),
+            const SizedBox(height: 24),
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1, // Sesuaikan indeks dengan halaman ini (1 untuk Self Awareness).
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0xFF1B5E20),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
+        currentIndex: 0,
         onTap: (index) {
           switch (index) {
             case 0:
@@ -263,12 +178,15 @@ class SelfAwarenessPage extends StatelessWidget {
               );
               break;
             case 1:
-              // Tetap di halaman ini.
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const NotificationsPage()),
+              );
               break;
             case 2:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const ArticlePage()),
+                MaterialPageRoute(builder: (context) => ArticlePage()),
               );
               break;
             case 3:
@@ -281,9 +199,9 @@ class SelfAwarenessPage extends StatelessWidget {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Inbox'),
+          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
           BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),
     );
