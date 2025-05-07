@@ -30,10 +30,6 @@ class SelfRecoveryPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: const [
-          Icon(Icons.person, color: Colors.black),
-          SizedBox(width: 16),
-        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -53,7 +49,7 @@ class SelfRecoveryPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  QuotesPage()),
+                MaterialPageRoute(builder: (context) => QuotesPage()),
               );
             },
           ),
@@ -121,12 +117,7 @@ class MenuItem extends StatelessWidget {
   final String? subtitle;
   final VoidCallback? onTap;
 
-  const MenuItem({
-    super.key,
-    required this.title,
-    this.subtitle,
-    this.onTap,
-  });
+  const MenuItem({super.key, required this.title, this.subtitle, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -154,10 +145,7 @@ class MenuItem extends StatelessWidget {
             if (subtitle != null)
               Text(
                 subtitle!,
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 14,
-                ),
+                style: const TextStyle(color: Colors.white70, fontSize: 14),
               ),
           ],
         ),
@@ -165,4 +153,3 @@ class MenuItem extends StatelessWidget {
     );
   }
 }
-

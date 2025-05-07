@@ -21,10 +21,15 @@ class SelfAwarenessPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
-          const Icon(Icons.person, color: Colors.black),
-          const SizedBox(width: 12),
-          const Icon(Icons.menu, color: Colors.black),
-          const SizedBox(width: 12),
+          IconButton(
+            icon: const Icon(Icons.person_outline, color: Colors.black),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+            },
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -180,7 +185,9 @@ class SelfAwarenessPage extends StatelessWidget {
             case 1:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const NotificationsPage()),
+                MaterialPageRoute(
+                  builder: (context) => const NotificationsPage(),
+                ),
               );
               break;
             case 2:

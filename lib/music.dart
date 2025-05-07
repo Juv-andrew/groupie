@@ -32,9 +32,8 @@ class _MusicPageState extends State<MusicPage> {
   void _filterSongs() {
     final query = _searchController.text.toLowerCase();
     setState(() {
-      filteredSongs = allSongs
-          .where((song) => song.toLowerCase().contains(query))
-          .toList();
+      filteredSongs =
+          allSongs.where((song) => song.toLowerCase().contains(query)).toList();
     });
   }
 
@@ -99,7 +98,10 @@ class _MusicPageState extends State<MusicPage> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: ListTile(
-                      leading: const Icon(Icons.music_note, color: Colors.blueAccent),
+                      leading: const Icon(
+                        Icons.music_note,
+                        color: Colors.blueAccent,
+                      ),
                       title: Text(filteredSongs[index]),
                       trailing: const Icon(Icons.play_arrow),
                       onTap: () {

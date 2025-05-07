@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:project/main_page.dart';
 // import 'package:project/notification.dart';
@@ -29,10 +27,6 @@ class SelfCarePage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: const [
-          Icon(Icons.person, color: Colors.black),
-          SizedBox(width: 16),
-        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -101,16 +95,11 @@ class MenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
         title: Text(
           title,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
         ),
         trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
