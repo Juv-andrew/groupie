@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/fitness/fitness_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeWorkoutPage extends StatefulWidget {
   const HomeWorkoutPage({super.key});
@@ -15,7 +17,8 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
     {
       "name": "Push Up",
       "image": "img-project/pushup.jpg",
-      "description": "posisi awal dengan posisi telungkup kemudian angkat badan dengan bertumpu pada telapak tangan dan jari kaki.",
+      "description":
+          "posisi awal dengan posisi telungkup kemudian angkat badan dengan bertumpu pada telapak tangan dan jari kaki.",
       "category": "Strength",
     },
     {
@@ -25,11 +28,12 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
           "gerakan olahraga yang mengangkat badan dari posisi berbaring telentang ke posisi duduk, dengan tujuan menguatkan otot perut",
       "category": "Core",
     },
-    
+
     {
       "name": "Squat",
       "image": "img-project/squat_2.jpg",
-      "description": "posisi berdiri kemudian tekuk lutut hingga paha sejajar dengan lantai.",
+      "description":
+          "posisi berdiri kemudian tekuk lutut hingga paha sejajar dengan lantai.",
       "category": "Legs",
     },
     {
@@ -41,43 +45,51 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
     {
       "name": "Plank",
       "image": "img-project/plank.jpg",
-      "description": "mulai dari posisi push up kemudian tahan posisi tersebut selama mungkin.",
+      "description":
+          "mulai dari posisi push up kemudian tahan posisi tersebut selama mungkin.",
       "category": "Core",
     },
     {
       "name": "Lunges",
       "image": "img-project/lunges.jpg",
-      "description": "mulai dari posisi berdiri kemudian langkah satu kaki kedepan dan tekuk hingga membentuk sudut 90° lakukan secara bergantian .",
+      "description":
+          "mulai dari posisi berdiri kemudian langkah satu kaki kedepan dan tekuk hingga membentuk sudut 90° lakukan secara bergantian .",
       "category": "Legs",
     },
     {
       "name": "Jumping Jacks",
       "image": "img-project/jumpingjacks.jpg",
-      "description": "posisi berdiri kemudian melompat dengan kedua kaki terbuka dan tangan diangkat ke atas.",
+      "description":
+          "posisi berdiri kemudian melompat dengan kedua kaki terbuka dan tangan diangkat ke atas.",
       "category": "Cardio",
     },
     {
       "name": "Mountain Climbers",
       "image": "img-project/mountain_climbers.jpg",
-      "description": "mulai dari posisi plank dengan tangan lurus , kemudian kaki diangkat mendekati perut.",
+      "description":
+          "mulai dari posisi plank dengan tangan lurus , kemudian kaki diangkat mendekati perut.",
       "category": "Core",
     },
     {
       "name": "Bicycle Crunches",
       "image": "img-project/bicycle_crunch.jpg",
-      "description": "posisi awal dengan posisi terlentang kemudian angkat kedua kaki sehingga posisi kaki tegak lurus seperti mengayuh sepeda.",
+      "description":
+          "posisi awal dengan posisi terlentang kemudian angkat kedua kaki sehingga posisi kaki tegak lurus seperti mengayuh sepeda.",
       "category": "Core",
     },
     {
       "name": "High Knees",
       "image": "img-project/high_knees.jpg",
-      "description": "posisi berdiri kemudian kaki diangkat sampe ke perut secara bergantian.",
+      "description":
+          "posisi berdiri kemudian kaki diangkat sampe ke perut secara bergantian.",
       "category": "Cardio",
     },
     {
-      "name":"leg raises",
-      "image":"img-project/leg_raise.jpg",
-      "description":"posisi awal dengan posisi terlentang kemudian angkat kedua kaki sehingga posisi kaki tegak lurus.",
+      "name": "leg raises",
+      "image": "img-project/leg_raise.jpg",
+      "description":
+          "posisi awal dengan posisi terlentang kemudian angkat kedua kaki sehingga posisi kaki tegak lurus.",
+      "category": "core",
     },
   ];
 
@@ -86,8 +98,12 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
   List<Map<String, String>> get filteredWorkouts {
     final searchQuery = _searchController.text.toLowerCase();
     return workouts.where((workout) {
-      final matchesCategory = _selectedCategory == "All" || workout["category"] == _selectedCategory;
-      final matchesSearch = workout["name"]!.toLowerCase().contains(searchQuery);
+      final matchesCategory =
+          _selectedCategory == "All" ||
+          workout["category"] == _selectedCategory;
+      final matchesSearch = workout["name"]!.toLowerCase().contains(
+        searchQuery,
+      );
       return matchesCategory && matchesSearch;
     }).toList();
   }
@@ -144,9 +160,72 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
               ),
               const SizedBox(height: 12),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  final provider = Provider.of<FitnessProvider>(
+                    context,
+                    listen: false,
+                  );
+                  final albums = provider.customAlbums.keys.toList();
+
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      String? selectedAlbum;
+
+                      return AlertDialog(
+                        title: const Text("Pilih Album"),
+                        content: DropdownButtonFormField<String>(
+                          decoration: const InputDecoration(
+                            labelText: "Album",
+                            border: OutlineInputBorder(),
+                          ),
+                          items:
+                              albums.map((album) {
+                                return DropdownMenuItem(
+                                  value: album,
+                                  child: Text(album),
+                                );
+                              }).toList(),
+                          onChanged: (value) {
+                            selectedAlbum = value;
+                          },
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text("Batal"),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              if (selectedAlbum != null) {
+                                provider.addWorkoutToAlbum(
+                                  selectedAlbum!,
+                                  workout,
+                                );
+                                Navigator.of(context).pop(); // Tutup dialog
+                                Navigator.of(
+                                  context,
+                                ).pop(); // Tutup bottom sheet
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Disimpan ke '$selectedAlbum'",
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                            child: const Text("Simpan"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
                 icon: const Icon(Icons.bookmark_border),
-                label: const Text("Save to Favorites"),
+                label: const Text("Save to Album"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
@@ -196,7 +275,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
         backgroundColor: const Color.fromARGB(255, 87, 77, 77),
       ),
       body: Container(
-        color: const Color(0xFF121212), // 🎨 Background untuk 
+        color: const Color(0xFF121212), // 🎨 Background untuk
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
@@ -239,7 +318,10 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                       selectedColor: const Color.fromARGB(255, 65, 223, 44),
                       backgroundColor: Colors.grey.shade700,
                       labelStyle: TextStyle(
-                        color: selected ? const Color.fromARGB(255, 255, 255, 255) : Colors.white,
+                        color:
+                            selected
+                                ? const Color.fromARGB(255, 255, 255, 255)
+                                : Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -278,7 +360,9 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                         children: [
                           Expanded(
                             child: ClipRRect(
-                              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                              borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(16),
+                              ),
                               child: Image.asset(
                                 workout["image"]!,
                                 fit: BoxFit.cover,

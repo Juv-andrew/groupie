@@ -3,7 +3,8 @@ import 'package:project/provider/shop_provider.dart';
 import 'theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'onboarding.dart';
-import 'package:project/favorite_provider.dart'; // Pastikan file ini ada
+import 'package:project/favorite_provider.dart'; 
+import 'package:project/fitness/fitness_provider.dart'; 
 
 
 void main() {
@@ -13,6 +14,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => ShopProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+        ChangeNotifierProvider(create: (_) => FitnessProvider()),
        
       ],
       child: const MyApp(),
