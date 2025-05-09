@@ -44,7 +44,7 @@ class SelfCarePage extends StatelessWidget {
         backgroundColor: const Color(0xFF1B5E20),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
-        currentIndex: 0, // Sesuaikan ini jika kamu ingin aktifkan tab lain
+        currentIndex: 0, 
         onTap: (index) {
           switch (index) {
             case 0:
@@ -103,7 +103,6 @@ class MenuItem extends StatelessWidget {
         ),
         trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
-          // Navigasi ke halaman tes tertentu dapat ditambahkan di sini.
         },
       ),
     );

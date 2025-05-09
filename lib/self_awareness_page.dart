@@ -50,7 +50,7 @@ class SelfAwarenessPage extends StatelessWidget {
                   ),
                 ),
                 Image.asset(
-                  'img-project/logo.png', // Ganti path jika perlu
+                  'img-project/logo.png', 
                   width: 250,
                   height: 220,
                 ),
@@ -119,7 +119,7 @@ class SelfAwarenessPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20), // Jarak antar kotak
+            const SizedBox(height: 20), //untuk menyesuaikan jarak antar kotak
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
