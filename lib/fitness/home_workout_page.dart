@@ -275,7 +275,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
         backgroundColor: const Color.fromARGB(255, 87, 77, 77),
       ),
       body: Container(
-        color: const Color(0xFF121212), // 🎨 Background untuk
+        color: const Color.fromARGB(255, 136, 113, 113), // 🎨 Background untuk
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [

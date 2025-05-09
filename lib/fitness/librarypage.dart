@@ -17,10 +17,11 @@ class LibraryPage extends StatelessWidget {
       appBar: AppBar(
         title: const Row(
           children: [
-            Icon(Icons.menu, color: Colors.white),
+            Icon(Icons.library_books, color: Colors.white),
             SizedBox(width: 8),
-            Text('LIBRARY', style: TextStyle(color: Colors.white)),
+            Text('Library', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
           ],
+          
         ),
         backgroundColor: Colors.red,
         leading: IconButton(

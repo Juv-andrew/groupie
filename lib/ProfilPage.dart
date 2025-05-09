@@ -3,10 +3,8 @@ import 'package:project/artikel.dart';
 import 'package:project/editprofile.dart';
 import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
-import 'package:provider/provider.dart';
-import 'favorite.dart';
-import 'theme_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'favorite.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -24,6 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     _loadUserData();
   }
+
   Future<void> _loadUserData() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -34,13 +33,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    bool isDarkMode = themeProvider.isDarkMode;
     return Scaffold(
-      backgroundColor:
-          Theme.of(context).brightness == Brightness.dark
-              ? Colors.black
-              : const Color(0xFFDFFFE1),
+      backgroundColor: const Color(0xFFDFFFE1),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -117,24 +111,25 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
           const SizedBox(height: 24),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Dark Mode',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-                Switch(
-                  value: isDarkMode,
-                  onChanged: (value) {
-                    themeProvider.toggleTheme(value);
-                  },
-                ),
-              ],
-            ),
-          ),
+          // Bagian Dark Mode DITUTUP SEMENTARA
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       const Text(
+          //         'Dark Mode',
+          //         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          //       ),
+          //       Switch(
+          //         value: isDarkMode,
+          //         onChanged: (value) {
+          //           themeProvider.toggleTheme(value);
+          //         },
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -150,7 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFF1B5E20),
         selectedItemColor: Colors.white,
-        currentIndex: 3, // Sesuaikan ini jika kamu ingin aktifkan tab lain
+        currentIndex: 3,
         onTap: (index) {
           switch (index) {
             case 0:
