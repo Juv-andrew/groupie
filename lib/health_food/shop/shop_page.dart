@@ -104,23 +104,29 @@ class BahanMakananTab extends StatelessWidget {
                     'Selamat datang, Groupie!',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
+                  SizedBox(height: 4),
                   Text(
                     'Nikmati belanja bahan makanan sehat',
                     style: TextStyle(
                       fontSize: 14,
                       color: Color.fromARGB(255, 118, 111, 111),
                     ),
+                    softWrap: true,
+                    overflow: TextOverflow.visible,
                   ),
-
+                  SizedBox(height: 2),
                   Text(
-                    ' Pesan sekarang dan  akan kami antar secepat kilat!',
+                    'Pesan sekarang!',
                     style: TextStyle(
                       fontSize: 14,
                       color: Color.fromARGB(255, 118, 111, 111),
                     ),
+                    softWrap: true,
+                    overflow: TextOverflow.visible,
                   ),
                 ],
-              ),
+              )
+
             ],
           ),
           const SizedBox(height: 16),
@@ -130,7 +136,7 @@ class BahanMakananTab extends StatelessWidget {
               'img-project/banner_healthyfood.jpeg',
               width: double.infinity,
               height:
-                  MediaQuery.of(context).size.height * 0.4, // 25% tinggi layar
+                  MediaQuery.of(context).size.height * 0.3, // 25% tinggi layar
               fit: BoxFit.cover,
             ),
           ),
