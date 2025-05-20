@@ -352,7 +352,7 @@ class FitnessHomePage extends StatelessWidget {
         } else if (nama.toLowerCase() == 'fat burn') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const fat_burn_page()),
+            MaterialPageRoute(builder: (_) => const FatBurnPage()),
           );
         } else if (nama.toLowerCase() == 'yoga') {
           Navigator.push(
