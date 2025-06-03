@@ -70,7 +70,7 @@ class SelfRecoveryPage extends StatelessWidget {
         backgroundColor: const Color(0xFF1B5E20),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
-        currentIndex: 0, // Sesuaikan ini jika kamu ingin aktifkan tab lain
+        currentIndex: 0, 
         onTap: (index) {
           switch (index) {
             case 0:
