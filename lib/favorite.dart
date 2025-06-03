@@ -5,6 +5,8 @@ import 'favorite_provider.dart';
 
 
 class FavoriteDoctorsPage extends StatelessWidget {
+  const FavoriteDoctorsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final favoriteDoctors = Provider.of<FavoriteProvider>(context).favoriteDoctors;

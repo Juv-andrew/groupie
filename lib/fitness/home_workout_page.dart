@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project/fitness/fitness_provider.dart';
-import 'package:provider/provider.dart';
 
 class HomeWorkoutPage extends StatefulWidget {
   const HomeWorkoutPage({super.key});
@@ -87,10 +85,8 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
   List<Map<String, String>> get filteredWorkouts {
     final searchQuery = _searchController.text.toLowerCase();
     return workouts.where((workout) {
-      final matchesCategory =
-          _selectedCategory == "All" || workout["category"] == _selectedCategory;
-      final matchesSearch =
-          workout["name"]!.toLowerCase().contains(searchQuery);
+      final matchesCategory = _selectedCategory == "All" || workout["category"] == _selectedCategory;
+      final matchesSearch = workout["name"]!.toLowerCase().contains(searchQuery);
       return matchesCategory && matchesSearch;
     }).toList();
   }
@@ -106,132 +102,35 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.95),
             borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.15),
-                blurRadius: 10,
-                offset: const Offset(0, -2),
-              ),
-            ],
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.asset(
-                    workout["image"]!,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  workout["image"]!,
+                  height: 200,
+                  fit: BoxFit.cover,
                 ),
-                const SizedBox(height: 16),
-                Text(
-                  workout["name"]!,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                workout["name"]!,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  workout["description"]!,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 16, color: Colors.black87),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(Icons.share),
-                        label: const Text("Bagikan"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.teal,
-                          foregroundColor: Colors.white,
-                          minimumSize: const Size.fromHeight(50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          final provider = Provider.of<FitnessProvider>(
-                            context,
-                            listen: false,
-                          );
-                          final albums = provider.customAlbums.keys.toList();
-                          String? selectedAlbum;
-
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text("Simpan ke Album"),
-                                content: DropdownButtonFormField<String>(
-                                  decoration: const InputDecoration(
-                                    labelText: "Album",
-                                    border: OutlineInputBorder(),
-                                  ),
-                                  items: albums.map((album) {
-                                    return DropdownMenuItem(
-                                      value: album,
-                                      child: Text(album),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) {
-                                    selectedAlbum = value;
-                                  },
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text("Batal"),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      if (selectedAlbum != null) {
-                                        provider.addWorkoutToAlbum(
-                                            selectedAlbum!, workout);
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: Text("Disimpan ke '$selectedAlbum'"),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    child: const Text("Simpan"),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        icon: const Icon(Icons.bookmark_add_outlined),
-                        label: const Text("Simpan"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          foregroundColor: Colors.white,
-                          minimumSize: const Size.fromHeight(50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                workout["description"]!,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 16, color: Colors.black87),
+              ),
+              const SizedBox(height: 20),
+            ],
           ),
         );
       },
@@ -253,124 +152,126 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle),
-            onPressed: () {},
-          ),
-        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: "Cari latihan...",
-                prefixIcon: const Icon(Icons.search, color: Colors.white),
-                hintStyle: const TextStyle(color: Colors.white54),
-                filled: true,
-                fillColor: Colors.grey[850],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("img-project/bg-dark.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: "Cari latihan...",
+                  prefixIcon: const Icon(Icons.search, color: Colors.white),
+                  hintStyle: const TextStyle(color: Colors.white54),
+                  filled: true,
+                  fillColor: Colors.grey[850],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                style: const TextStyle(color: Colors.white),
+                onChanged: (_) => setState(() {}),
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                height: 40,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    final category = categories[index];
+                    final selected = _selectedCategory == category;
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
+                      child: ChoiceChip(
+                        label: Text(category),
+                        selected: selected,
+                        onSelected: (_) {
+                          setState(() {
+                            _selectedCategory = category;
+                          });
+                        },
+                        selectedColor: Colors.green,
+                        backgroundColor: Colors.grey.shade700,
+                        labelStyle: TextStyle(
+                          color: selected ? Colors.white : Colors.white70,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
-              style: const TextStyle(color: Colors.white),
-              onChanged: (_) => setState(() {}),
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              height: 40,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  final category = categories[index];
-                  final selected = _selectedCategory == category;
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6),
-                    child: ChoiceChip(
-                      label: Text(category),
-                      selected: selected,
-                      onSelected: (_) {
-                        setState(() {
-                          _selectedCategory = category;
-                        });
-                      },
-                      selectedColor: Colors.green,
-                      backgroundColor: Colors.grey.shade700,
-                      labelStyle: TextStyle(
-                        color: selected ? Colors.white : Colors.white70,
-                        fontWeight: FontWeight.bold,
+              const SizedBox(height: 16),
+              Expanded(
+                child: GridView.builder(
+                  itemCount: filteredWorkouts.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.85,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                  ),
+                  itemBuilder: (context, index) {
+                    final workout = filteredWorkouts[index];
+                    return GestureDetector(
+                      onTap: () => _showWorkoutDetail(workout),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade800.withOpacity(0.85),
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 6,
+                              offset: const Offset(2, 2),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(16),
+                                ),
+                                child: Image.asset(
+                                  workout["image"]!,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              child: Text(
+                                workout["name"]!,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: GridView.builder(
-                itemCount: filteredWorkouts.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.85,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
+                    );
+                  },
                 ),
-                itemBuilder: (context, index) {
-                  final workout = filteredWorkouts[index];
-                  return GestureDetector(
-                    onTap: () => _showWorkoutDetail(workout),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade800,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            blurRadius: 6,
-                            offset: const Offset(2, 2),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(16),
-                              ),
-                              child: Image.asset(
-                                workout["image"]!,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: Text(
-                              workout["name"]!,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                        ],
-                      ),
-                    ),
-                  );
-                },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

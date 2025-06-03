@@ -3,11 +3,10 @@ import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/fitness/fat_burn_page.dart';
 import 'package:project/fitness/home_workout_page.dart';
-import 'package:project/fitness/librarypage.dart';
-import 'package:project/fitness/saved_workout_page.dart';
 import 'package:project/fitness/subscriptionpage.dart';
 import 'package:project/fitness/weight_training_page.dart';
 import 'package:project/fitness/yoga_page.dart';
+import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
 
 class FitnessApp extends StatelessWidget {
@@ -34,61 +33,139 @@ class FitnessHomePage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 196, 36, 36),
-        centerTitle: true,
-        leading: PopupMenuButton<String>(
-          icon: const Icon(Icons.menu, color: Colors.white),
-          onSelected: (value) {
-            print('Kamu memilih: $value');
-          },
-          itemBuilder:
-              (BuildContext context) => <PopupMenuEntry<String>>[
-                const PopupMenuItem<String>(value: 'Home', child: Text('Home')),
-                const PopupMenuItem<String>(
-                  value: 'menu 2',
-                  child: Text('menu 2'),
-                ),
-                const PopupMenuItem<String>(
-                  value: 'menu 3',
-                  child: Text('Menu 3'),
-                ),
-                const PopupMenuItem<String>(
-                  value: 'Menu 4',
-                  child: Text('Menu 4'),
-                ),
-                const PopupMenuItem<String>(
-                  value: 'menu 5',
-                  child: Text('Menu 5'),
-                ),
-              ],
+  backgroundColor: const Color.fromARGB(255, 196, 36, 36),
+  centerTitle: true,
+  title: Row(
+    mainAxisSize: MainAxisSize.min,
+    children: const [
+      Icon(Icons.fitness_center, color: Colors.white, size: 28.0),
+      SizedBox(width: 8),
+      Text(
+        'Fitness Journey',
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
+      ),
+    ],
+  ),
+  actions: [
+    IconButton(
+      icon: const Icon(Icons.account_circle, color: Colors.white),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const ProfilePage()),
+        );
+      },
+    ),
+  ],
+),
+drawer: Drawer(
+  child: ListView(
+    padding: EdgeInsets.zero,
+    children: [
+      DrawerHeader(
+        decoration: BoxDecoration(
+          color: Colors.red.shade700,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
-            Icon(Icons.fitness_center, color: Colors.white, size: 28.0),
-            SizedBox(width: 8),
+            Icon(Icons.fitness_center, size: 48, color: Colors.white),
+            SizedBox(height: 10),
             Text(
-              'Fitness Journey',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              'Fitness Menu',
+              style: TextStyle(color: Colors.white, fontSize: 20),
             ),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle, color: Colors.white),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const ProfilePage()),
-              );
-            },
-          ),
-        ],
       ),
+      ListTile(
+        leading: const Icon(Icons.fitness_center),
+        title: const Text('Home Workout'),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const HomeWorkoutPage()),
+          );
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.fitness_center),
+        title: const Text('Weight Training'),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const weight_training_page()),
+          );
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.local_fire_department),
+        title: const Text('Fat Burn'),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const FatBurnPage()),
+          );
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.self_improvement),
+        title: const Text('Yoga'),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const YogaPage()),
+          );
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.subscriptions),
+        title: const Text('Subscription'),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const SubscriptionPage()),
+          );
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.notifications),
+        title: const Text('Notification'),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const NotificationsPage()),
+          );
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.article),
+        title: const Text('Artikel'),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => ArticlePage()),
+          );
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.account_circle),
+        title: const Text('Profil'),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ProfilePage()),
+          );
+        },
+      ),
+    ],
+  ),
+),
+
       body: Stack(
         children: [
           Positioned.fill(child: Container(color: Colors.grey[200])),
@@ -183,47 +260,6 @@ class FitnessHomePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const SavedWorkoutPage(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 16,
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          decoration: BoxDecoration(
-                            color: Colors.redAccent,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Center(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.bookmark, color: Colors.white),
-                                SizedBox(width: 8),
-                                Text(
-                                  'Saved Workouts',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                     const SizedBox(height: 10),
                     Column(
                       children: [
@@ -285,7 +321,10 @@ class FitnessHomePage extends StatelessWidget {
         onTap: (index) {
           switch (index) {
             case 0:
-              break;
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MainMenuPage()),
+              );;
             case 1:
               Navigator.pushReplacement(
                 context,
@@ -303,12 +342,6 @@ class FitnessHomePage extends StatelessWidget {
             case 3:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const LibraryPage()),
-              );
-              break;
-            case 4:
-              Navigator.pushReplacement(
-                context,
                 MaterialPageRoute(builder: (context) => const ProfilePage()),
               );
               break;
@@ -318,10 +351,6 @@ class FitnessHomePage extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
           BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.library_books),
-            label: 'Library',
-          ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),
