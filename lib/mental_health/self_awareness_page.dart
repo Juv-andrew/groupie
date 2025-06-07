@@ -3,8 +3,8 @@ import 'package:project/main_page.dart';
 import 'package:project/artikel.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/notification.dart';
-import 'package:project/self_care_page.dart';
-import 'package:project/self_recovery_page.dart';
+import 'package:project/mental_health/self_care_page.dart';
+import 'package:project/mental_health/self_recovery_page.dart';
 
 class SelfAwarenessPage extends StatelessWidget {
   const SelfAwarenessPage({super.key});

@@ -1,14 +1,14 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, unused_local_variable
 
 import 'package:flutter/material.dart';
-import 'package:project/DoctorDetailPage.dart';
+import 'package:project/consultation/DoctorDetailPage.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
-import 'artikel.dart';
+import '../artikel.dart';
 import 'package:provider/provider.dart';
-import 'favorite_provider.dart';
-import 'package:project/shop_page.dart';
+import '../provider/favorite_provider.dart';
+import 'package:project/consultation/shop_page.dart';
 
 class MedanDoctorApp extends StatelessWidget {
   const MedanDoctorApp({super.key});

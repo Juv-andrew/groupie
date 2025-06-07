@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
-import 'package:project/consultation.dart';
+import 'package:project/consultation/consultation.dart';
 import 'package:project/fitness.dart';
 import 'package:project/health_food/healthy_food.dart';
-import 'package:project/self_awareness_page.dart';
+import 'package:project/mental_health/self_awareness_page.dart';
 import 'notification.dart';
 
 class MainMenuPage extends StatefulWidget {

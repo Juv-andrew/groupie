@@ -4,7 +4,7 @@ import 'package:project/editprofile.dart';
 import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'favorite.dart';
+import 'consultation/favorite.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

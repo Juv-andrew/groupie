@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project/provider/shop_provider.dart';
-import 'theme_provider.dart';
+import 'provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'onboarding.dart';
-import 'package:project/favorite_provider.dart'; 
+import 'package:project/provider/favorite_provider.dart'; 
 
 
 

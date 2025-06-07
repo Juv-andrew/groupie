@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'DoctorDetailPage.dart';
-import 'favorite_provider.dart';
+import '../provider/favorite_provider.dart';
 
 
 class FavoriteDoctorsPage extends StatelessWidget {

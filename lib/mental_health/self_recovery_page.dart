@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:project/JournalingPage.dart';
-import 'package:project/QuotesPage.dart';
+import 'package:project/mental_health/JournalingPage.dart';
+import 'package:project/mental_health/QuotesPage.dart';
 import 'package:project/main_page.dart';
 // import 'package:project/notification.dart';
 import 'package:project/artikel.dart';
 import 'package:project/ProfilPage.dart';
-import 'package:project/music.dart';
+import 'package:project/mental_health/music.dart';
 import 'package:project/notification.dart';
 
 class SelfRecoveryPage extends StatelessWidget {
