@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+
 import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
 import 'package:project/health_food/recipe_page.dart' show RecipePage;
 import 'package:project/health_food/top3_health.dart';
-import 'package:project/favorite_page.dart';
+import 'package:project/health_food/favorite_page.dart';
 import 'package:project/health_food/shop/shop_page.dart';
+
+import 'package:project/health_food/models/food.dart';
 
 class FoodMenuPage extends StatefulWidget {
   const FoodMenuPage({super.key});
@@ -16,227 +22,41 @@ class FoodMenuPage extends StatefulWidget {
 }
 
 class _FoodMenuPageState extends State<FoodMenuPage> {
-  final List<String> categories = [
-    'All',
-    'Appetizer',
-    'Main Course',
-    'Dessert',
-  ];
+  final List<String> categories = ['All', 'Appetizer', 'Main Course', 'Dessert'];
+
   String selectedCategory = 'All';
-  String searchQuery = ''; // Untuk pencarian
+  String searchQuery = '';
 
-  final List<Map<String, String>> foods = [
-    {
-      'title': 'Gado-gado',
-      'category': 'Appetizer',
-      'image': 'img-project/gado gado.jpeg',
-      'description': '''
-Gado-gado adalah salad khas Indonesia dengan bumbu kacang.
+  late Future<List<Food>> foodsFuture;
 
-Bahan-bahan:
-- 100g tauge
-- 50g bayam
-- 50g kol, iris halus
-- 1/2 buah timun, iris tipis
-- 100g tahu, goreng sebentar dan potong kotak
-- 100g tempe, goreng sebentar dan potong kotak
-- 1 butir telur rebus, potong dua
+  @override
+  void initState() {
+    super.initState();
+    foodsFuture = loadFoodsFromJson();
+  }
 
-Saus Kacang:
-- 50g kacang tanah, sangrai dan haluskan
-- 1 sdt air asam jawa
-- 1 siung bawang putih
-- 1/2 sdt garam
-- 1/2 sdt gula merah
-- 1/2 gelas air hangat
+  Future<List<Food>> loadFoodsFromJson() async {
+    final jsonString = await rootBundle.loadString('assets/food.json');
+    final List<dynamic> jsonData = json.decode(jsonString);
+    return jsonData.map((json) => Food.fromJson(json)).toList();
+  }
 
-Cara Membuat:
-1. Rebus semua sayuran hingga matang, tiriskan.
-2. Haluskan bahan saus kacang lalu tambahkan air hangat hingga konsistensi yang diinginkan.
-3. Susun sayuran, tahu, tempe, dan telur di piring, siram dengan saus kacang.
-''',
-      'rating': '4.5',
-    },
-    {
-      'title': 'Es buah with yogurt',
-      'category': 'Dessert',
-      'image': 'img-project/Es Buah yogurt.jpeg',
-      'description': '''
-Es buah dengan Yogurt merupakan dessert sehat yang enak dan segar  dimakan saat cuaca sedang panas.
-
-Bahan-bahan
-- 50g pepaya, potong dadu
-- 50g semangka, potong dadu
-- 50g nanas, potong dadu
-- 50g alpukat, potong dadu
-- 100ml yogurt plain tanpa gula
-- 1 sdt madu
-
-Cara Membuat
-1. Campurkan semua buah dalam mangkuk.
-2. Tuang yogurt di atasnya.
-3. Tambahkan madu, aduk rata.''',
-      'rating': '5',
-    },
-    {
-      'title': 'Sup jagung ayam',
-      'category': 'Appetizer',
-      'image': 'img-project/sup jagung ayam.jpg',
-      'description': '''
-Sup Jagung Ayam merupakan sup yang mudah di buat dan sangat sehat dan direkomendasikan untuk dimakan oleh anak-anak yang susah makan.
-
-Bahan
-- 100g dada ayam, suwir
-- 1 bonggol jagung, pipil
-- 1 buah wortel, potong dadu
-- 500ml air
-- 1 siung bawang putih, cincang
-- 1 batang daun bawang, iris
-- 1/2 sdt garam
-- 1/2 sdt lada
-
-Cara Membuat
-1. Rebus ayam hingga matang, angkat dan suwir.
-2. Tumis bawang putih hingga harum, masukkan jagung dan wortel.
-3. Tambahkan air, garam, dan lada, masak hingga sayuran lunak.
-4. Masukkan ayam suwir dan daun bawang, aduk rata, sajikan. ''',
-      'rating': '4.5',
-    },
-    {
-      'title': 'Pepes ikan kembung',
-      'category': 'Main Course',
-      'image': 'img-project/pepes ikan kembung.jpg',
-      'description': '''
-Pepes ikan kembung yang dikukus tanpa minyak , kaya akan omega-3
-
-Bahan
-- 1 ekor ikan kembung, bersihkan
-- 1 batang serai, memarkan
-- 2 lembar daun salam
-- 1 buah tomat, iris
-- 1/2 sdt garam
-- 1/2 sdt lada
-- 1 sdm air jeruk nipis
-
-Cara Membuat
-1. Lumuri ikan dengan garam, lada, dan air jeruk nipis, diamkan 15 menit.
-2. Bungkus dengan daun salam, serai, dan tomat.
-3. Kukus selama 30 menit hingga matang. ''',
-      'rating': '5',
-    },
-    {
-      'title': 'Kolak pisang dengan santan rendah lemak',
-      'category': 'Dessert',
-      'image': 'img-project/kolak pisang.jpeg',
-      'description': '''
-Kolak pisang dengan rendah lemak yang disarankan menggunakan santan encer agar lebih sehat.
-
-Bahan
-- 2 buah pisang kepok, potong serong
-- 200ml santan encer
-- 1 sdt gula merah
-- 1 lembar daun pandan
-
-Cara Membuat
-1. Rebus santan dengan gula merah dan pandan hingga mendidih.
-2. Masukkan pisang, masak 5 menit. ''',
-      'rating': '5',
-    },
-    {
-      'title': 'Perkedel tahu panggang',
-      'category': 'Appetizer',
-      'image': 'img-project/perkedel tahu panggang.jpg',
-      'description': '''
-Perkedel tahu panggang merupakan gorengan sehat yang terbuat dari tahu ini, sangat cocok dimakan bersama nasi.
-
-Bahan
-200g tahu putih, haluskan
-1 butir telur
-1 batang daun bawang, iris
-1/2 sdt garam
-1/2 sdt lada
-
-Cara Membuat
-Campur semua bahan hingga merata.
-Bentuk bulatan kecil, panggang di oven 180°C selama 20 menit.
-Sajikan hangat.''',
-      'rating': '4.5',
-    },
-    {
-      'title': 'Ikan kuah kuning (tanpa minyak)',
-      'category': 'Main Course',
-      'image': 'img-project/ikan kuah kuning.jpeg',
-      'description': '''
-Bahan
-- 1 ekor ikan kakap (200g)
-- 500ml air
-- 1 batang serai, geprek
-- 2 lembar daun jeruk
-- 1 buah tomat, potong
-- 1/2 sdt kunyit bubuk
-- 1/2 sdt garam
-- 1/2 sdt lada
-
-Cara Membuat
-1. Rebus semua bahan hingga ikan matang.
-2. Sajikan hangat dengan sayuran rebus.''',
-      'rating': '5',
-    },
-    {
-      'title': 'Sate Tempe Bakar',
-      'category': 'Main Course',
-      'image': 'img-project/sate tempe bakar.jpg',
-      'description': '''
-Bahan
-- 200g tempe, potong kotak
-- 1 sdm kecap manis
-- 1 sdt bawang putih bubuk
-- 1 sdt ketumbar bubuk
-- 1/2 sdt garam
-
-Cara Membuat
-1. Rendam tempe dengan bumbu selama 15 menit.
-2. Tusuk tempe, bakar hingga kecoklatan.''',
-      'rating': '3.9',
-    },
-    {
-      'title': 'Sup oyong telur',
-      'category': 'Main Course',
-      'image':
-          'img-project/sup-oyong-telur-puyuh-untuk-sarapan-ini-resepnya-05oNyycUoC.jpg',
-      'description': '''
-Bahan
-- 1 buah oyong, potong
-- 1 butir telur, kocok lepas
-- 500ml air
-- 1 siung bawang putih, cincang
-- 1 batang daun bawang, iris
-- 1/2 sdt garam
-- 1/2 sdt lada
-
-Cara Membuat
-1. Tumis bawang putih, tambahkan air.
-2. Masukkan oyong, masak hingga lunak.
-3. Masukkan telur, aduk cepat agar berserabut.
-4. Sajikan dengan daun bawang.''',
-      'rating': '4',
-    },
-  ];
-
-  List<Map<String, String>> get filteredFoods {
+  List<Food> filterFoods(List<Food> foods) {
     final query = searchQuery.trim().toLowerCase();
 
-    // Jika user sedang mencari sesuatu
+    List<Food> filtered = foods;
+
     if (query.isNotEmpty) {
-      return foods.where((food) {
-        return food['title']!.toLowerCase().contains(query);
-      }).toList();
+      filtered = filtered
+          .where((food) => food.title.toLowerCase().contains(query))
+          .toList();
+    } else if (selectedCategory != 'All') {
+      filtered = filtered
+          .where((food) => food.category == selectedCategory)
+          .toList();
     }
 
-    // Jika tidak ada pencarian, filter berdasarkan kategori
-    return selectedCategory == 'All'
-        ? foods
-        : foods.where((food) => food['category'] == selectedCategory).toList();
+    return filtered;
   }
 
   @override
@@ -253,30 +73,19 @@ Cara Membuat
         actions: [
           IconButton(
             icon: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ShopPage()),
-              );
-            },
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const ShopPage())),
           ),
           IconButton(
             icon: const Icon(Icons.person_outline, color: Colors.black),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
-              );
-            },
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const ProfilePage())),
           ),
           Builder(
-            builder:
-                (context) => IconButton(
-                  icon: const Icon(Icons.menu, color: Colors.black),
-                  onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
-                  },
-                ),
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu, color: Colors.black),
+              onPressed: () => Scaffold.of(context).openEndDrawer(),
+            ),
           ),
         ],
       ),
@@ -284,275 +93,315 @@ Cara Membuat
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(color: Color(0xFFB9F6CA)),
-              child: const Text(
-                'Menu',
-                style: TextStyle(fontSize: 24, color: Colors.black),
-              ),
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Color(0xFFB9F6CA)),
+              child: Text('Menu', style: TextStyle(fontSize: 24, color: Colors.black)),
             ),
             ListTile(
               leading: const Icon(Icons.favorite),
               title: const Text('Favorite'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const FavoriteRecipesDrawer(),
-                  ),
-                );
-              },
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const FavoriteRecipesDrawer()),
+              ),
             ),
             ListTile(
               leading: const Icon(Icons.article),
               title: const Text('Artikel'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ArticlePage()),
-                );
-              },
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const ArticlePage()),
+              ),
             ),
             ListTile(
               leading: const Icon(Icons.notifications),
               title: const Text('Notifikasi'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const NotificationsPage(),
-                  ),
-                );
-              },
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const NotificationsPage()),
+              ),
             ),
           ],
         ),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Tasty & Healthy\nMenu for Today',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const Top3Health(),
-                              ),
-                            );
-                          },
-                          style: TextButton.styleFrom(
-                            backgroundColor: Colors.green[800],
-                            foregroundColor: Colors.white,
-                          ),
-                          child: const Text('more >'),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Image.asset('img-project/fruit.png', height: 200),
-                ],
-              ),
-            ),
-            const SizedBox(height: 10),
+        child: FutureBuilder<List<Food>>(
+          future: foodsFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error loading foods: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text('No foods found.'));
+            }
 
-            // Search Bar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.search),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: TextField(
-                        onChanged: (value) {
-                          setState(() {
-                            searchQuery = value;
-                            selectedCategory =
-                                'All'; // Optional: Reset kategori saat mencari
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Find Recipe Here...',
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
+            final filteredFoods = filterFoods(snapshot.data!);
 
-            // Categories
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: SizedBox(
-                height: 40,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    final category = categories[index];
-                    final isSelected = category == selectedCategory;
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: ChoiceChip(
-                        label: Text(category),
-                        selected: isSelected,
-                        selectedColor: Colors.green[800],
-                        backgroundColor: Colors.white,
-                        labelStyle: TextStyle(
-                          color: isSelected ? Colors.white : Colors.black,
-                        ),
-                        onSelected: (_) {
-                          setState(() {
-                            selectedCategory = category;
-                          });
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-
-            // Grid of food
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: GridView.builder(
-                  itemCount: filteredFoods.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 15,
-                    childAspectRatio: 3 / 4,
-                  ),
-                  itemBuilder: (context, index) {
-                    final food = filteredFoods[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                                (_) => RecipePage(
-                                  title: food['title']!,
-                                  image: food['image']!,
-                                  description: food['description'] ?? '',
-                                  rating: food['rating'] ?? '0.0',
-                                ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Stack(
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Positioned(
-                              top: 8,
-                              right: 8,
-                              child: Icon(Icons.chevron_right),
+                            const Text(
+                              'Tasty & Healthy',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
                             ),
-                            Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Image.asset(
-                                      food['image']!,
-                                      height: 100,
-                                      width: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    food['title']!,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                            const SizedBox(height: 6),
+                            const Text(
+                              'Menu for Today',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => const Top3Health()),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green[800],
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              child: const Text(
+                                'Explore More',
+                                style: TextStyle(fontSize: 16, color: Colors.white),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    );
-                  },
+                      const SizedBox(width: 10),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          'img-project/fruit.png',
+                          height: 160,
+                          width: 140,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ],
+                const SizedBox(height: 10),
+
+                // Search Bar
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.green.withOpacity(0.2),
+                          blurRadius: 6,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.search, color: Colors.green),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                searchQuery = value;
+                                selectedCategory = 'All';
+                              });
+                            },
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Find Recipe Here...',
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+
+                // Categories
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: SizedBox(
+                    height: 45,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categories.length,
+                      itemBuilder: (context, index) {
+                        final category = categories[index];
+                        final isSelected = category == selectedCategory;
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 12),
+                          child: ChoiceChip(
+                            label: Text(
+                              category,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                              ),
+                            ),
+                            selected: isSelected,
+                            selectedColor: Colors.green[800],
+                            backgroundColor: Colors.white,
+                            labelStyle: TextStyle(
+                              color: isSelected ? Colors.white : Colors.black87,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            onSelected: (_) {
+                              setState(() {
+                                selectedCategory = category;
+                              });
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+
+                // Grid of food
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: GridView.builder(
+                      itemCount: filteredFoods.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 20,
+                        crossAxisSpacing: 20,
+                        childAspectRatio: 0.75,
+                      ),
+                      itemBuilder: (context, index) {
+                        final food = filteredFoods[index];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => RecipePage(
+                                  title: food.title,
+                                  image: food.image,
+                                  description: food.description,
+                                  rating: food.rating,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.green.withOpacity(0.2),
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                  ),
+                                  child: Image.asset(
+                                    food.image,
+                                    height: 140,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                                  child: Text(
+                                    food.title,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFF1B5E20),
         selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white,
-        currentIndex: 0,
+        unselectedItemColor: Colors.white70,
+        currentIndex: 2,
         onTap: (index) {
           switch (index) {
             case 0:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const MainMenuPage()),
+                MaterialPageRoute(builder: (_) => const MainMenuPage()),
               );
               break;
             case 1:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const NotificationsPage()),
+                MaterialPageRoute(builder: (_) => const NotificationsPage()),
               );
               break;
             case 2:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => ArticlePage()),
-              );
+              // Already here, do nothing or refresh
               break;
             case 3:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
+                MaterialPageRoute(builder: (_) => const ProfilePage()),
               );
               break;
           }
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifikasi'),
+          BottomNavigationBarItem(icon: Icon(Icons.food_bank), label: 'Makanan'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),

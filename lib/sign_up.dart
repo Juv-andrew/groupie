@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'sign_in.dart';
+import '/sign_in.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
