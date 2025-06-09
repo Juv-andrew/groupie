@@ -73,41 +73,34 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFB9F6CA),
-      body: Stack(
-        children: [
-          // Top part with icon and title
-          Positioned(
-            top: 60,
-            left: 0,
-            right: 0,
-            child: Column(
-              children: [
-                // Replace Icon with Image
-                Image.asset(
-                  'img-project/logo.png', // Path to your image
-                  width: 200,  // Adjust the size as needed
-                  height: 200, // Adjust the size as needed
-                ),
-                const SizedBox(height: 12),
-                const Text(
-                  'Lively',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Top part with icon and title
+            Container(
+              padding: const EdgeInsets.only(top: 60),
+              child: Column(
+                children: [
+                  Image.asset(
+                    'img-project/logo.png', // Path to your image
+                    width: 200,  // Adjust the size as needed
+                    height: 200, // Adjust the size as needed
                   ),
-                ),
-              ],
+                  const SizedBox(height: 12),
+                  const Text(
+                    'Lively',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
 
-          // Main content with input fields and button
-          Positioned(
-            top: 350,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
+            // Main content with input fields and button
+            Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -178,8 +171,8 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
