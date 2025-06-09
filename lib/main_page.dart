@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/onboarding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
@@ -34,9 +35,10 @@ class _MainMenuPageState extends State<MainMenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).brightness == Brightness.dark
-          ? Colors.black
-          : const Color(0xFFDFFFE1),
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : const Color(0xFFDFFFE1),
 
       // ✅ Drawer
       drawer: Drawer(
@@ -47,7 +49,11 @@ class _MainMenuPageState extends State<MainMenuPage> {
               decoration: const BoxDecoration(color: Color(0xFFB9F6CA)),
               child: Row(
                 children: [
-                  const Icon(Icons.account_circle, size: 48, color: Colors.black),
+                  const Icon(
+                    Icons.account_circle,
+                    size: 48,
+                    color: Colors.black,
+                  ),
                   const SizedBox(width: 12),
                   Text(
                     userName,
@@ -81,9 +87,36 @@ class _MainMenuPageState extends State<MainMenuPage> {
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
               onTap: () async {
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.clear();
-                Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
+                bool? confirmLogout = await showDialog<bool>(
+                  context: context,
+                  builder:
+                      (context) => AlertDialog(
+                        title: const Text('Konfirmasi Logout'),
+                        content: const Text('Apakah Anda yakin ingin keluar?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, false),
+                            child: const Text('Batal'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, true),
+                            child: const Text('Ya, Keluar'),
+                          ),
+                        ],
+                      ),
+                );
+
+                if (confirmLogout == true) {
+                  final prefs = await SharedPreferences.getInstance();
+                  await prefs.clear();
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OnboardingScreen(),
+                    ),
+                    (route) => false,
+                  );
+                }
               },
             ),
           ],
@@ -107,18 +140,46 @@ class _MainMenuPageState extends State<MainMenuPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              _buildMenuCard('Fitness', 'img-project/fitness.jpeg', onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => FitnessHomePage()));
-              }),
-              _buildMenuCard('Healthy Food', 'img-project/healthy food.jpeg', onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const FoodMenuPage()));
-              }),
-              _buildMenuCard('Mental Health', 'img-project/mental health.jpeg', onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => SelfAwarenessPage()));
-              }),
-              _buildMenuCard('Consultation', 'img-project/consultation-1.jpeg', onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => KonsultasiPage()));
-              }),
+              _buildMenuCard(
+                'Fitness',
+                'img-project/fitness.jpeg',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => FitnessHomePage()),
+                  );
+                },
+              ),
+              _buildMenuCard(
+                'Healthy Food',
+                'img-project/healthy food.jpeg',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const FoodMenuPage()),
+                  );
+                },
+              ),
+              _buildMenuCard(
+                'Mental Health',
+                'img-project/mental health.jpeg',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => SelfAwarenessPage()),
+                  );
+                },
+              ),
+              _buildMenuCard(
+                'Consultation',
+                'img-project/consultation-1.jpeg',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => KonsultasiPage()),
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -134,16 +195,28 @@ class _MainMenuPageState extends State<MainMenuPage> {
         onTap: (index) {
           switch (index) {
             case 0:
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const MainMenuPage()));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => const MainMenuPage()),
+              );
               break;
             case 1:
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const NotificationsPage()));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => const NotificationsPage()),
+              );
               break;
             case 2:
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => ArticlePage()));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => ArticlePage()),
+              );
               break;
             case 3:
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const ProfilePage()));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => const ProfilePage()),
+              );
               break;
           }
         },
@@ -165,7 +238,9 @@ class _MainMenuPageState extends State<MainMenuPage> {
       child: GestureDetector(
         onTap: onTap,
         child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
           clipBehavior: Clip.antiAlias,
           child: Stack(
             alignment: Alignment.center,

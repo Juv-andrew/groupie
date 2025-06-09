@@ -3,6 +3,7 @@ import 'package:project/artikel.dart';
 import 'package:project/editprofile.dart';
 import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
+import 'package:project/onboarding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'consultation/favorite.dart';
 
@@ -221,11 +222,45 @@ class _ProfilePageState extends State<ProfilePage> {
         leading: Icon(icon, color: Colors.blue),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
         trailing: const Icon(Icons.chevron_right),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => FavoriteDoctorsPage()),
-          );
+        onTap: () async {
+          if (title == 'Logout') {
+            // Tampilkan dialog konfirmasi logout
+            bool? confirm = await showDialog<bool>(
+              context: context,
+              builder:
+                  (context) => AlertDialog(
+                    title: const Text('Konfirmasi Logout'),
+                    content: const Text('Apakah Anda yakin ingin keluar?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        child: const Text('Batal'),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, true),
+                        child: const Text('Ya, Keluar'),
+                      ),
+                    ],
+                  ),
+            );
+
+            if (confirm == true) {
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.clear();
+
+              // Navigasi ke halaman login atau main
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+                (route) => false,
+              );
+            }
+          } else if (title == 'Favorites') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => FavoriteDoctorsPage()),
+            );
+          }
         },
       ),
     );
