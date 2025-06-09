@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MusicPage extends StatefulWidget {
   const MusicPage({super.key});
@@ -21,20 +22,40 @@ class _MusicPageState extends State<MusicPage> {
     'Fix You',
   ];
   List<String> filteredSongs = [];
+  List<String> searchHistory = [];
 
   @override
   void initState() {
     super.initState();
-    filteredSongs = allSongs;
-    _searchController.addListener(_filterSongs);
+    _loadSearchHistory();
+    filteredSongs = List.from(allSongs); // <-- tambahkan baris ini
   }
 
-  void _filterSongs() {
-    final query = _searchController.text.toLowerCase();
+  Future<void> _loadSearchHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      searchHistory = prefs.getStringList('searchHistory') ?? [];
+    });
+  }
+
+  Future<void> _saveSearchHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('searchHistory', searchHistory);
+  }
+
+  void _filterSongs(String query) {
+    final lowerQuery = query.toLowerCase();
     setState(() {
       filteredSongs =
-          allSongs.where((song) => song.toLowerCase().contains(query)).toList();
+          allSongs
+              .where((song) => song.toLowerCase().contains(lowerQuery))
+              .toList();
     });
+
+    if (lowerQuery.isNotEmpty && !searchHistory.contains(lowerQuery)) {
+      searchHistory.add(lowerQuery);
+      _saveSearchHistory(); // Simpan history hanya saat enter
+    }
   }
 
   @override
@@ -86,31 +107,84 @@ class _MusicPageState extends State<MusicPage> {
                   borderSide: BorderSide.none,
                 ),
               ),
+              onSubmitted: (value) {
+                _filterSongs(value); // hanya simpan ke history saat tekan Enter
+              },
+              onChanged: (value) {
+                setState(() {
+                  filteredSongs =
+                      allSongs
+                          .where(
+                            (song) => song.toLowerCase().contains(
+                              value.toLowerCase(),
+                            ),
+                          )
+                          .toList();
+                });
+              },
             ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: ListView.builder(
-                itemCount: filteredSongs.length,
+            const SizedBox(height: 8),
+            if (_searchController.text.isEmpty && searchHistory.isNotEmpty)
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: searchHistory.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.music_note,
-                        color: Colors.blueAccent,
-                      ),
-                      title: Text(filteredSongs[index]),
-                      trailing: const Icon(Icons.play_arrow),
-                      onTap: () {
-                      
+                  return ListTile(
+                    title: Text(searchHistory[index]),
+                    leading: const Icon(Icons.history, color: Colors.grey),
+                    onTap: () {
+                      _searchController.text = searchHistory[index];
+                      _filterSongs(searchHistory[index]);
+                    },
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () {
+                        setState(() {
+                          searchHistory.removeAt(index);
+                        });
+                        _saveSearchHistory();
                       },
                     ),
                   );
                 },
               ),
+            const SizedBox(height: 8),
+            Expanded(
+              child:
+                  filteredSongs.isNotEmpty
+                      ? ListView.builder(
+                        itemCount: filteredSongs.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            margin: const EdgeInsets.only(bottom: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: ListTile(
+                              leading: const Icon(
+                                Icons.music_note,
+                                color: Colors.blueAccent,
+                              ),
+                              title: Text(filteredSongs[index]),
+                              trailing: const Icon(Icons.play_arrow),
+                              onTap: () {
+                                // Tambahkan aksi untuk memainkan lagu
+                              },
+                            ),
+                          );
+                        },
+                      )
+                      : Center(
+                        child: Text(
+                          _searchController.text.isEmpty
+                              ? 'Cari lagu favorit Anda.'
+                              : 'Tidak ada hasil ditemukan.',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ),
             ),
           ],
         ),
