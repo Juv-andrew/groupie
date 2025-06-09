@@ -284,8 +284,8 @@ class CartPage extends StatelessWidget {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.pop(context); // Tutup dialog
-                                      onOrderComplete(); // Kosongkan keranjang
+                                      Navigator.pop(context); 
+                                      onOrderComplete(); 
                                       ScaffoldMessenger.of(
                                         context,
                                       ).showSnackBar(
@@ -298,7 +298,7 @@ class CartPage extends StatelessWidget {
                                       );
                                       Navigator.pop(
                                         context,
-                                      ); // Kembali ke ShopPage
+                                      ); 
                                     },
                                     child: const Text("Ya, Pesan"),
                                   ),

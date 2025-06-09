@@ -224,7 +224,6 @@ class _ProfilePageState extends State<ProfilePage> {
         trailing: const Icon(Icons.chevron_right),
         onTap: () async {
           if (title == 'Logout') {
-            // Tampilkan dialog konfirmasi logout
             bool? confirm = await showDialog<bool>(
               context: context,
               builder:
@@ -247,8 +246,6 @@ class _ProfilePageState extends State<ProfilePage> {
             if (confirm == true) {
               final prefs = await SharedPreferences.getInstance();
               await prefs.clear();
-
-              // Navigasi ke halaman login atau main
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const OnboardingScreen()),

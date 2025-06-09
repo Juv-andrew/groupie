@@ -10,83 +10,6 @@ import 'package:provider/provider.dart';
 import '../provider/favorite_provider.dart';
 import 'package:project/consultation/shop_page.dart';
 
-class MedanDoctorApp extends StatelessWidget {
-  const MedanDoctorApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: const Color(0xFFDFFFE1),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
-      ),
-      home: MainNavigation(),
-    );
-  }
-}
-
-class MainNavigation extends StatefulWidget {
-  @override
-  _MainNavigationState createState() => _MainNavigationState();
-}
-
-class _MainNavigationState extends State<MainNavigation> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _pages = [
-    KonsultasiPage(),
-    NotificationsPage(),
-    ArticlePage(),
-    ProfilePage(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor:
-            Theme.of(context).brightness == Brightness.dark
-                ? Colors.black
-                : const Color(0xFFDFFFE1),
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.blue,
-        selectedFontSize: 12,
-        unselectedFontSize: 12,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.mail_outline),
-            label: 'Inbox',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.article_outlined),
-            label: 'Article',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profil',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class KonsultasiPage extends StatefulWidget {
   const KonsultasiPage({super.key});
 
@@ -166,6 +89,55 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
     });
   }
 
+  void _showFilterDialog() {
+    showDialog(
+      context: context,
+      builder:
+          (context) => SimpleDialog(
+            title: Text('Pilih Spesialis'),
+            children: [
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.pop(context);
+                  _filterBySpecialist(null); // Tampilkan semua
+                },
+                child: Text('Semua'),
+              ),
+              ..._getSpecialistList().map((specialist) {
+                return SimpleDialogOption(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _filterBySpecialist(specialist);
+                  },
+                  child: Text(specialist),
+                );
+              }).toList(),
+            ],
+          ),
+    );
+  }
+
+  Set<String> _getSpecialistList() {
+    return doctorList.map((d) => d['specialist']!).toSet();
+  }
+
+  void _filterBySpecialist(String? specialist) {
+    setState(() {
+      if (specialist == null) {
+        filteredDoctors = doctorList;
+      } else {
+        filteredDoctors =
+            doctorList
+                .where(
+                  (doctor) =>
+                      doctor['specialist']!.toLowerCase() ==
+                      specialist.toLowerCase(),
+                )
+                .toList();
+      }
+    });
+  }
+
   @override
   void dispose() {
     _searchController.dispose();
@@ -198,7 +170,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
@@ -211,6 +183,14 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                   borderSide: BorderSide.none,
                 ),
               ),
+            ),
+          ),
+          TextButton.icon(
+            onPressed: _showFilterDialog,
+            icon: Icon(Icons.filter_list, color: Colors.green[900]),
+            label: Text(
+              "Filter Spesialis",
+              style: TextStyle(color: Colors.green[900]),
             ),
           ),
           Expanded(
@@ -321,7 +301,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
         backgroundColor: const Color(0xFF1B5E20),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
-        currentIndex: 0, // Sesuaikan ini jika kamu ingin aktifkan tab lain
+        currentIndex: 0,
         onTap: (index) {
           switch (index) {
             case 0:
