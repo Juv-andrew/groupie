@@ -220,7 +220,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
   Widget _buildMenuCard(String title, String imagePath, {VoidCallback? onTap}) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       child: GestureDetector(
         onTap: onTap,
         child: Card(
