@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-
 import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/main_page.dart';
@@ -11,7 +9,6 @@ import 'package:project/health_food/recipe_page.dart' show RecipePage;
 import 'package:project/health_food/top3_health.dart';
 import 'package:project/health_food/favorite_page.dart';
 import 'package:project/health_food/shop/shop_page.dart';
-
 import 'package:project/health_food/models/food.dart';
 
 class FoodMenuPage extends StatefulWidget {
@@ -22,7 +19,12 @@ class FoodMenuPage extends StatefulWidget {
 }
 
 class _FoodMenuPageState extends State<FoodMenuPage> {
-  final List<String> categories = ['All', 'Appetizer', 'Main Course', 'Dessert'];
+  final List<String> categories = [
+    'All',
+    'Appetizer',
+    'Main Course',
+    'Dessert',
+  ];
 
   String selectedCategory = 'All';
   String searchQuery = '';
@@ -47,13 +49,13 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
     List<Food> filtered = foods;
 
     if (query.isNotEmpty) {
-      filtered = filtered
-          .where((food) => food.title.toLowerCase().contains(query))
-          .toList();
+      filtered =
+          filtered
+              .where((food) => food.title.toLowerCase().contains(query))
+              .toList();
     } else if (selectedCategory != 'All') {
-      filtered = filtered
-          .where((food) => food.category == selectedCategory)
-          .toList();
+      filtered =
+          filtered.where((food) => food.category == selectedCategory).toList();
     }
 
     return filtered;
@@ -66,60 +68,73 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+        leading: Builder(
+          builder:
+              (context) => IconButton(
+                icon: const Icon(Icons.menu, color: Colors.black),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const ShopPage())),
+            onPressed:
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ShopPage()),
+                ),
           ),
           IconButton(
             icon: const Icon(Icons.person_outline, color: Colors.black),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const ProfilePage())),
-          ),
-          Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.menu, color: Colors.black),
-              onPressed: () => Scaffold.of(context).openEndDrawer(),
-            ),
+            onPressed:
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ProfilePage()),
+                ),
           ),
         ],
       ),
-      endDrawer: Drawer(
+      drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(color: Color(0xFFB9F6CA)),
-              child: Text('Menu', style: TextStyle(fontSize: 24, color: Colors.black)),
+              child: Text(
+                'Menu',
+                style: TextStyle(fontSize: 24, color: Colors.black),
+              ),
             ),
             ListTile(
               leading: const Icon(Icons.favorite),
               title: const Text('Favorite'),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const FavoriteRecipesDrawer()),
-              ),
+              onTap:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const FavoriteRecipesDrawer(),
+                    ),
+                  ),
             ),
             ListTile(
               leading: const Icon(Icons.article),
               title: const Text('Artikel'),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const ArticlePage()),
-              ),
+              onTap:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const ArticlePage()),
+                  ),
             ),
             ListTile(
               leading: const Icon(Icons.notifications),
               title: const Text('Notifikasi'),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const NotificationsPage()),
-              ),
+              onTap:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const NotificationsPage(),
+                    ),
+                  ),
             ),
           ],
         ),
@@ -131,7 +146,9 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('Error loading foods: ${snapshot.error}'));
+              return Center(
+                child: Text('Error loading foods: ${snapshot.error}'),
+              );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const Center(child: Text('No foods found.'));
             }
@@ -141,7 +158,10 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
             return Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
+                  ),
                   child: Row(
                     children: [
                       Expanded(
@@ -171,19 +191,26 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (_) => const Top3Health()),
+                                    builder: (_) => const Top3Health(),
+                                  ),
                                 );
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.green[800],
-                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 12,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
                               child: const Text(
                                 'Explore More',
-                                style: TextStyle(fontSize: 16, color: Colors.white),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ],
@@ -289,17 +316,19 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                 const SizedBox(height: 15),
 
                 // Grid of food
+                // Grid of food
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                            childAspectRatio: 0.75,
+                          ),
                       itemCount: filteredFoods.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 20,
-                        crossAxisSpacing: 20,
-                        childAspectRatio: 0.75,
-                      ),
                       itemBuilder: (context, index) {
                         final food = filteredFoods[index];
                         return GestureDetector(
@@ -307,52 +336,67 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => RecipePage(
-                                  title: food.title,
-                                  image: food.image,
-                                  description: food.description,
-                                  rating: food.rating,
-                                ),
+                                builder:
+                                    (_) => RecipePage(
+                                      title: food.title,
+                                      image: food.image,
+                                      description: food.description,
+                                      rating: food.rating.toString(),
+                                    ),
                               ),
                             );
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(16),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.green.withOpacity(0.2),
-                                  blurRadius: 6,
-                                  offset: const Offset(0, 3),
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 4),
                                 ),
                               ],
                             ),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                ClipRRect(
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20),
-                                  ),
-                                  child: Image.asset(
-                                    food.image,
-                                    height: 140,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
+                                const SizedBox(height: 12),
+                                Container(
+                                  height: 100,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: AssetImage(food.image),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                                  child: Text(
-                                    food.title,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                    textAlign: TextAlign.center,
+                                const SizedBox(height: 12),
+                                Text(
+                                  food.title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
                                   ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 6),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                      size: 16,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      '${food.rating.toStringAsFixed(1)}',
+                                      style: const TextStyle(fontSize: 14),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -400,8 +444,14 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifikasi'),
-          BottomNavigationBarItem(icon: Icon(Icons.food_bank), label: 'Makanan'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Notifikasi',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.food_bank),
+            label: 'Makanan',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),
