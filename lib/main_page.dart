@@ -82,6 +82,16 @@ class _MainMenuPageState extends State<MainMenuPage> {
                 );
               },
             ),
+            ListTile(
+        leading: const Icon(Icons.article),
+        title: const Text('Articles'),
+        onTap: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => ArticlePage()),
+          );
+        },
+      ),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.logout),
@@ -124,19 +134,38 @@ class _MainMenuPageState extends State<MainMenuPage> {
       ),
 
       // ✅ AppBar dengan hamburger
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFB9F6CA),
-        elevation: 0,
-        title: const Text(
-          "Main Menu",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+     appBar: AppBar(
+  backgroundColor: const Color(0xFFB9F6CA),
+  elevation: 0,
+  iconTheme: const IconThemeData(color: Colors.black),
+  title: Padding(
+    padding: const EdgeInsets.only(left: 20),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(
+          'img-project/logo.png', // Path to your logo image', 
+          height: 70,
+          width: 70,
         ),
-        iconTheme: const IconThemeData(color: Colors.black),
-      ),
+        const SizedBox(width: 2),
+        const Text(
+          "Groupie",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
 
       // ✅ Konten Menu Card
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -184,49 +213,6 @@ class _MainMenuPageState extends State<MainMenuPage> {
           ),
         ),
       ),
-
-      // ✅ Bottom Navigation Bar
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1B5E20),
-        selectedItemColor: const Color(0xFFB9F6CA),
-        unselectedItemColor: Colors.white,
-        currentIndex: 0,
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => const MainMenuPage()),
-              );
-              break;
-            case 1:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => const NotificationsPage()),
-              );
-              break;
-            case 2:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => ArticlePage()),
-              );
-              break;
-            case 3:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => const ProfilePage()),
-              );
-              break;
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-        ],
-      ),
     );
   }
 
@@ -234,7 +220,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
   Widget _buildMenuCard(String title, String imagePath, {VoidCallback? onTap}) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
       child: GestureDetector(
         onTap: onTap,
         child: Card(
@@ -247,7 +233,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
             children: [
               Image.asset(
                 imagePath,
-                height: 140,
+                height: 160,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
