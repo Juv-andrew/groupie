@@ -140,14 +140,14 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         title: const Text(
           'Home Workout',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 87, 77, 77),
+        backgroundColor: const Color(0xFFB9F6CA),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
@@ -168,10 +168,10 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                 controller: _searchController,
                 decoration: InputDecoration(
                   hintText: "Cari latihan...",
-                  prefixIcon: const Icon(Icons.search, color: Colors.white),
-                  hintStyle: const TextStyle(color: Colors.white54),
+                  prefixIcon: const Icon(Icons.search, color: Color.fromARGB(255, 0, 0, 0)),
+                  hintStyle: const TextStyle(color: Color.fromARGB(137, 65, 61, 61)),
                   filled: true,
-                  fillColor: Colors.grey[850],
+                  fillColor: const Color.fromARGB(255, 255, 255, 255),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -199,7 +199,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                           });
                         },
                         selectedColor: Colors.green,
-                        backgroundColor: Colors.grey.shade700,
+                        backgroundColor: const Color.fromARGB(255, 97, 97, 97),
                         labelStyle: TextStyle(
                           color: selected ? Colors.white : Colors.white70,
                           fontWeight: FontWeight.bold,
@@ -225,7 +225,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                       onTap: () => _showWorkoutDetail(workout),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade800.withOpacity(0.85),
+                          color: const Color(0xFFB9F6CA),
                           borderRadius: BorderRadius.circular(16),
                           boxShadow: [
                             BoxShadow(

@@ -39,17 +39,25 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.blue),
+          onPressed: () {
+            Navigator.pop(
+              context,
+            ); // This takes you back to the previous screen
+          },
+        ),
+        title: const Text(
+          'My Profile',
+          style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
         actions: const [
           Icon(Icons.person_outline, color: Colors.blue),
           SizedBox(width: 16),
           Icon(Icons.menu, color: Colors.blue),
           SizedBox(width: 16),
         ],
-        title: const Text(
-          'My Profile',
-          style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
       ),
       body: Column(
         children: [
@@ -248,7 +256,9 @@ class _ProfilePageState extends State<ProfilePage> {
               await prefs.clear();
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+                MaterialPageRoute(
+                  builder: (context) => const OnboardingScreen(),
+                ),
                 (route) => false,
               );
             }
