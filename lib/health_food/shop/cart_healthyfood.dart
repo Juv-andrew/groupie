@@ -15,7 +15,7 @@ class CartPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pop(); // Kembali ke halaman sebelumnya
+            Navigator.of(context).pop();
           },
         ),
       ),
@@ -36,10 +36,7 @@ class CartPage extends StatelessWidget {
                     final item = cartItems[index];
                     return Card(
                       elevation: 4,
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 16,
-                      ),
+                      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                       child: ListTile(
                         contentPadding: const EdgeInsets.all(12),
                         leading: Image.asset(
@@ -84,10 +81,7 @@ class CartPage extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   border: const Border(top: BorderSide(color: Colors.grey)),
@@ -99,17 +93,11 @@ class CartPage extends StatelessWidget {
                       children: [
                         const Text(
                           'Total:',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Rp ${provider.totalHarga()}',
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -122,21 +110,13 @@ class CartPage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 12),
                         ),
                         onPressed: () {
-                          // Menampilkan dialog pop-up untuk memilih metode pembayaran
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return PaymentDialog(
                                 totalHarga: provider.totalHarga(),
                                 onBayar: () {
-                                  // Hapus keranjang setelah bayar
                                   provider.checkout();
-                                  Navigator.of(context).pop();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Pembayaran Sukses!'),
-                                    ),
-                                  );
                                 },
                               );
                             },
@@ -144,10 +124,7 @@ class CartPage extends StatelessWidget {
                         },
                         child: const Text(
                           'Checkout',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -178,82 +155,103 @@ class PaymentDialog extends StatefulWidget {
 
 class _PaymentDialogState extends State<PaymentDialog> {
   String? _selectedPaymentMethod;
+  int _step = 1;
 
   @override
   Widget build(BuildContext context) {
+    final cartItems = Provider.of<ShopProvider>(context, listen: false).keranjang;
+
     return AlertDialog(
-      title: const Text('Pilih Metode Pembayaran'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          RadioListTile<String>(
-            title: const Text('Kartu Kredit'),
-            value: 'Kartu Kredit',
-            groupValue: _selectedPaymentMethod,
-            onChanged: (String? value) {
-              setState(() {
-                _selectedPaymentMethod = value;
-              });
-            },
-          ),
-          RadioListTile<String>(
-            title: const Text('E-Wallet'),
-            value: 'E-Wallet',
-            groupValue: _selectedPaymentMethod,
-            onChanged: (String? value) {
-              setState(() {
-                _selectedPaymentMethod = value;
-              });
-            },
-          ),
-          RadioListTile<String>(
-            title: const Text('Transfer Bank'),
-            value: 'Transfer Bank',
-            groupValue: _selectedPaymentMethod,
-            onChanged: (String? value) {
-              setState(() {
-                _selectedPaymentMethod = value;
-              });
-            },
-          ),
-          const SizedBox(height: 20),
-          Text(
-            'Total Harga: Rp ${widget.totalHarga}',
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Batal'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            if (_selectedPaymentMethod != null) {
-              widget.onBayar(); // Panggil fungsi bayar
-
-              // Menutup semua halaman yang ada dan kembali ke halaman utama
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => ShopPage()),
-                (route) => false, // Menghapus semua halaman sebelumnya
-              );
-              // Menampilkan snackbar untuk konfirmasi pembayaran berhasil
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Pembayaran Sukses!')),
-              );
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Pilih metode pembayaran')),
-              );
-            }
-          },
-
-          child: const Text('Bayar'),
-        ),
-      ],
+      title: Text(_step == 1 ? 'Pilih Metode Pembayaran' : 'Konfirmasi Pesanan'),
+      content: _step == 1
+          ? Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RadioListTile<String>(
+                  title: const Text('Kartu Kredit'),
+                  value: 'Kartu Kredit',
+                  groupValue: _selectedPaymentMethod,
+                  onChanged: (value) => setState(() => _selectedPaymentMethod = value),
+                ),
+                RadioListTile<String>(
+                  title: const Text('E-Wallet'),
+                  value: 'E-Wallet',
+                  groupValue: _selectedPaymentMethod,
+                  onChanged: (value) => setState(() => _selectedPaymentMethod = value),
+                ),
+                RadioListTile<String>(
+                  title: const Text('Transfer Bank'),
+                  value: 'Transfer Bank',
+                  groupValue: _selectedPaymentMethod,
+                  onChanged: (value) => setState(() => _selectedPaymentMethod = value),
+                ),
+              ],
+            )
+          : SizedBox(
+              width: double.maxFinite,
+              height: MediaQuery.of(context).size.height * 0.5, // batas tinggi scroll
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ...cartItems.map((item) => ListTile(
+                          title: Text(item.nama),
+                          subtitle: Text(
+                            '${item.jumlah} x Rp ${item.harga}',
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                          trailing: Text(
+                            'Rp ${item.jumlah * item.harga}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black87,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )),
+                    const Divider(thickness: 1),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'Total: Rp ${widget.totalHarga}',
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+      actions: _step == 1
+          ? [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Batal'),
+              ),
+              ElevatedButton(
+                onPressed: _selectedPaymentMethod == null
+                    ? null
+                    : () => setState(() => _step = 2),
+                child: const Text('Next'),
+              ),
+            ]
+          : [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Batal'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  widget.onBayar();
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => ShopPage()),
+                    (route) => false,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Pembayaran Sukses!')),
+                  );
+                },
+                child: const Text('Bayar'),
+              ),
+            ],
     );
   }
 }
