@@ -1,8 +1,37 @@
-import 'package:flutter/material.dart';
-import 'package:project/health_food/recipe_page.dart';
+import 'dart:convert';
+import 'dart:math';
 
-class Top3Health extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:project/health_food/recipe_page.dart';
+import 'package:project/health_food/models/food.dart'; // pastikan path sesuai
+
+class Top3Health extends StatefulWidget {
   const Top3Health({super.key});
+
+  @override
+  State<Top3Health> createState() => _Top3HealthState();
+}
+
+class _Top3HealthState extends State<Top3Health> {
+  List<Food> _top3Foods = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRandomTop3Foods();
+  }
+
+  Future<void> _loadRandomTop3Foods() async {
+    final String jsonString = await rootBundle.loadString('assets/food.json');
+    final List<dynamic> jsonList = json.decode(jsonString);
+    final List<Food> allFoods = jsonList.map((json) => Food.fromJson(json)).toList();
+
+    allFoods.shuffle(Random()); // Acak data
+    setState(() {
+      _top3Foods = allFoods.take(3).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,118 +59,66 @@ class Top3Health extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 8,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Row(
+      body: _top3Foods.isEmpty
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Text(
-                      'Today\'s Top 3 Healthy Menus!',
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF1B5E20),
-                      ),
+                  // Header
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 8,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Today\'s Top 3 Healthy Menus!',
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF1B5E20),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Image.asset(
+                          'img-project/fruit.png',
+                          height: 80,
+                          errorBuilder: (_, __, ___) =>
+                              const Icon(Icons.broken_image, size: 80),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Image.asset(
-                    'img-project/fruit.png',
-                    height: 80,
-                    errorBuilder: (_, __, ___) =>
-                        const Icon(Icons.broken_image, size: 80),
-                  ),
+                  const SizedBox(height: 20),
+
+                  // Menu Items
+                  for (var food in _top3Foods)
+                    buildMenuItem(
+                      context,
+                      imagePath: food.image,
+                      title: food.title,
+                      shortDescription: food.category,
+                      fullDescription: food.description,
+                      rating: food.rating.toString(),
+                    ),
+
+                  const SizedBox(height: 30),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-
-            // Menu Items
-            buildMenuItem(
-              context,
-              imagePath: 'img-project/Es buah yogurt.jpeg',
-              title: 'Es Buah with Yogurt',
-              shortDescription:
-                  'A fruity, refreshing dessert with mixed fruits and tangy yogurt.',
-              fullDescription: '''
-Kolak pisang dengan rendah lemak yang disarankan menggunakan santan encer agar lebih sehat.
-
-Bahan:
-- 2 buah pisang kepok, potong serong
-- 200ml santan encer
-- 1 sdt gula merah
-- 1 lembar daun pandan
-
-Cara Membuat:
-1. Rebus santan dengan gula merah dan pandan hingga mendidih.
-2. Masukkan pisang, masak 5 menit.''',
-              rating: '5',
-            ),
-            buildMenuItem(
-              context,
-              imagePath: 'img-project/pepes ikan kembung.jpg',
-              title: 'Pepes Ikan Kembung',
-              shortDescription:
-                  'A traditional dish of mackerel wrapped in banana leaves with spices.',
-              fullDescription: '''
-Pepes ikan kembung yang dikukus tanpa minyak, kaya akan omega-3.
-
-Bahan:
-- 1 ekor ikan kembung, bersihkan
-- 1 batang serai, memarkan
-- 2 lembar daun salam
-- 1 buah tomat, iris
-- 1/2 sdt garam
-- 1/2 sdt lada
-- 1 sdm air jeruk nipis
-
-Cara Membuat:
-1. Lumuri ikan dengan garam, lada, dan air jeruk nipis, diamkan 15 menit.
-2. Bungkus dengan daun salam, serai, dan tomat.
-3. Kukus selama 30 menit hingga matang.''',
-              rating: '5',
-            ),
-            buildMenuItem(
-              context,
-              imagePath: 'img-project/kolak pisang.jpeg',
-              title: 'Kolak Pisang',
-              shortDescription:
-                  'A sweet dessert of bananas in coconut milk and palm sugar.',
-              fullDescription: '''
-Kolak pisang dengan rendah lemak yang disarankan menggunakan santan encer agar lebih sehat.
-
-Bahan:
-- 2 buah pisang kepok, potong serong
-- 200ml santan encer
-- 1 sdt gula merah
-- 1 lembar daun pandan
-
-Cara Membuat:
-1. Rebus santan dengan gula merah dan pandan hingga mendidih.
-2. Masukkan pisang, masak 5 menit.''',
-              rating: '5',
-            ),
-            const SizedBox(height: 30),
-          ],
-        ),
-      ),
     );
   }
 

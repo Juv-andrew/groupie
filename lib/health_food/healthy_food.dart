@@ -178,7 +178,7 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                             ),
                             const SizedBox(height: 6),
                             const Text(
-                              'Menu for Today',
+                              'TOP Menu for Today',
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
@@ -325,7 +325,7 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                             crossAxisCount: 2,
                             crossAxisSpacing: 16,
                             mainAxisSpacing: 16,
-                            childAspectRatio: 0.75,
+                            childAspectRatio: 0.90,
                           ),
                       itemCount: filteredFoods.length,
                       itemBuilder: (context, index) {
@@ -452,14 +452,8 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifikasi',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.food_bank),
-            label: 'Makanan',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
+          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),
