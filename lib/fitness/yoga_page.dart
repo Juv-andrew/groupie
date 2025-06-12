@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/ProfilPage.dart';
 
 class YogaPage extends StatefulWidget {
   const YogaPage({super.key});
@@ -205,7 +206,7 @@ class _YogaPageState extends State<YogaPage> {
           children: [
             Icon(
               Icons.self_improvement, // icon yoga bawaan Flutter
-              color: Colors.white,
+              color: Colors.black,
             ),
             const SizedBox(width: 8),
             const Text(
@@ -213,30 +214,32 @@ class _YogaPageState extends State<YogaPage> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ],
         ),
-        backgroundColor: const Color.fromARGB(255, 4, 95, 42),
+        backgroundColor: const Color(0xFFB9F6CA),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.account_circle, color: Colors.white),
-            onPressed: () {
-              print("Profile ditekan");
-            },
+            icon: const Icon(Icons.account_circle, color: Colors.black),
+            onPressed:
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ProfilePage()),
+                ),
           ),
         ],
       ),
       body: Stack(
         children: [
-          Positioned.fill(
-            child: Image.asset('img-project/yoga_bg.jpg', fit: BoxFit.cover),
+          Container(
+            color: const Color.fromARGB(255, 255, 255, 255),
           ),
           Column(
             children: [

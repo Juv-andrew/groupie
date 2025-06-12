@@ -61,7 +61,7 @@ class _SignInState extends State<SignIn> {
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
         hintText: hint,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         filled: true,
         fillColor: Colors.white,
         border: const UnderlineInputBorder(),
@@ -121,7 +121,7 @@ class _SignInState extends State<SignIn> {
                       icon: Icons.lock,
                       controller: _passwordController,
                       obscure: true),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 4),
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
