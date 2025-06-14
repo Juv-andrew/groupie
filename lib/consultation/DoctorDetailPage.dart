@@ -22,7 +22,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
             Stack(
               children: [
                 Container(
-                  height: 240,
+                  height: 260,
                   width: double.infinity,
                   color: Colors.green[100],
                 ),
@@ -35,7 +35,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                   ),
                 ),
                 Positioned(
-                  top: 70,
+                  top: 80,
                   left: 0,
                   right: 0,
                   child: Column(
@@ -58,11 +58,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                         style: TextStyle(color: Colors.green[900]),
                       ),
                       const SizedBox(height: 6),
-                      const Icon(
-                        Icons.location_on_outlined,
-                        size: 16,
-                        color: Colors.grey,
-                      ),
+                      const Icon(Icons.location_on_outlined, size: 16, color: Colors.grey),
                       const Text(
                         "Medan, Indonesia",
                         style: TextStyle(color: Colors.grey),
@@ -73,6 +69,8 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
               ],
             ),
             const SizedBox(height: 16),
+
+            // Informasi Ringkas
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -81,12 +79,26 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                 infoCard("Rating", "4.5"),
               ],
             ),
-            section(
-              "Tentang Dokter",
-              "Dokter berpengalaman dalam bidang ${widget.doctor['specialist']}. Ramah, komunikatif, dan terpercaya.",
-            ),
+
+            const SizedBox(height: 16),
+            const Divider(thickness: 1, indent: 24, endIndent: 24),
+
+            // Tentang Dokter
+            section("Tentang Dokter", "Dokter berpengalaman dalam bidang ${widget.doctor['specialist']}. Ramah, komunikatif, dan terpercaya."),
+
+            const Divider(thickness: 1, indent: 24, endIndent: 24),
+
+            // Jam Praktik
             section("Jam Praktik", "Senin – Jumat: 07.00 – 16.30"),
+
+            const Divider(thickness: 1, indent: 24, endIndent: 24),
+
+            // Ulasan
             section("Ulasan", "⭐⭐⭐⭐☆ 4.5 (150+ reviews)"),
+
+            const SizedBox(height: 16),
+
+            // Tombol Booking
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
@@ -101,9 +113,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                   showModalBottomSheet(
                     context: context,
                     shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(24),
-                      ),
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
                     ),
                     backgroundColor: Colors.white,
                     isScrollControlled: true,
@@ -139,51 +149,29 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 16),
-                                Text(
-                                  "Nama Dokter: Dr. ${widget.doctor['name']}",
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                                Text(
-                                  "Spesialis: ${widget.doctor['specialist']}",
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                                Text(
-                                  "Rumah Sakit: ${widget.doctor['hospital']}",
-                                  style: const TextStyle(fontSize: 16),
-                                ),
+                                Text("Nama Dokter: Dr. ${widget.doctor['name']}", style: const TextStyle(fontSize: 16)),
+                                Text("Spesialis: ${widget.doctor['specialist']}", style: const TextStyle(fontSize: 16)),
+                                Text("Rumah Sakit: ${widget.doctor['hospital']}", style: const TextStyle(fontSize: 16)),
                                 const SizedBox(height: 12),
                                 const Text(
                                   "Pilih Hari:",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 8),
                                 Wrap(
                                   spacing: 8,
-                                  children:
-                                      [
-                                            'Senin',
-                                            'Selasa',
-                                            'Rabu',
-                                            'Kamis',
-                                            'Jumat',
-                                          ]
-                                          .map(
-                                            (day) => ChoiceChip(
-                                              label: Text(day),
-                                              selected: selectedDay == day,
-                                              selectedColor: Colors.green[200],
-                                              onSelected: (bool selected) {
-                                                setModalState(() {
-                                                  selectedDay =
-                                                      selected ? day : '';
-                                                });
-                                              },
-                                            ),
-                                          )
-                                          .toList(),
+                                  children: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'].map(
+                                    (day) => ChoiceChip(
+                                      label: Text(day),
+                                      selected: selectedDay == day,
+                                      selectedColor: Colors.green[200],
+                                      onSelected: (selected) {
+                                        setModalState(() {
+                                          selectedDay = selected ? day : '';
+                                        });
+                                      },
+                                    ),
+                                  ).toList(),
                                 ),
                                 const SizedBox(height: 16),
                                 ElevatedButton(
@@ -192,27 +180,19 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30),
                                     ),
-                                    minimumSize: const Size(
-                                      double.infinity,
-                                      50,
-                                    ),
+                                    minimumSize: const Size(double.infinity, 50),
                                   ),
-                                  onPressed:
-                                      selectedDay.isNotEmpty
-                                          ? () {
-                                            Navigator.pop(context);
-                                            ScaffoldMessenger.of(
-                                              context,
-                                            ).showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'Jadwal pada hari $selectedDay berhasil dikonfirmasi!',
-                                                ),
-                                                backgroundColor: Colors.green,
-                                              ),
-                                            );
-                                          }
-                                          : null,
+                                  onPressed: selectedDay.isNotEmpty
+                                      ? () {
+                                          Navigator.pop(context);
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: Text('Jadwal pada hari $selectedDay berhasil dikonfirmasi!'),
+                                              backgroundColor: Colors.green,
+                                            ),
+                                          );
+                                        }
+                                      : null,
                                   child: const Text(
                                     "Konfirmasi Jadwal",
                                     style: TextStyle(color: Colors.white),
@@ -272,11 +252,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: Colors.black,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black),
           ),
           const SizedBox(height: 6),
           Text(
