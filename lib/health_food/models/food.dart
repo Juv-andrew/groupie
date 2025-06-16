@@ -3,7 +3,7 @@ class Food {
   final String category;
   final String image;
   final String description;
-  final String rating;
+  final double rating;
 
   Food({
     required this.title,
@@ -19,7 +19,7 @@ class Food {
       category: json['category'],
       image: json['image'],
       description: json['description'],
-      rating: json['rating'],
+      rating: double.tryParse(json['rating'].toString()) ?? 0.0,
     );
   }
 }

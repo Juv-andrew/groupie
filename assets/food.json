@@ -10,28 +10,28 @@
     "title": "Es buah with yogurt",
     "category": "Dessert",
     "image": "img-project/Es Buah yogurt.jpeg",
-    "description": "Es buah dengan Yogurt merupakan dessert sehat yang enak dan segar dimakan saat cuaca sedang panas.\n\nBahan-bahan:\n- 50g pepaya, potong dadu\n- 50g semangka, potong dadu\n- 50g nanas, potong dadu\n- 50g alpukat, potong dadu\n- 100ml yogurt plain tanpa gula\n- 1 sdt madu\n\nCara Membuat:\n1. Campurkan semua buah dalam mangkuk.\n2. Tuang yogurt di atasnya.\n3. Tambahkan madu, aduk rata.",
+    "description": "Es buah dengan yogurt merupakan dessert sehat yang enak dan segar dimakan saat cuaca panas.\n\nBahan-bahan:\n- 50g pepaya, potong dadu\n- 50g semangka, potong dadu\n- 50g nanas, potong dadu\n- 50g alpukat, potong dadu\n- 100ml yogurt plain tanpa gula\n- 1 sdt madu\n\nCara Membuat:\n1. Campurkan semua buah dalam mangkuk besar.\n2. Tuang yogurt plain di atas buah.\n3. Tambahkan madu, aduk rata.\n4. Sajikan segera dalam keadaan dingin.",
     "rating": "5"
   },
   {
     "title": "Sup jagung ayam",
     "category": "Appetizer",
     "image": "img-project/sup jagung ayam.jpg",
-    "description": "Sup Jagung Ayam merupakan sup yang mudah dibuat dan sangat sehat serta direkomendasikan untuk anak-anak yang susah makan.\n\nBahan:\n- 100g dada ayam, suwir\n- 1 bonggol jagung, pipil\n- 1 buah wortel, potong dadu\n- 500ml air\n- 1 siung bawang putih, cincang\n- 1 batang daun bawang, iris\n- 1/2 sdt garam\n- 1/2 sdt lada\n\nCara Membuat:\n1. Rebus ayam hingga matang, angkat dan suwir.\n2. Tumis bawang putih hingga harum, masukkan jagung dan wortel.\n3. Tambahkan air, garam, dan lada, masak hingga sayuran lunak.\n4. Masukkan ayam suwir dan daun bawang, aduk rata, sajikan.",
+    "description": "Sup Jagung Ayam merupakan sup sehat dan mudah dibuat, cocok untuk anak-anak.\n\nBahan:\n- 100g dada ayam, rebus lalu suwir\n- 1 bonggol jagung, pipil\n- 1 buah wortel, potong dadu\n- 500ml air\n- 1 siung bawang putih, cincang\n- 1 batang daun bawang, iris\n- 1/2 sdt garam\n- 1/2 sdt lada\n\nCara Membuat:\n1. Rebus dada ayam hingga matang, tiriskan dan suwir kecil.\n2. Tumis bawang putih hingga harum.\n3. Masukkan jagung dan wortel, aduk rata.\n4. Tambahkan air, masak hingga sayuran empuk.\n5. Masukkan ayam suwir dan daun bawang, bumbui dengan garam dan lada.\n6. Masak 2–3 menit lagi, sajikan hangat.",
     "rating": "4.5"
   },
   {
     "title": "Pepes ikan kembung",
     "category": "Main Course",
     "image": "img-project/pepes ikan kembung.jpg",
-    "description": "Pepes ikan kembung yang dikukus tanpa minyak, kaya akan omega-3.\n\nBahan:\n- 1 ekor ikan kembung, bersihkan\n- 1 batang serai, memarkan\n- 2 lembar daun salam\n- 1 buah tomat, iris\n- 1/2 sdt garam\n- 1/2 sdt lada\n- 1 sdm air jeruk nipis\n\nCara Membuat:\n1. Lumuri ikan dengan garam, lada, dan air jeruk nipis, diamkan 15 menit.\n2. Bungkus dengan daun salam, serai, dan tomat.\n3. Kukus selama 30 menit hingga matang.",
+    "description": "Pepes ikan kembung tanpa minyak, kaya akan omega-3 dan sehat untuk jantung.\n\nBahan:\n- 1 ekor ikan kembung, bersihkan\n- 1 batang serai, memarkan\n- 2 lembar daun salam\n- 1 buah tomat, iris tipis\n- 1/2 sdt garam\n- 1/2 sdt lada\n- 1 sdm air jeruk nipis\n\nCara Membuat:\n1. Lumuri ikan dengan garam, lada, dan air jeruk nipis, diamkan 15 menit.\n2. Siapkan daun pisang, letakkan ikan bersama serai, daun salam, dan irisan tomat.\n3. Bungkus dan sematkan ujungnya.\n4. Kukus selama 30 menit hingga matang.\n5. Sajikan hangat.",
     "rating": "5"
   },
   {
     "title": "Kolak pisang dengan santan rendah lemak",
     "category": "Dessert",
     "image": "img-project/kolak pisang.jpeg",
-    "description": "Kolak pisang rendah lemak, disarankan menggunakan santan encer agar lebih sehat.\n\nBahan:\n- 2 buah pisang kepok, potong serong\n- 200ml santan encer\n- 1 sdt gula merah\n- 1 lembar daun pandan\n\nCara Membuat:\n1. Rebus santan dengan gula merah dan pandan hingga mendidih.\n2. Masukkan pisang, masak 5 menit.",
+    "description": "Kolak pisang rendah lemak dengan santan encer, cocok sebagai takjil sehat.\n\nBahan:\n- 2 buah pisang kepok, potong serong\n- 200ml santan encer\n- 1 sdt gula merah\n- 1 lembar daun pandan\n\nCara Membuat:\n1. Rebus santan encer dengan gula merah dan daun pandan di atas api kecil, aduk terus agar santan tidak pecah.\n2. Setelah mendidih, masukkan potongan pisang.\n3. Masak selama 5–7 menit hingga pisang empuk.\n4. Sajikan hangat atau dingin.",
     "rating": "5"
   },
   {
@@ -45,21 +45,21 @@
     "title": "Ikan kuah kuning (tanpa minyak)",
     "category": "Main Course",
     "image": "img-project/ikan kuah kuning.jpeg",
-    "description": "Bahan:\n- 1 ekor ikan kakap (200g)\n- 500ml air\n- 1 batang serai, geprek\n- 2 lembar daun jeruk\n- 1 buah tomat, potong\n- 1/2 sdt kunyit bubuk\n- 1/2 sdt garam\n- 1/2 sdt lada\n\nCara Membuat:\n1. Rebus semua bahan hingga ikan matang.\n2. Sajikan hangat dengan sayuran rebus.",
+    "description": "Ikan kuah kuning kaya rempah ini tidak menggunakan minyak, cocok untuk pola makan sehat.\n\nBahan:\n- 1 ekor ikan kakap (200g)\n- 500ml air\n- 1 batang serai, geprek\n- 2 lembar daun jeruk\n- 1 buah tomat, potong\n- 1/2 sdt kunyit bubuk\n- 1/2 sdt garam\n- 1/2 sdt lada\n\nCara Membuat:\n1. Rebus air bersama serai, daun jeruk, dan tomat hingga mendidih.\n2. Masukkan ikan kakap, kunyit bubuk, garam, dan lada.\n3. Masak selama 15–20 menit hingga ikan matang dan bumbu meresap.\n4. Sajikan hangat.",
     "rating": "5"
   },
   {
     "title": "Sate Tempe Bakar",
     "category": "Main Course",
     "image": "img-project/sate tempe bakar.jpg",
-    "description": "Bahan:\n- 200g tempe, potong kotak\n- 1 sdm kecap manis\n- 1 sdt bawang putih bubuk\n- 1 sdt ketumbar bubuk\n- 1/2 sdt garam\n\nCara Membuat:\n1. Rendam tempe dengan bumbu selama 15 menit.\n2. Tusuk tempe, bakar hingga kecoklatan.",
+    "description": "Sate tempe tanpa minyak yang lezat dan kaya protein nabati.\n\nBahan:\n- 200g tempe, potong kotak\n- 1 sdm kecap manis\n- 1 sdt bawang putih bubuk\n- 1 sdt ketumbar bubuk\n- 1/2 sdt garam\n\nCara Membuat:\n1. Campur kecap, bawang putih bubuk, ketumbar bubuk, dan garam.\n2. Lumuri tempe dengan bumbu, diamkan 15 menit.\n3. Tusuk tempe menggunakan tusuk sate.\n4. Bakar di atas teflon atau alat panggang hingga kecoklatan di semua sisi.\n5. Sajikan dengan sambal atau lalapan.",
     "rating": "3.9"
   },
   {
     "title": "Sup oyong telur",
     "category": "Main Course",
     "image": "img-project/sup-oyong-telur-puyuh-untuk-sarapan-ini-resepnya-05oNyycUoC.jpg",
-    "description": "Bahan:\n- 1 buah oyong, potong\n- 1 butir telur, kocok lepas\n- 500ml air\n- 1 siung bawang putih, cincang\n- 1 batang daun bawang, iris\n- 1/2 sdt garam\n- 1/2 sdt lada\n\nCara Membuat:\n1. Tumis bawang putih, tambahkan air.\n2. Masukkan oyong, masak hingga lunak.\n3. Masukkan telur, aduk cepat agar berserabut.\n4. Sajikan dengan daun bawang.",
+   "description": "Sup oyong dengan telur ini ringan dan bergizi, cocok untuk sarapan atau makan malam.\n\nBahan:\n- 1 buah oyong, kupas dan potong\n- 1 butir telur, kocok lepas\n- 500ml air\n- 1 siung bawang putih, cincang\n- 1 batang daun bawang, iris\n- 1/2 sdt garam\n- 1/2 sdt lada\n\nCara Membuat:\n1. Tumis bawang putih hingga harum.\n2. Tambahkan air, didihkan.\n3. Masukkan oyong, masak hingga setengah matang.\n4. Tuang telur kocok perlahan sambil diaduk cepat agar membentuk serabut.\n5. Tambahkan garam dan lada, aduk rata.\n6. Sajikan panas dengan taburan daun bawang.",
     "rating": "4"
   }
 ]

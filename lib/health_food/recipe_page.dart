@@ -74,7 +74,10 @@ class _RecipePageState extends State<RecipePage> {
                   Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.black.withOpacity(0.4), Colors.transparent],
+                        colors: [
+                          Colors.black.withOpacity(0.4),
+                          Colors.transparent,
+                        ],
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
                       ),
@@ -93,7 +96,9 @@ class _RecipePageState extends State<RecipePage> {
                             color: Colors.white,
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
-                            shadows: [Shadow(blurRadius: 4, color: Colors.black)],
+                            shadows: [
+                              Shadow(blurRadius: 4, color: Colors.black),
+                            ],
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -101,17 +106,32 @@ class _RecipePageState extends State<RecipePage> {
                           children: [
                             ...List.generate(5, (index) {
                               if (parsedRating >= index + 1) {
-                                return const Icon(Icons.star, color: Colors.amber, size: 20);
+                                return const Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                  size: 20,
+                                );
                               } else if (parsedRating > index) {
-                                return const Icon(Icons.star_half, color: Colors.amber, size: 20);
+                                return const Icon(
+                                  Icons.star_half,
+                                  color: Colors.amber,
+                                  size: 20,
+                                );
                               } else {
-                                return const Icon(Icons.star_border, color: Colors.amber, size: 20);
+                                return const Icon(
+                                  Icons.star_border,
+                                  color: Colors.amber,
+                                  size: 20,
+                                );
                               }
                             }),
                             const SizedBox(width: 8),
                             Text(
                               '${widget.rating} / 5',
-                              style: const TextStyle(color: Colors.white, fontSize: 16),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
                             ),
                           ],
                         ),
@@ -126,21 +146,40 @@ class _RecipePageState extends State<RecipePage> {
               onPressed: () => Navigator.pop(context),
             ),
             actions: [
-              IconButton(
-                icon: Icon(
-                  isFavorited ? Icons.favorite : Icons.favorite_border,
-                  color: Colors.pinkAccent,
-                ),
-                onPressed: _toggleFavorite,
-              ),
-              IconButton(
-                icon: const Icon(Icons.share, color: Colors.white),
-                onPressed: () {
-                  Share.share(
-                    'Cek resep ini: ${widget.title}\n\nRating: ${widget.rating}/5\n\n${widget.description}',
-                    subject: 'Resep: ${widget.title}',
-                  );
+              PopupMenuButton<String>(
+                icon: const Icon(Icons.more_vert, color: Colors.white),
+                onSelected: (value) {
+                  if (value == 'favorite') {
+                    _toggleFavorite();
+                  } else if (value == 'share') {
+                    Share.share(
+                      'Cek resep ini: ${widget.title}\n\nRating: ${widget.rating}/5\n\n${widget.description}',
+                      subject: 'Resep: ${widget.title}',
+                    );
+                  }
                 },
+                itemBuilder:
+                    (context) => [
+                      PopupMenuItem<String>(
+                        value: 'favorite',
+                        child: ListTile(
+                          leading: Icon(
+                            isFavorited
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: Colors.pinkAccent,
+                          ),
+                          title: const Text('Favorite'),
+                        ),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'share',
+                        child: ListTile(
+                          leading: Icon(Icons.share, color: Colors.black),
+                          title: Text('Share'),
+                        ),
+                      ),
+                    ],
               ),
             ],
           ),
@@ -210,10 +249,7 @@ class _RecipePageState extends State<RecipePage> {
         widgets.add(
           Padding(
             padding: const EdgeInsets.only(left: 12, bottom: 4),
-            child: Text(
-              line.trim(),
-              style: const TextStyle(fontSize: 16),
-            ),
+            child: Text(line.trim(), style: const TextStyle(fontSize: 16)),
           ),
         );
       } else if (line.trim().startsWith('-')) {
