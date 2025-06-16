@@ -324,7 +324,7 @@ drawer: Drawer(
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const MainMenuPage()),
-              );;
+              ); {}
             case 1:
               Navigator.pushReplacement(
                 context,
@@ -358,82 +358,89 @@ drawer: Drawer(
   }
 
   Widget latihanCard(
-    String nama,
-    String imageAsset,
-    String deskripsi,
-    BuildContext context,
-  ) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double imageHeight = screenWidth > 600 ? 150 : 120;
+  String nama,
+  String imageAsset,
+  String deskripsi,
+  BuildContext context,
+) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  double imageHeight = screenWidth > 600 ? 160 : 130;
 
-    return InkWell(
-      onTap: () {
-        if (nama.toLowerCase() == 'home workout') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const HomeWorkoutPage()),
-          );
-        } else if (nama.toLowerCase() == 'weight training') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const weight_training_page()),
-          );
-        } else if (nama.toLowerCase() == 'fat burn') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const FatBurnPage()),
-          );
-        } else if (nama.toLowerCase() == 'yoga') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const YogaPage()),
-          );
-        }
-      },
-      child: Card(
-        margin: const EdgeInsets.all(8),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        elevation: 4,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(12),
-              ),
-              child: Image.asset(
-                imageAsset,
-                height: imageHeight,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    nama,
-                    style: TextStyle(
-                      fontSize: screenWidth * 0.04,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    deskripsi,
-                    style: TextStyle(
-                      fontSize: screenWidth * 0.03,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+  return InkWell(
+    onTap: () {
+      if (nama.toLowerCase() == 'home workout') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const HomeWorkoutPage()),
+        );
+      } else if (nama.toLowerCase() == 'weight training') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const weight_training_page()),
+        );
+      } else if (nama.toLowerCase() == 'fat burn') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const FatBurnPage()),
+        );
+      } else if (nama.toLowerCase() == 'yoga') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const YogaPage()),
+        );
+      }
+    },
+    child: Container(
+      margin: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
-    );
-  }
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+            child: Image.asset(
+              imageAsset,
+              height: imageHeight,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  nama.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.045,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF222222),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  deskripsi,
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.035,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
 }
