@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'music_player_page.dart';
 
 class MusicPage extends StatefulWidget {
   const MusicPage({super.key});
@@ -10,25 +11,30 @@ class MusicPage extends StatefulWidget {
 
 class _MusicPageState extends State<MusicPage> {
   final TextEditingController _searchController = TextEditingController();
-  List<String> allSongs = [
-    'Let It Be',
-    'Shape of You',
-    'Bohemian Rhapsody',
-    'Stay With Me',
-    'Counting Stars',
-    'Someone Like You',
-    'Perfect',
-    'Photograph',
-    'Fix You',
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _urlController = TextEditingController();
+
+  List<Map<String, String>> allSongs = [
+    {'title': 'Let It Be', 'url': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'},
+    {'title': 'Shape of You', 'url': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'},
+    {'title': 'Bohemian Rhapsody', 'url': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'},
+    {'title': 'Imagine', 'url': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3'},
+    {'title': 'Perfect', 'url': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3'},
+    {'title': 'Yesterday', 'url': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3'},
+    {'title': 'Photograph', 'url': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3'},
+    {'title': 'Hey Jude', 'url': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3'},
+    {'title': 'Thinking Out Loud', 'url': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3'},
+    {'title': 'Hallelujah', 'url': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3'},
   ];
-  List<String> filteredSongs = [];
+
+  List<Map<String, String>> filteredSongs = [];
   List<String> searchHistory = [];
 
   @override
   void initState() {
     super.initState();
     _loadSearchHistory();
-    filteredSongs = List.from(allSongs); // <-- tambahkan baris ini
+    filteredSongs = List.from(allSongs);
   }
 
   Future<void> _loadSearchHistory() async {
@@ -46,21 +52,77 @@ class _MusicPageState extends State<MusicPage> {
   void _filterSongs(String query) {
     final lowerQuery = query.toLowerCase();
     setState(() {
-      filteredSongs =
-          allSongs
-              .where((song) => song.toLowerCase().contains(lowerQuery))
-              .toList();
+      filteredSongs = allSongs
+          .where(
+            (song) => song['title']!.toLowerCase().contains(lowerQuery),
+          )
+          .toList();
     });
 
-    if (lowerQuery.isNotEmpty && !searchHistory.contains(lowerQuery)) {
+    if (query.trim().isNotEmpty &&
+        !searchHistory.contains(lowerQuery)) {
       searchHistory.add(lowerQuery);
-      _saveSearchHistory(); // Simpan history hanya saat enter
+      _saveSearchHistory();
     }
+  }
+
+  void _addSong() {
+    final title = _titleController.text.trim();
+    final url = _urlController.text.trim();
+
+    if (title.isEmpty || url.isEmpty) return;
+
+    setState(() {
+      allSongs.add({'title': title, 'url': url});
+      filteredSongs = List.from(allSongs);
+      _titleController.clear();
+      _urlController.clear();
+    });
+
+    Navigator.pop(context);
+  }
+
+  void _showAddSongDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Tambah Lagu'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _titleController,
+              decoration: const InputDecoration(labelText: 'Judul Lagu'),
+            ),
+            TextField(
+              controller: _urlController,
+              decoration: const InputDecoration(labelText: 'URL Lagu'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _titleController.clear();
+              _urlController.clear();
+            },
+            child: const Text('Batal'),
+          ),
+          ElevatedButton(
+            onPressed: _addSong,
+            child: const Text('Simpan'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   void dispose() {
     _searchController.dispose();
+    _titleController.dispose();
+    _urlController.dispose();
     super.dispose();
   }
 
@@ -77,10 +139,10 @@ class _MusicPageState extends State<MusicPage> {
             Navigator.pop(context);
           },
         ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: Icon(Icons.person, color: Colors.black),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add, color: Colors.black),
+            onPressed: _showAddSongDialog,
           ),
         ],
       ),
@@ -107,19 +169,14 @@ class _MusicPageState extends State<MusicPage> {
                   borderSide: BorderSide.none,
                 ),
               ),
-              onSubmitted: (value) {
-                _filterSongs(value); // hanya simpan ke history saat tekan Enter
-              },
+              onSubmitted: _filterSongs, // ⬅️ hanya simpan saat tekan Enter
               onChanged: (value) {
                 setState(() {
-                  filteredSongs =
-                      allSongs
-                          .where(
-                            (song) => song.toLowerCase().contains(
-                              value.toLowerCase(),
-                            ),
-                          )
-                          .toList();
+                  filteredSongs = allSongs
+                      .where((song) => song['title']!
+                          .toLowerCase()
+                          .contains(value.toLowerCase()))
+                      .toList();
                 });
               },
             ),
@@ -150,41 +207,46 @@ class _MusicPageState extends State<MusicPage> {
               ),
             const SizedBox(height: 8),
             Expanded(
-              child:
-                  filteredSongs.isNotEmpty
-                      ? ListView.builder(
-                        itemCount: filteredSongs.length,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            margin: const EdgeInsets.only(bottom: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: ListTile(
-                              leading: const Icon(
-                                Icons.music_note,
-                                color: Colors.blueAccent,
-                              ),
-                              title: Text(filteredSongs[index]),
-                              trailing: const Icon(Icons.play_arrow),
-                              onTap: () {
-                                // Tambahkan aksi untuk memainkan lagu
-                              },
-                            ),
-                          );
-                        },
-                      )
-                      : Center(
-                        child: Text(
-                          _searchController.text.isEmpty
-                              ? 'Cari lagu favorit Anda.'
-                              : 'Tidak ada hasil ditemukan.',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.black54,
+              child: filteredSongs.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: filteredSongs.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          margin: const EdgeInsets.only(bottom: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
+                          child: ListTile(
+                            leading: const Icon(Icons.music_note,
+                                color: Colors.blueAccent),
+                            title: Text(filteredSongs[index]['title']!),
+                            trailing: const Icon(Icons.play_arrow),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MusicPlayerPage(
+                                    title: filteredSongs[index]['title']!,
+                                    url: filteredSongs[index]['url']!,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    )
+                  : Center(
+                      child: Text(
+                        _searchController.text.isEmpty
+                            ? 'Cari lagu favorit Anda.'
+                            : 'Tidak ada hasil ditemukan.',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black54,
                         ),
                       ),
+                    ),
             ),
           ],
         ),
