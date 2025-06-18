@@ -17,6 +17,7 @@ class _SignInState extends State<SignIn> {
   Future<void> _handleSignIn() async {
     final prefs = await SharedPreferences.getInstance();
     String? savedEmail = prefs.getString('email')?.trim();
+    String? savedUsername = prefs.getString('name')?.trim();
     String? savedPassword = prefs.getString('password');
     String? savedName = prefs.getString('name');
 
@@ -28,14 +29,14 @@ class _SignInState extends State<SignIn> {
       return;
     }
 
-    if (inputEmail == savedEmail && inputPassword == savedPassword) {
-      prefs.setString('name', savedName ?? 'User');
+    if ((inputEmail == savedEmail || inputEmail == savedName) &&
+        inputPassword == savedPassword) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const ProfilePage()),
       );
     } else {
-      _showSnackbar("Email atau password salah");
+      _showSnackbar("Email/Username atau password salah");
     }
   }
 
@@ -50,18 +51,26 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  Widget _buildTextField(
-      {required String hint,
-      required IconData icon,
-      required TextEditingController controller,
-      bool obscure = false}) {
+  Widget _buildTextField({
+    required String hint,
+    required IconData icon,
+    required TextEditingController controller,
+    bool obscure = false,
+    TextInputAction inputAction = TextInputAction.next,
+    void Function(String)? onSubmitted,
+  }) {
     return TextField(
       controller: controller,
       obscureText: obscure,
+      textInputAction: inputAction,
+      onSubmitted: onSubmitted,
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
         hintText: hint,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 30,
+        ),
         filled: true,
         fillColor: Colors.white,
         border: const UnderlineInputBorder(),
@@ -83,7 +92,7 @@ class _SignInState extends State<SignIn> {
                 children: [
                   Image.asset(
                     'img-project/logo.png', // Path to your image
-                    width: 200,  // Adjust the size as needed
+                    width: 200, // Adjust the size as needed
                     height: 200, // Adjust the size as needed
                   ),
                   const SizedBox(height: 12),
@@ -112,15 +121,20 @@ class _SignInState extends State<SignIn> {
               child: Column(
                 children: [
                   _buildTextField(
-                      hint: "enter your email",
-                      icon: Icons.email,
-                      controller: _emailController),
+                    hint: "enter your email or username",
+                    icon: Icons.email,
+                    controller: _emailController,
+                    inputAction: TextInputAction.next,
+                  ),
                   const SizedBox(height: 16),
                   _buildTextField(
-                      hint: "enter your password",
-                      icon: Icons.lock,
-                      controller: _passwordController,
-                      obscure: true),
+                    hint: "enter your password",
+                    icon: Icons.lock,
+                    controller: _passwordController,
+                    obscure: true,
+                    inputAction: TextInputAction.done,
+                    onSubmitted: (_) => _handleSignIn(),
+                  ),
                   const SizedBox(height: 4),
                   Align(
                     alignment: Alignment.centerRight,
@@ -140,7 +154,10 @@ class _SignInState extends State<SignIn> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFB9F6CA),
                       foregroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 16),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 80,
+                        vertical: 16,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                         side: const BorderSide(color: Colors.black),
@@ -163,11 +180,13 @@ class _SignInState extends State<SignIn> {
                         child: const Text(
                           "Register now",
                           style: TextStyle(
-                              color: Colors.blue, fontWeight: FontWeight.bold),
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

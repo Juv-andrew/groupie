@@ -13,7 +13,8 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   bool isEmailValid(String email) {
     return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
@@ -25,7 +26,10 @@ class _SignUpState extends State<SignUp> {
     String password = passwordController.text;
     String confirmPassword = confirmPasswordController.text;
 
-    if (name.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+    if (name.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
       _showSnackbar("Semua field harus diisi!");
       return;
     }
@@ -70,18 +74,26 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
-  Widget _buildTextField(
-      {required String hint,
-      required IconData icon,
-      required TextEditingController controller,
-      bool obscure = false}) {
+  Widget _buildTextField({
+    required String hint,
+    required IconData icon,
+    required TextEditingController controller,
+    bool obscure = false,
+    TextInputAction inputAction = TextInputAction.next,
+    void Function(String)? onSubmitted,
+  }) {
     return TextField(
       controller: controller,
       obscureText: obscure,
+      textInputAction: inputAction,
+      onSubmitted: onSubmitted,
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
         hintText: hint,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 16,
+        ),
         filled: true,
         fillColor: Colors.white,
         border: const UnderlineInputBorder(),
@@ -108,7 +120,7 @@ class _SignUpState extends State<SignUp> {
                 // Replace Icon with Image
                 Image.asset(
                   'img-project/logo.png', // Path to your image
-                  width: 200,  // Adjust the size as needed
+                  width: 200, // Adjust the size as needed
                   height: 200, // Adjust the size as needed
                 ),
                 const Text(
@@ -141,33 +153,42 @@ class _SignUpState extends State<SignUp> {
                 child: Column(
                   children: [
                     _buildTextField(
-                        hint: "enter your name",
-                        icon: Icons.person,
-                        controller: nameController),
+                      hint: "enter your name",
+                      icon: Icons.person,
+                      controller: nameController,
+                    ),
                     const SizedBox(height: 16),
                     _buildTextField(
-                        hint: "enter your email",
-                        icon: Icons.email,
-                        controller: emailController),
+                      hint: "enter your email",
+                      icon: Icons.email,
+                      controller: emailController,
+                    ),
                     const SizedBox(height: 16),
                     _buildTextField(
-                        hint: "enter your password",
-                        icon: Icons.lock,
-                        controller: passwordController,
-                        obscure: true),
+                      hint: "enter your password",
+                      icon: Icons.lock,
+                      controller: passwordController,
+                      obscure: true,
+                    ),
                     const SizedBox(height: 16),
                     _buildTextField(
-                        hint: "confirm your password",
-                        icon: Icons.lock_outline,
-                        controller: confirmPasswordController,
-                        obscure: true),
+                      hint: "confirm your password",
+                      icon: Icons.lock_outline,
+                      controller: confirmPasswordController,
+                      obscure: true,
+                      inputAction: TextInputAction.done,
+                      onSubmitted: (_) => _handleSignUp(),
+                    ),
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: _handleSignUp,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFB9F6CA),
                         foregroundColor: Colors.black,
-                        padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 16),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 80,
+                          vertical: 16,
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                           side: const BorderSide(color: Colors.black),
@@ -190,12 +211,13 @@ class _SignUpState extends State<SignUp> {
                           child: const Text(
                             "Login",
                             style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
