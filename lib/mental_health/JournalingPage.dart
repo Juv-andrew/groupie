@@ -18,6 +18,13 @@ class _JournalingPageState extends State<JournalingPage> {
     _loadJournalEntries();
   }
 
+  void _deleteJournalEntry(int index) {
+    setState(() {
+      _journalEntries.removeAt(index);
+    });
+    _saveJournalEntries();
+  }
+
   Future<void> _loadJournalEntries() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -107,12 +114,28 @@ class _JournalingPageState extends State<JournalingPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       elevation: 5,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          _journalEntries[index],
-                          style: const TextStyle(fontSize: 14),
-                        ),
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              _journalEntries[index],
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 4,
+                            right: 4,
+                            child: IconButton(
+                              icon: const Icon(
+                                Icons.delete,
+                                size: 20,
+                                color: Colors.red,
+                              ),
+                              onPressed: () => _deleteJournalEntry(index),
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   },
