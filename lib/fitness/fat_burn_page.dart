@@ -5,7 +5,6 @@ class FatBurnPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Data workout
     final List<Map<String, String>> workouts = [
       {
         "name": "Jumping Jacks",
@@ -34,7 +33,7 @@ class FatBurnPage extends StatelessWidget {
         ),
       ),
       body: Container(
-        color: Colors.white, 
+        color: Colors.white,
         child: ListView.builder(
           padding: const EdgeInsets.all(12),
           itemCount: workouts.length,
@@ -43,39 +42,39 @@ class FatBurnPage extends StatelessWidget {
             final name = workout["name"] ?? "Tanpa Nama";
             final description = workout["description"] ?? "Tidak ada deskripsi.";
 
-            return GestureDetector(
-              onTap: () {
-                // Tampilkan deskripsi saat card diklik
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text(name),
-                    content: Text(description),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text("Tutup"),
-                      ),
-                    ],
+            return Card(
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              margin: const EdgeInsets.only(bottom: 12),
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(12),
+                leading: Icon(Icons.fitness_center, color: Colors.green.shade700),
+                title: Text(
+                  name,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
-                );
-              },
-              child: Card(
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
                 ),
-                margin: const EdgeInsets.only(bottom: 12),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Text(
-                    name,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                subtitle: Text(description),
+                trailing: Icon(Icons.chevron_right),
+                onTap: () {
+                  // Dialog deskripsi detail saat diklik
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(name),
+                      content: Text(description),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text("Tutup"),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             );
           },
