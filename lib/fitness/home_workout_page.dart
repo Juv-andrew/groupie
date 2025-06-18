@@ -162,107 +162,107 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
         ),
       ),
       body: Padding(
-  padding: const EdgeInsets.all(16),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      TextField(
-        controller: _searchController,
-        decoration: InputDecoration(
-          hintText: "Cari latihan...",
-          prefixIcon: const Icon(Icons.search, color: Colors.black),
-          hintStyle: const TextStyle(color: Colors.black54),
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.grey),
-          ),
-        ),
-        style: const TextStyle(color: Colors.black),
-        onChanged: (_) => setState(() {}),
-      ),
-      const SizedBox(height: 12),
-      SizedBox(
-        height: 40,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: (context, index) {
-            final category = categories[index];
-            final selected = _selectedCategory == category;
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6),
-              child: ChoiceChip(
-                label: Text(category),
-                selected: selected,
-                onSelected: (_) {
-                  setState(() {
-                    _selectedCategory = category;
-                  });
-                },
-                selectedColor: Colors.green,
-                backgroundColor: Colors.black,
-                labelStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: "Cari latihan...",
+                prefixIcon: const Icon(Icons.search, color: Colors.black),
+                hintStyle: const TextStyle(color: Colors.black54),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Colors.grey),
                 ),
               ),
-            );
-          },
-        ),
-      ),
-      const SizedBox(height: 16),
-      Expanded(
-        child: GridView.builder(
-          itemCount: filteredWorkouts.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.85,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-          ),
-          itemBuilder: (context, index) {
-            final workout = filteredWorkouts[index];
-            return GestureDetector(
-              onTap: () => _showWorkoutDetail(workout),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        workout["image"]!,
-                        fit: BoxFit.cover,
-                        height: 150,
-                        width: double.infinity,
+              style: const TextStyle(color: Colors.black),
+              onChanged: (_) => setState(() {}),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 40,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  final category = categories[index];
+                  final selected = _selectedCategory == category;
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    child: ChoiceChip(
+                      label: Text(category),
+                      selected: selected,
+                      onSelected: (_) {
+                        setState(() {
+                          _selectedCategory = category;
+                        });
+                      },
+                      selectedColor: Colors.green,
+                      backgroundColor: Colors.black,
+                      labelStyle: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    workout["name"]!,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
-            );
-          },
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: GridView.builder(
+                itemCount: filteredWorkouts.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.85,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                ),
+                itemBuilder: (context, index) {
+                  final workout = filteredWorkouts[index];
+                  return GestureDetector(
+                    onTap: () => _showWorkoutDetail(workout),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 2),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              workout["image"]!,
+                              fit: BoxFit.cover,
+                              height: 150,
+                              width: double.infinity,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          workout["name"]!,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
-    ],
-  ),
-),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Action for the floating action button
