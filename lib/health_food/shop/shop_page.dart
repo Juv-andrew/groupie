@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project/health_food/shop/cart_healthyfood.dart';
 import 'package:project/provider/shop_provider.dart';
 import 'package:provider/provider.dart';
-// import 'shop_provider.dart';  // Import ShopProvider
 
 class ShopPage extends StatelessWidget {
   const ShopPage({super.key});
@@ -23,13 +22,13 @@ class ShopPage extends StatelessWidget {
           ),
           bottom: const TabBar(
             indicatorColor: Colors.white,
-            tabs: [Tab(text: 'Bahan Makanan'), Tab(text: 'Makanan Sehat')],
+            tabs: [Tab(text: 'Vegetable'), Tab(text: 'Meat')],
           ),
         ),
         body: const TabBarView(
           children: [
-            BahanMakananTab(category: 'Bahan Makanan'),
-            BahanMakananTab(category: 'Makanan Sehat'),
+            BahanMakananTab(category: 'Vegetable'),
+            BahanMakananTab(category: 'Meat'),
           ],
         ),
         floatingActionButton: Consumer<ShopProvider>(
@@ -94,7 +93,7 @@ class BahanMakananTab extends StatelessWidget {
                 radius: 30,
                 backgroundImage: AssetImage(
                   'img-project/profile.png',
-                ), // Ganti dengan path foto profil
+                ), 
               ),
               const SizedBox(width: 16),
               Column(
@@ -106,7 +105,7 @@ class BahanMakananTab extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    'Nikmati belanja bahan makanan sehat',
+                    'Nikmati belanja Vegetable sehat',
                     style: TextStyle(
                       fontSize: 14,
                       color: Color.fromARGB(255, 118, 111, 111),
@@ -303,23 +302,23 @@ class BahanMakananTab extends StatelessWidget {
                             minimumSize: const Size(
                               120,
                               36,
-                            ), // Ukuran tombol yang konsisten
-                            backgroundColor: Colors.white, // Background putih
+                            ), 
+                            backgroundColor: Colors.white,
                             foregroundColor: const Color.fromARGB(
                               255,
                               116,
                               39,
                               130,
-                            ), // Warna tulisan ungu
+                            ), 
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                 8,
-                              ), // Sudut yang konsisten
+                              ), 
                             ),
-                            elevation: 5, // Sedikit shadow
+                            elevation: 5, 
                             shadowColor: Colors.grey.withOpacity(
                               0.3,
-                            ), // Warna shadow
+                            ), 
                           ),
                           child: const Text('Add to Cart'),
                         )
