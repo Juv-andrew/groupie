@@ -57,6 +57,9 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
       filtered =
           filtered.where((food) => food.category == selectedCategory).toList();
     }
+    
+    print('Total data from JSON: ${foods.length}');
+    print('Filtered data: ${filtered.length}');
 
     return filtered;
   }
