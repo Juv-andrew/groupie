@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/fitness/WorkoutSessionPage.dart';
 
 class HomeWorkoutPage extends StatefulWidget {
   const HomeWorkoutPage({super.key});
@@ -10,6 +11,7 @@ class HomeWorkoutPage extends StatefulWidget {
 class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
   final TextEditingController _searchController = TextEditingController();
   String _selectedCategory = "All";
+  double _duration = 30; // default 30 menit
 
   final List<Map<String, String>> workouts = [
     {
@@ -138,6 +140,49 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                 style: const TextStyle(fontSize: 16, color: Colors.black87),
               ),
               const SizedBox(height: 20),
+
+              // 🎯 Tambahkan info durasi dari slider
+              Text(
+                "Durasi latihan: ${_duration.round()} menit",
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Tombol Mulai (opsional)
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => WorkoutSessionPage(
+                            workoutName: workout["name"]!,
+                            workoutImage: workout["image"]!,
+                            workoutDescription: workout["description"]!,
+                            duration: _duration.round(), // dari slider
+                          ),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.play_arrow),
+                label: const Text("Mulai Latihan"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ],
           ),
         );
@@ -183,6 +228,8 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
               onChanged: (_) => setState(() {}),
             ),
             const SizedBox(height: 12),
+
+            // Kategori Filter
             SizedBox(
               height: 40,
               child: ListView.builder(
@@ -203,7 +250,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                       },
                       selectedColor: Colors.green,
                       backgroundColor: Colors.black,
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -212,7 +259,38 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                 },
               ),
             ),
+
             const SizedBox(height: 16),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Durasi Latihan:",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "${_duration.round()} menit",
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+            Slider(
+              value: _duration,
+              min: 10,
+              max: 60,
+              divisions: 10,
+              label: "${_duration.round()} menit",
+              activeColor: Colors.red,
+              onChanged: (value) {
+                setState(() {
+                  _duration = value;
+                });
+              },
+            ),
+
+            const SizedBox(height: 16),
+
             Expanded(
               child: GridView.builder(
                 itemCount: filteredWorkouts.length,
@@ -263,6 +341,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
           ],
         ),
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Action for the floating action button
