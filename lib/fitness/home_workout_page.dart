@@ -11,7 +11,7 @@ class HomeWorkoutPage extends StatefulWidget {
 class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
   final TextEditingController _searchController = TextEditingController();
   String _selectedCategory = "All";
-  double _duration = 30; // default 30 menit
+  double _duration = 30; 
 
   final List<Map<String, String>> workouts = [
     {
@@ -140,8 +140,6 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                 style: const TextStyle(fontSize: 16, color: Colors.black87),
               ),
               const SizedBox(height: 20),
-
-              // 🎯 Tambahkan info durasi dari slider
               Text(
                 "Durasi latihan: ${_duration.round()} menit",
                 style: const TextStyle(
@@ -150,8 +148,6 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Tombol Mulai (opsional)
               ElevatedButton.icon(
                 onPressed: () {
                   Navigator.pop(context);
@@ -163,7 +159,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                             workoutName: workout["name"]!,
                             workoutImage: workout["image"]!,
                             workoutDescription: workout["description"]!,
-                            duration: _duration.round(), // dari slider
+                            duration: _duration.round(), 
                           ),
                     ),
                   );
@@ -229,7 +225,6 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
             ),
             const SizedBox(height: 12),
 
-            // Kategori Filter
             SizedBox(
               height: 40,
               child: ListView.builder(
@@ -344,7 +339,6 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Action for the floating action button
         },
         child: const Icon(Icons.add),
         backgroundColor: const Color.fromARGB(255, 214, 19, 19),

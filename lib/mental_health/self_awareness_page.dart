@@ -119,7 +119,7 @@ class SelfAwarenessPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20), //untuk menyesuaikan jarak antar kotak
+            const SizedBox(height: 20), 
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
-import 'ArticleDetailPage.dart'; // Import detail page
+import 'ArticleDetailPage.dart'; 
 
 class ArticlePage extends StatelessWidget {
   const ArticlePage({super.key});
@@ -208,7 +208,7 @@ class ArticlePage extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFF1B5E20),
         selectedItemColor: Colors.white,
-        currentIndex: 2, // Sesuaikan ini jika kamu ingin aktifkan tab lain
+        currentIndex: 2, 
         onTap: (index) {
           switch (index) {
             case 0:

@@ -356,17 +356,16 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                             clipBehavior: Clip.antiAlias,
                             child: Column(
                               children: [
-                                // Gambar dengan rasio tetap
                                 AspectRatio(
                                   aspectRatio:
-                                      4 / 3, // Rasio 4:3 biar konsisten
+                                      4 / 3, 
                                   child: Image.asset(
                                     food.image,
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                   ),
                                 ),
-                                // Konten bawah: Judul + Rating
+                               
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Column(
@@ -443,7 +442,6 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
               );
               break;
             case 2:
-              // Already here, do nothing or refresh
               break;
             case 3:
               Navigator.pushReplacement(

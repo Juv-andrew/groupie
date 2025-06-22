@@ -83,7 +83,7 @@ class NotificationsPage extends StatelessWidget {
         backgroundColor: const Color(0xFF1B5E20),
         selectedItemColor: Color(0xFFB9F6CA),
         unselectedItemColor: Colors.white,
-        currentIndex: 1, // karena sedang di halaman Inbox/Notifikasi
+        currentIndex: 1, 
         onTap: (index) {
           switch (index) {
             case 0:
@@ -93,7 +93,6 @@ class NotificationsPage extends StatelessWidget {
               );
               break;
             case 1:
-              // Jangan navigasi ulang ke halaman ini sendiri
               break;
             case 2:
               Navigator.pushReplacement(

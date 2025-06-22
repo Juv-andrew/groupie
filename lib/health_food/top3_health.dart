@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:project/health_food/recipe_page.dart';
-import 'package:project/health_food/models/food.dart'; // pastikan path sesuai
+import 'package:project/health_food/models/food.dart'; 
 
 class Top3Health extends StatefulWidget {
   const Top3Health({super.key});
@@ -28,7 +28,7 @@ class _Top3HealthState extends State<Top3Health> {
     final List<Food> allFoods =
         jsonList.map((json) => Food.fromJson(json)).toList();
 
-    allFoods.shuffle(Random()); // Acak data
+    allFoods.shuffle(Random()); 
     setState(() {
       _top3Foods = allFoods.take(3).toList();
     });
@@ -67,7 +67,6 @@ class _Top3HealthState extends State<Top3Health> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Header
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
@@ -105,7 +104,6 @@ class _Top3HealthState extends State<Top3Health> {
                   ),
                   const SizedBox(height: 20),
 
-                  // Menu Items
                   for (var food in _top3Foods)
                     buildMenuItem(
                       context,

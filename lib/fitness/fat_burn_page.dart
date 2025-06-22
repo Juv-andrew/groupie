@@ -60,7 +60,6 @@ class FatBurnPage extends StatelessWidget {
                 subtitle: Text(description),
                 trailing: Icon(Icons.chevron_right),
                 onTap: () {
-                  // Dialog deskripsi detail saat diklik
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(

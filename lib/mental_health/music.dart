@@ -169,7 +169,7 @@ class _MusicPageState extends State<MusicPage> {
                   borderSide: BorderSide.none,
                 ),
               ),
-              onSubmitted: _filterSongs, // ⬅️ hanya simpan saat tekan Enter
+              onSubmitted: _filterSongs, 
               onChanged: (value) {
                 setState(() {
                   filteredSongs = allSongs
