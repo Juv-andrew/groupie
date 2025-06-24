@@ -16,6 +16,8 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
+  bool _isLoading = false;
+
   bool isEmailValid(String email) {
     return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
   }
@@ -49,10 +51,16 @@ class _SignUpState extends State<SignUp> {
     await prefs.setString('password', password);
     await prefs.setString('name', name);
 
-    _showSnackbar("Pendaftaran berhasil!");
+    setState(() {
+      _isLoading = true;
+    });
 
+    _showSnackbar("Pendaftaran berhasil!");
     Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => const SignIn()),
@@ -109,6 +117,17 @@ class _SignUpState extends State<SignUp> {
       backgroundColor: const Color(0xFFB9F6CA),
       body: Stack(
         children: [
+          if (_isLoading)
+            const Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: LinearProgressIndicator(
+                minHeight: 5,
+                backgroundColor: Colors.white,
+                color: Colors.green,
+              ),
+            ),
           // Atas: Icon dan Judul
           // Inside the Positioned widget for the icon
           Positioned(
