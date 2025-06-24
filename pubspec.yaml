@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^2.1.2
   just_audio: ^0.9.36
   provider: ^6.1.5
+  overlay_support: ^2.0.0
 
 dev_dependencies:
   flutter_test:

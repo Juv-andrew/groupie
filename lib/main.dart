@@ -3,13 +3,15 @@ import 'package:project/provider/shop_provider.dart';
 import 'provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'onboarding.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:project/provider/favorite_provider.dart'; 
-
+import 'package:project/navigation_service.dart';
 
 
 void main() {
-  runApp(
-    MultiProvider(
+runApp(
+  OverlaySupport.global(
+    child: MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ShopProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
@@ -17,7 +19,8 @@ void main() {
       ],
       child: const MyApp(),
     ),
-  );
+  ),
+);
 }
 
 class MyApp extends StatelessWidget {
@@ -28,6 +31,7 @@ class MyApp extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
     
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
