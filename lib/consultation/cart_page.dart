@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 class CartPage extends StatefulWidget {
@@ -16,6 +17,7 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   List<Map<String, String>> items = [];
+  bool _isOrdering = false;
 
   @override
   void initState() {
@@ -23,7 +25,44 @@ class _CartPageState extends State<CartPage> {
     items = widget.cartItems;
   }
 
-  void orderItems() {
+  void showOrderDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Konfirmasi"),
+        content: const Text("Apakah Anda yakin ingin memesan barang ini?"),
+        actions: [
+          TextButton(
+            child: const Text("Batal"),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          TextButton(
+            child: const Text("Ya"),
+            onPressed: () {
+              Navigator.of(context).pop();
+              orderItemsWithLoading();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void orderItemsWithLoading() async {
+    setState(() {
+      _isOrdering = true;
+    });
+
+    final int randomSeconds = Random().nextInt(4) + 2;
+
+    await Future.delayed(Duration(seconds: randomSeconds));
+
+    setState(() {
+      _isOrdering = false;
+    });
+
+    if (!mounted) return;
+
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Barang telah dipesan!'),
@@ -34,51 +73,66 @@ class _CartPageState extends State<CartPage> {
     widget.onOrderComplete();
 
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pop(context);
+      if (mounted) Navigator.pop(context);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Keranjang Belanja', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.teal[700],
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
-      body: items.isEmpty
-          ? const Center(child: Text('Keranjang kosong'))
-          : Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(12),
-                    itemCount: items.length,
-                    itemBuilder: (context, index) {
-                      final item = items[index];
-                      return ListTile(
-                        title: Text(item['name']!),
-                        subtitle: Text(item['price']!),
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: AppBar(
+            title: const Text('Keranjang Belanja', style: TextStyle(color: Colors.white)),
+            backgroundColor: Colors.teal[700],
+            iconTheme: const IconThemeData(color: Colors.white),
+          ),
+          body: items.isEmpty
+              ? const Center(child: Text('Keranjang kosong'))
+              : Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(12),
+                        itemCount: items.length,
+                        itemBuilder: (context, index) {
+                          final item = items[index];
+                          return ListTile(
+                            title: Text(item['name']!),
+                            subtitle: Text(item['price']!),
+                          );
+                        },
                       ),
-                      minimumSize: const Size(double.infinity, 50),
                     ),
-                    onPressed: orderItems,
-                    child: const Text('Pesan', style: TextStyle(color: Colors.white)),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.teal,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          minimumSize: const Size(double.infinity, 50),
+                        ),
+                        onPressed: _isOrdering ? null : showOrderDialog,
+                        child: const Text('Pesan', style: TextStyle(color: Colors.white)),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+        ),
+
+        // Fullscreen loading dengan background putih
+        if (_isOrdering)
+          Positioned.fill(
+            child: Container(
+              color: Colors.white,
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
+          ),
+      ],
     );
   }
 }
