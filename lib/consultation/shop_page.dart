@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'cart_page.dart'; // pastikan path ini benar sesuai struktur proyekmu
 
 class ShopPage extends StatefulWidget {
   const ShopPage({super.key});
@@ -43,7 +44,7 @@ class _ShopPageState extends State<ShopPage> {
     {
       'name': 'Risperidone',
       'price': 'Rp 35.000',
-      'description': 'Antipsikotik untuk iritabilitas pada autisme & bipolar.',
+      'description': 'Antipsikotik untuk autisme & bipolar.',
     },
     {
       'name': 'Quetiapine',
@@ -86,11 +87,10 @@ class _ShopPageState extends State<ShopPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (context) => CartPage(
-              cartItems: List.from(cartItems),
-              onOrderComplete: resetCart,
-            ),
+        builder: (context) => CartPage(
+          cartItems: List.from(cartItems),
+          onOrderComplete: resetCart,
+        ),
       ),
     );
   }
@@ -129,7 +129,8 @@ class _ShopPageState extends State<ShopPage> {
                     ),
                     child: Text(
                       '${cartItems.length}',
-                      style: const TextStyle(color: Colors.white, fontSize: 10),
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 10),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -199,131 +200,6 @@ class _ShopPageState extends State<ShopPage> {
           );
         },
       ),
-    );
-  }
-}
-
-class CartPage extends StatelessWidget {
-  final List<Map<String, String>> cartItems;
-  final VoidCallback onOrderComplete;
-
-  const CartPage({
-    super.key,
-    required this.cartItems,
-    required this.onOrderComplete,
-  });
-
-  int getTotal() {
-    return cartItems.fold(0, (total, item) {
-      String priceText = item['price']!.replaceAll(RegExp(r'[^0-9]'), '');
-      return total + int.parse(priceText);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    int total = getTotal();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Keranjang', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.teal[700],
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
-      body:
-          cartItems.isEmpty
-              ? const Center(
-                child: Text(
-                  'Keranjang Anda kosong.',
-                  style: TextStyle(fontSize: 16),
-                ),
-              )
-              : Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.all(12),
-                      itemCount: cartItems.length,
-                      itemBuilder: (context, index) {
-                        final item = cartItems[index];
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          elevation: 2,
-                          margin: const EdgeInsets.symmetric(vertical: 6),
-                          child: ListTile(
-                            title: Text(
-                              item['name'] ?? '',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            subtitle: Text(item['price'] ?? ''),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder:
-                              (context) => AlertDialog(
-                                title: const Text("Konfirmasi Pesanan"),
-                                content: Text(
-                                  "Apakah Anda yakin ingin memesan semua item ini?\n\nTotal: Rp ${total.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.')}",
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text("Batal"),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context); 
-                                      onOrderComplete(); 
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                            "Pesanan berhasil dibuat.",
-                                          ),
-                                          duration: Duration(seconds: 2),
-                                        ),
-                                      );
-                                      Navigator.pop(
-                                        context,
-                                      ); 
-                                    },
-                                    child: const Text("Ya, Pesan"),
-                                  ),
-                                ],
-                              ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 14,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: const Text(
-                        'Pesan',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
     );
   }
 }

@@ -53,8 +53,8 @@ class _WorkoutSessionPageState extends State<WorkoutSessionPage> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); // close dialog
-              Navigator.of(context).pop(); // back to HomeWorkoutPage
+              Navigator.of(context).pop(); 
+              Navigator.of(context).pop(); 
             },
             child: const Text("Kembali"),
           ),

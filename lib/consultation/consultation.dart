@@ -153,14 +153,12 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
               ? Colors.black
               : const Color(0xFFDFFFE1),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.green[100],
         elevation: 0,
-        actions: const [
-          Icon(Icons.person_outline, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.menu, color: Colors.black),
-          SizedBox(width: 16),
-        ],
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: Column(
         children: [

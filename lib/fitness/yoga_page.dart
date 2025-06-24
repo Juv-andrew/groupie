@@ -205,7 +205,7 @@ class _YogaPageState extends State<YogaPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              Icons.self_improvement, // icon yoga bawaan Flutter
+              Icons.self_improvement, 
               color: Colors.black,
             ),
             const SizedBox(width: 8),

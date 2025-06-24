@@ -73,7 +73,7 @@ class _QuotesPageState extends State<QuotesPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context); // kembali ke halaman sebelumnya
+            Navigator.pop(context); 
           },
         ),
       ),

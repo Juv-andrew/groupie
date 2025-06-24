@@ -20,17 +20,6 @@ class SelfAwarenessPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person_outline, color: Colors.black),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
-              );
-            },
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -119,7 +108,7 @@ class SelfAwarenessPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20), //untuk menyesuaikan jarak antar kotak
+            const SizedBox(height: 20), 
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),

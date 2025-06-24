@@ -64,39 +64,35 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
     return filtered;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFB9F6CA),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Builder(
-          builder:
-              (context) => IconButton(
-                icon: const Icon(Icons.menu, color: Colors.black),
-                onPressed: () => Scaffold.of(context).openDrawer(),
-              ),
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: const Color(0xFFB9F6CA),
+    appBar: AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: Builder(
+        builder: (context) => Tooltip(
+          message: 'Menu',
+          child: IconButton(
+            icon: const Icon(Icons.menu, color: Colors.black),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
-            onPressed:
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ShopPage()),
-                ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.person_outline, color: Colors.black),
-            onPressed:
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
-                ),
-          ),
-        ],
       ),
+      actions: [
+        Tooltip(
+          message: 'Shop Now',
+          child: IconButton(
+            icon: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ShopPage()),
+            ),
+          ),
+        ),
+      ],
+    ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -356,17 +352,16 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                             clipBehavior: Clip.antiAlias,
                             child: Column(
                               children: [
-                                // Gambar dengan rasio tetap
                                 AspectRatio(
                                   aspectRatio:
-                                      4 / 3, // Rasio 4:3 biar konsisten
+                                      4 / 3, 
                                   child: Image.asset(
                                     food.image,
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                   ),
                                 ),
-                                // Konten bawah: Judul + Rating
+                               
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Column(
@@ -443,7 +438,6 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
               );
               break;
             case 2:
-              // Already here, do nothing or refresh
               break;
             case 3:
               Navigator.pushReplacement(

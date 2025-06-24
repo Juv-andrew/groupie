@@ -17,7 +17,7 @@ class ShopPage extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.of(context).pop(); // Kembali ke halaman sebelumnya
+              Navigator.of(context).pop(); 
             },
           ),
           bottom: const TabBar(
@@ -86,7 +86,6 @@ class BahanMakananTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Foto Profil dan Sapaan
           Row(
             children: [
               CircleAvatar(
@@ -135,13 +134,12 @@ class BahanMakananTab extends StatelessWidget {
               'img-project/banner_healthyfood.jpeg',
               width: double.infinity,
               height:
-                  MediaQuery.of(context).size.height * 0.3, // 25% tinggi layar
+                  MediaQuery.of(context).size.height * 0.3, 
               fit: BoxFit.cover,
             ),
           ),
 
           const SizedBox(height: 16),
-          // Search bar
           TextField(
             onChanged: provider.setSearchQuery,
             decoration: InputDecoration(

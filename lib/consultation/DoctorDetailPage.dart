@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 
 class DoctorDetailPage extends StatefulWidget {
   final Map<String, String> doctor;
-
   const DoctorDetailPage({super.key, required this.doctor});
-
   @override
   State<DoctorDetailPage> createState() => _DoctorDetailPageState();
 }

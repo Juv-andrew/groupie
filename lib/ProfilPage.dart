@@ -44,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
           onPressed: () {
             Navigator.pop(
               context,
-            ); // This takes you back to the previous screen
+            ); 
           },
         ),
         title: const Text(

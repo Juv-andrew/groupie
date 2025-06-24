@@ -189,7 +189,7 @@ class _PaymentDialogState extends State<PaymentDialog> {
             )
           : SizedBox(
               width: double.maxFinite,
-              height: MediaQuery.of(context).size.height * 0.5, // batas tinggi scroll
+              height: MediaQuery.of(context).size.height * 0.5, 
               child: SingleChildScrollView(
                 child: Column(
                   children: [

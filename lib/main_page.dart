@@ -40,7 +40,6 @@ class _MainMenuPageState extends State<MainMenuPage> {
               ? Colors.black
               : const Color(0xFFDFFFE1),
 
-      // ✅ Drawer
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -83,15 +82,15 @@ class _MainMenuPageState extends State<MainMenuPage> {
               },
             ),
             ListTile(
-        leading: const Icon(Icons.article),
-        title: const Text('Articles'),
-        onTap: () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => ArticlePage()),
-          );
-        },
-      ),
+              leading: const Icon(Icons.article),
+              title: const Text('Articles'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => ArticlePage()),
+                );
+              },
+            ),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.logout),
@@ -133,37 +132,34 @@ class _MainMenuPageState extends State<MainMenuPage> {
         ),
       ),
 
-      // ✅ AppBar dengan hamburger
-     appBar: AppBar(
-  backgroundColor: const Color(0xFFB9F6CA),
-  elevation: 0,
-  iconTheme: const IconThemeData(color: Colors.black),
-  title: Padding(
-    padding: const EdgeInsets.only(left: 20),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Image.asset(
-          'img-project/logo.png', // Path to your logo image', 
-          height: 70,
-          width: 70,
-        ),
-        const SizedBox(width: 2),
-        const Text(
-          "Groupie",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFB9F6CA),
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                'img-project/logo.png', 
+                height: 70,
+                width: 70,
+              ),
+              const SizedBox(width: 2),
+              const Text(
+                "Groupie",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+            ],
           ),
         ),
-      ],
-    ),
-  ),
-),
+      ),
 
-
-      // ✅ Konten Menu Card
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
         child: SingleChildScrollView(
@@ -216,7 +212,6 @@ class _MainMenuPageState extends State<MainMenuPage> {
     );
   }
 
-  // ✅ Menu Card Builder
   Widget _buildMenuCard(String title, String imagePath, {VoidCallback? onTap}) {
     return Container(
       width: double.infinity,

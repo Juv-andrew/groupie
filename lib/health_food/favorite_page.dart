@@ -38,7 +38,6 @@ class _FavoriteRecipesDrawerState extends State<FavoriteRecipesDrawer> {
   Future<void> _loadFoods() async {
     final String jsonString = await rootBundle.loadString('assets/food.json');
     final List<dynamic> jsonData = json.decode(jsonString);
-    // Pastikan tiap item adalah Map<String, dynamic>
     setState(() {
       foods = jsonData.cast<Map<String, dynamic>>();
     });
