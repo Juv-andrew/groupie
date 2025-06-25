@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:project/notification_data.dart';
+import 'package:project/notification_helper.dart';
 
 class DoctorDetailPage extends StatefulWidget {
   final Map<String, String> doctor;
@@ -56,7 +58,11 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                         style: TextStyle(color: Colors.green[900]),
                       ),
                       const SizedBox(height: 6),
-                      const Icon(Icons.location_on_outlined, size: 16, color: Colors.grey),
+                      const Icon(
+                        Icons.location_on_outlined,
+                        size: 16,
+                        color: Colors.grey,
+                      ),
                       const Text(
                         "Medan, Indonesia",
                         style: TextStyle(color: Colors.grey),
@@ -82,7 +88,10 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
             const Divider(thickness: 1, indent: 24, endIndent: 24),
 
             // Tentang Dokter
-            section("Tentang Dokter", "Dokter berpengalaman dalam bidang ${widget.doctor['specialist']}. Ramah, komunikatif, dan terpercaya."),
+            section(
+              "Tentang Dokter",
+              "Dokter berpengalaman dalam bidang ${widget.doctor['specialist']}. Ramah, komunikatif, dan terpercaya.",
+            ),
 
             const Divider(thickness: 1, indent: 24, endIndent: 24),
 
@@ -111,7 +120,9 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                   showModalBottomSheet(
                     context: context,
                     shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(24),
+                      ),
                     ),
                     backgroundColor: Colors.white,
                     isScrollControlled: true,
@@ -147,29 +158,51 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 16),
-                                Text("Nama Dokter: Dr. ${widget.doctor['name']}", style: const TextStyle(fontSize: 16)),
-                                Text("Spesialis: ${widget.doctor['specialist']}", style: const TextStyle(fontSize: 16)),
-                                Text("Rumah Sakit: ${widget.doctor['hospital']}", style: const TextStyle(fontSize: 16)),
+                                Text(
+                                  "Nama Dokter: Dr. ${widget.doctor['name']}",
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  "Spesialis: ${widget.doctor['specialist']}",
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  "Rumah Sakit: ${widget.doctor['hospital']}",
+                                  style: const TextStyle(fontSize: 16),
+                                ),
                                 const SizedBox(height: 12),
                                 const Text(
                                   "Pilih Hari:",
-                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 const SizedBox(height: 8),
                                 Wrap(
                                   spacing: 8,
-                                  children: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'].map(
-                                    (day) => ChoiceChip(
-                                      label: Text(day),
-                                      selected: selectedDay == day,
-                                      selectedColor: Colors.green[200],
-                                      onSelected: (selected) {
-                                        setModalState(() {
-                                          selectedDay = selected ? day : '';
-                                        });
-                                      },
-                                    ),
-                                  ).toList(),
+                                  children:
+                                      [
+                                            'Senin',
+                                            'Selasa',
+                                            'Rabu',
+                                            'Kamis',
+                                            'Jumat',
+                                          ]
+                                          .map(
+                                            (day) => ChoiceChip(
+                                              label: Text(day),
+                                              selected: selectedDay == day,
+                                              selectedColor: Colors.green[200],
+                                              onSelected: (selected) {
+                                                setModalState(() {
+                                                  selectedDay =
+                                                      selected ? day : '';
+                                                });
+                                              },
+                                            ),
+                                          )
+                                          .toList(),
                                 ),
                                 const SizedBox(height: 16),
                                 ElevatedButton(
@@ -178,19 +211,50 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30),
                                     ),
-                                    minimumSize: const Size(double.infinity, 50),
+                                    minimumSize: const Size(
+                                      double.infinity,
+                                      50,
+                                    ),
                                   ),
-                                  onPressed: selectedDay.isNotEmpty
-                                      ? () {
-                                          Navigator.pop(context);
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(
-                                              content: Text('Jadwal pada hari $selectedDay berhasil dikonfirmasi!'),
-                                              backgroundColor: Colors.green,
-                                            ),
-                                          );
-                                        }
-                                      : null,
+                                  onPressed:
+                                      selectedDay.isNotEmpty
+                                          ? () {
+                                            Navigator.pop(context);
+
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Jadwal pada hari $selectedDay berhasil dikonfirmasi!',
+                                                ),
+                                                backgroundColor: Colors.green,
+                                              ),
+                                            );
+
+                                            // Tambahkan notifikasi ke daftar
+                                            customNotifications.insert(0, {
+                                              'emoji': '💬',
+                                              'title': 'Booking Berhasil',
+                                              'time': 'Baru saja',
+                                              'description':
+                                                  'Jadwal dengan Dr. ${widget.doctor['name']} telah dikonfirmasi untuk hari $selectedDay.',
+                                              'action1': 'Lihat',
+                                            });
+
+                                            Future.delayed(
+                                              const Duration(seconds: 8),
+                                              () {
+                                                showCustomNotification(
+                                                  title: "Pesan Baru",
+                                                  message:
+                                                      "Jadwal konsultasi kamu telah dikonfirmasi.",
+                                                );
+                                              },
+                                            );
+                                          }
+                                          : null,
+
                                   child: const Text(
                                     "Konfirmasi Jadwal",
                                     style: TextStyle(color: Colors.white),
@@ -250,7 +314,11 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
         children: [
           Text(
             title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: Colors.black,
+            ),
           ),
           const SizedBox(height: 6),
           Text(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'cart_page.dart'; // pastikan path ini benar sesuai struktur proyekmu
+import 'cart_page.dart'; 
 
 class ShopPage extends StatefulWidget {
   const ShopPage({super.key});

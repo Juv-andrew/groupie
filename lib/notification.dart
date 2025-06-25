@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/main_page.dart';
+import 'package:project/notification_data.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});
@@ -10,9 +11,9 @@ class NotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
-            Theme.of(context).brightness == Brightness.dark
-                ? Colors.black
-                : const Color(0xFFDFFFE1),
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : const Color(0xFFDFFFE1),
       body: SafeArea(
         child: Column(
           children: [
@@ -29,8 +30,17 @@ class NotificationsPage extends StatelessWidget {
             Expanded(
               child: ListView(
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                children: const [
-                  NotificationCard(
+                children: [
+                  // Notifikasi dari user (paling atas)
+                  for (var notif in customNotifications)
+                    NotificationCard(
+                      emoji: notif['emoji'] ?? '🔔',
+                      title: notif['title'] ?? '',
+                      time: notif['time'] ?? '',
+                      description: notif['description'] ?? '',
+                      action1: notif['action1'] ?? '',
+                    ),
+                  const NotificationCard(
                     emoji: "🟢",
                     title: "Reminder!",
                     time: "23 min",
@@ -83,7 +93,7 @@ class NotificationsPage extends StatelessWidget {
         backgroundColor: const Color(0xFF1B5E20),
         selectedItemColor: Color(0xFFB9F6CA),
         unselectedItemColor: Colors.white,
-        currentIndex: 1, 
+        currentIndex: 1,
         onTap: (index) {
           switch (index) {
             case 0:
