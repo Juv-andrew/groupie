@@ -55,12 +55,14 @@ class _SignUpState extends State<SignUp> {
       _isLoading = true;
     });
 
-    _showSnackbar("Pendaftaran berhasil!");
     Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
         setState(() {
           _isLoading = false;
         });
+
+      _showSnackbar("Pendaftaran berhasil!");
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => const SignIn()),
@@ -112,7 +114,6 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: const Color(0xFFB9F6CA),
       body: Stack(
