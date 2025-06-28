@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 
-class AddictionTestPage extends StatefulWidget {
-  const AddictionTestPage({super.key});
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+class PTSDTestPage extends StatefulWidget {
+  const PTSDTestPage({super.key});
 
   @override
-  State<AddictionTestPage> createState() => _AddictionTestPageState();
+  State<PTSDTestPage> createState() => _PTSDTestPageState();
 }
 
-class _AddictionTestPageState extends State<AddictionTestPage> {
+class _PTSDTestPageState extends State<PTSDTestPage> {
   final List<Map<String, dynamic>> questions = [
     {
-      "question": "Apakah kamu merasa sulit untuk mengendalikan penggunaan zat atau kebiasaan tertentu?",
+      "question": "Apakah kamu mengalami kilas balik atau mimpi buruk tentang kejadian traumatis?",
       "score": 0,
     },
     {
-      "question": "Apakah kamu menghabiskan banyak waktu untuk menggunakan atau memikirkan zat/aktivitas tersebut?",
+      "question": "Apakah kamu merasa cemas atau gelisah saat mengingat kejadian traumatis?",
       "score": 0,
     },
     {
-      "question": "Apakah kamu tetap melakukannya meskipun tahu itu berdampak negatif bagi hidupmu?",
+      "question": "Apakah kamu menghindari tempat, orang, atau situasi yang mengingatkanmu pada trauma?",
       "score": 0,
     },
   ];
@@ -40,13 +42,13 @@ class _AddictionTestPageState extends State<AddictionTestPage> {
   void _showResult() {
     String result;
     if (totalScore <= 2) {
-      result = "Tingkat kecanduan rendah.";
+      result = "Tingkat PTSD rendah";
     } else if (totalScore <= 4) {
-      result = "Tingkat kecanduan sedang.";
+      result = "Tingkat PTSD sedang";
     } else {
-      result = "Tingkat kecanduan tinggi.";
+      result = "Tingkat PTSD tinggi";
     }
-
+    _savePTSDTestResult(totalScore);
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -64,7 +66,13 @@ class _AddictionTestPageState extends State<AddictionTestPage> {
       ),
     );
   }
+  Future<void> _savePTSDTestResult(int score) async {
+    final prefs = await SharedPreferences.getInstance();
+    final date = DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
 
+    await prefs.setInt('depression_score', score);
+    await prefs.setString('depression_date', date);
+  }
   @override
   Widget build(BuildContext context) {
     if (currentQuestion >= questions.length) {
@@ -75,10 +83,10 @@ class _AddictionTestPageState extends State<AddictionTestPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tes Kecanduan"),
-        backgroundColor: Colors.teal,
+        title: const Text("Tes PTSD"),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
       ),
-      backgroundColor: const Color(0xFFF1FDFD),
+      backgroundColor:const Color.fromARGB(255, 202, 231, 255) ,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Card(

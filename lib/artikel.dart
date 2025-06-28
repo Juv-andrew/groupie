@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
-import 'ArticleDetailPage.dart'; 
+import 'ArticleDetailPage.dart';
 
 class ArticlePage extends StatelessWidget {
   const ArticlePage({super.key});
@@ -84,12 +84,11 @@ class ArticlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor:
           Theme.of(context).brightness == Brightness.dark
               ? Colors.black
-              : const Color(0xFFDFFFE1),
+              : const Color.fromARGB(255, 202, 231, 255),
 
       appBar: AppBar(
         title: const Text(
@@ -97,10 +96,9 @@ class ArticlePage extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.transparent,
-        foregroundColor:  Colors.black,
+        foregroundColor: Colors.black,
         elevation: 0,
         centerTitle: true,
-        leading: BackButton(color: Colors.black),
       ),
       body: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -173,14 +171,14 @@ class ArticlePage extends StatelessWidget {
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF58C48E).withOpacity(0.15),
+                            color: const Color.fromARGB(255, 85, 157, 216).withOpacity(0.15),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
                             article['category']!,
                             style: const TextStyle(
                               fontSize: 12,
-                              color: Color(0xFF58C48E),
+                              color: Color(0xff0D273D),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -206,9 +204,9 @@ class ArticlePage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1B5E20),
+        backgroundColor: const Color(0xff0D273D),
         selectedItemColor: Colors.white,
-        currentIndex: 2, 
+        currentIndex: 2,
         onTap: (index) {
           switch (index) {
             case 0:

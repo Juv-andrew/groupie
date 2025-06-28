@@ -1,17 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:project/main_page.dart';
 import 'package:project/artikel.dart';
 import 'package:project/ProfilPage.dart';
-import 'package:project/mental_health/ADHDTestPage.dart';
-import 'package:project/mental_health/AddictionTestPage.dart';
-import 'package:project/mental_health/AnxietyTestPage.dart';
-import 'package:project/mental_health/BipolarTestPage.dart';
-import 'package:project/mental_health/DepressionTestPage.dart';
-import 'package:project/mental_health/PTSDTestPage.dart';
+import 'package:project/mental_health/Test_SelfCare/ADHDTestPage.dart';
+import 'package:project/mental_health/Test_SelfCare/AddictionTestPage.dart';
+import 'package:project/mental_health/Test_SelfCare/AnxietyTestPage.dart';
+import 'package:project/mental_health/Test_SelfCare/BipolarTestPage.dart';
+import 'package:project/mental_health/Test_SelfCare/DepressionTestPage.dart';
+import 'package:project/mental_health/Test_SelfCare/PTSDTestPage.dart';
+import 'package:project/mental_health/Test_SelfCare/test_history_page.dart';
 import 'package:project/notification.dart';
 
-class SelfCarePage extends StatelessWidget {
+class SelfCarePage extends StatefulWidget {
   const SelfCarePage({super.key});
+
+  @override
+  State<SelfCarePage> createState() => _SelfCarePageState();
+}
+
+class _SelfCarePageState extends State<SelfCarePage> {
+  String formattedDate = '';
+
+  @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting('id_ID', null).then((_) {
+      final now = DateTime.now();
+      final formatter = DateFormat('EEEE, d MMMM y', 'id_ID');
+      setState(() {
+        formattedDate = formatter.format(now);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,79 +58,139 @@ class SelfCarePage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children:  [
-          MenuItem(
-            title: 'Depression Test',
-            tooltip:
-                'Tes ini membantu menilai gejala depresi dan tingkat keparahannya.',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const DepressionTestPage()),
-              );
-            },
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            child: Text(
+              formattedDate.isEmpty
+                  ? 'Memuat tanggal...'
+                  : 'Tanggal Tes: $formattedDate',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.black87,
+              ),
+            ),
           ),
-
-          MenuItem(
-            title: 'Anxiety Test',
-            tooltip:
-                'Tes ini dirancang untuk mengevaluasi tingkat kecemasan yang Anda alami.',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const AnxietyTestPage()),
-              );
-            },
-          ),
-          MenuItem(
-            title: 'Bipolar Test',
-            tooltip:
-                'Tes ini mendeteksi gejala gangguan bipolar, termasuk episode mania dan depresi.',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const BipolarTestPage()),
-              );
-            },
-          ),
-          MenuItem(
-            title: 'PTSD Test',
-            tooltip:
-                'Tes ini membantu mengenali tanda-tanda gangguan stres pasca trauma.',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const PTSDTestPage()),
-              );
-            },
-          ),
-          MenuItem(
-            title: 'Addiction Test',
-            tooltip:
-                'Tes ini mengidentifikasi potensi kecanduan terhadap zat atau perilaku tertentu.',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const AddictionTestPage()),
-              );
-            },
-          ),
-          MenuItem(
-            title: 'ADHD Test',
-            tooltip:
-                'Tes ini membantu mengevaluasi kemungkinan Attention Deficit Hyperactivity Disorder.',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const ADHDTestPage()),
-              );
-            },
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                MenuItem(
+                  title: 'Depression Test',
+                  tooltip:
+                      'Tes ini membantu menilai gejala depresi dan tingkat keparahannya.',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const DepressionTestPage(),
+                      ),
+                    );
+                  },
+                ),
+                MenuItem(
+                  title: 'Anxiety Test',
+                  tooltip:
+                      'Tes ini dirancang untuk mengevaluasi tingkat kecemasan yang Anda alami.',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const AnxietyTestPage(),
+                      ),
+                    );
+                  },
+                ),
+                MenuItem(
+                  title: 'Bipolar Test',
+                  tooltip:
+                      'Tes ini mendeteksi gejala gangguan bipolar, termasuk episode mania dan depresi.',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const BipolarTestPage(),
+                      ),
+                    );
+                  },
+                ),
+                MenuItem(
+                  title: 'PTSD Test',
+                  tooltip:
+                      'Tes ini membantu mengenali tanda-tanda gangguan stres pasca trauma.',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const PTSDTestPage()),
+                    );
+                  },
+                ),
+                MenuItem(
+                  title: 'Addiction Test',
+                  tooltip:
+                      'Tes ini mengidentifikasi potensi kecanduan terhadap zat atau perilaku tertentu.',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const AddictionTestPage(),
+                      ),
+                    );
+                  },
+                ),
+                MenuItem(
+                  title: 'ADHD Test',
+                  tooltip:
+                      'Tes ini membantu mengevaluasi kemungkinan Attention Deficit Hyperactivity Disorder.',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ADHDTestPage()),
+                    );
+                  },
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.history),
+                      label: const Text(
+                        'Riwayat Tes',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff0D273D),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const TestHistoryPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xff0D273D),

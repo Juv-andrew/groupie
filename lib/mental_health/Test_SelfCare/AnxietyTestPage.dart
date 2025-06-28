@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 
-class BipolarTestPage extends StatefulWidget {
-  const BipolarTestPage({super.key});
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+class AnxietyTestPage extends StatefulWidget {
+  const AnxietyTestPage({super.key});
 
   @override
-  State<BipolarTestPage> createState() => _BipolarTestPageState();
+  State<AnxietyTestPage> createState() => _AnxietyTestPageState();
 }
 
-class _BipolarTestPageState extends State<BipolarTestPage> {
+class _AnxietyTestPageState extends State<AnxietyTestPage> {
   final List<Map<String, dynamic>> questions = [
     {
-      "question": "Apakah kamu pernah merasa sangat bersemangat dan tidak bisa tidur?",
+      "question": "Apakah kamu merasa gelisah atau tegang secara terus-menerus?",
       "score": 0,
     },
     {
-      "question": "Apakah kamu pernah merasa sangat percaya diri atau penuh ide dalam waktu singkat?",
+      "question": "Apakah kamu sulit mengendalikan rasa khawatir?",
       "score": 0,
     },
     {
-      "question": "Apakah suasana hati kamu sering berubah drastis dalam sehari?",
+      "question": "Apakah kamu sering merasa mudah lelah karena kecemasan?",
       "score": 0,
     },
   ];
@@ -40,13 +42,13 @@ class _BipolarTestPageState extends State<BipolarTestPage> {
   void _showResult() {
     String result;
     if (totalScore <= 2) {
-      result = "Kemungkinan gangguan bipolar rendah.";
+      result = "Tingkat kecemasan rendah";
     } else if (totalScore <= 4) {
-      result = "Kemungkinan gangguan bipolar sedang.";
+      result = "Tingkat kecemasan sedang";
     } else {
-      result = "Kemungkinan gangguan bipolar tinggi.";
+      result = "Tingkat kecemasan tinggi";
     }
-
+    _saveAnxietyresult(totalScore);
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -64,7 +66,13 @@ class _BipolarTestPageState extends State<BipolarTestPage> {
       ),
     );
   }
+  Future<void> _saveAnxietyresult(int score) async {
+    final prefs = await SharedPreferences.getInstance();
+    final date = DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
 
+    await prefs.setInt('depression_score', score);
+    await prefs.setString('depression_date', date);
+  }
   @override
   Widget build(BuildContext context) {
     if (currentQuestion >= questions.length) {
@@ -75,13 +83,10 @@ class _BipolarTestPageState extends State<BipolarTestPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Tes Bipolar',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        backgroundColor: Color(0xff0D273D),
+        title: const Text("Tes Kecemasan"),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
       ),
-      backgroundColor: const Color(0xFFF1FDFD),
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Card(

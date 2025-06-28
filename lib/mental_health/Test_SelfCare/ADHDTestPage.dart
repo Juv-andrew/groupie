@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class ADHDTestPage extends StatefulWidget {
   const ADHDTestPage({super.key});
 
@@ -14,8 +16,7 @@ class _ADHDTestPageState extends State<ADHDTestPage> {
       "score": 0,
     },
     {
-      "question":
-          "Apakah kamu sering bertindak impulsif tanpa berpikir terlebih dahulu?",
+      "question": "Apakah kamu sering bertindak impulsif tanpa berpikir terlebih dahulu?",
       "score": 0,
     },
     {
@@ -47,26 +48,32 @@ class _ADHDTestPageState extends State<ADHDTestPage> {
     } else {
       result = "Kemungkinan ADHD tinggi.";
     }
-
+    _saveADHDTestresult(totalScore);
     showDialog(
       context: context,
-      builder:
-          (ctx) => AlertDialog(
-            title: const Text("Hasil Tes"),
-            content: Text(result),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(ctx);
-                  Navigator.pop(context);
-                },
-                child: const Text("Kembali"),
-              ),
-            ],
+      builder: (ctx) => AlertDialog(
+        title: const Text("Hasil Tes"),
+        content: Text(result),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              Navigator.pop(context);
+            },
+            child: const Text("Kembali"),
           ),
+        ],
+      ),
     );
   }
 
+  Future<void> _saveADHDTestresult(int score) async {
+    final prefs = await SharedPreferences.getInstance();
+    final date = DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
+
+    await prefs.setInt('depression_score', score);
+    await prefs.setString('depression_date', date);
+  }
   @override
   Widget build(BuildContext context) {
     if (currentQuestion >= questions.length) {
@@ -77,21 +84,15 @@ class _ADHDTestPageState extends State<ADHDTestPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Tes ADHD',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-
-        backgroundColor: Color(0xff0D273D),
+        title: const Text("Tes ADHD"),
+        backgroundColor:const Color.fromARGB(255, 202, 231, 255) ,
       ),
-      backgroundColor: const Color(0xFFF1FDFD),
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Card(
           elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
@@ -99,18 +100,12 @@ class _ADHDTestPageState extends State<ADHDTestPage> {
               children: [
                 Text(
                   "Pertanyaan ${currentQuestion + 1} dari ${questions.length}",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 20),
                 Text(
                   current['question'],
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 40),
                 _buildAnswerButton("Tidak Pernah", 0, Colors.grey.shade300),
@@ -134,9 +129,7 @@ class _ADHDTestPageState extends State<ADHDTestPage> {
           backgroundColor: color,
           foregroundColor: Colors.black,
           padding: const EdgeInsets.symmetric(vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
         onPressed: () => _answerQuestion(score),
         child: Text(label, style: const TextStyle(fontSize: 16)),

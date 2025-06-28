@@ -438,6 +438,10 @@ Widget build(BuildContext context) {
               );
               break;
             case 2:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => const ArticlePage()),
+              );
               break;
             case 3:
               Navigator.pushReplacement(

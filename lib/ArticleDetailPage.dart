@@ -35,7 +35,7 @@ class ArticleDetailPageFancy extends StatelessWidget {
                       : Container(
                           width: double.infinity,
                           height: 250,
-                          color: const Color(0xFFE6F3EB),
+                          color: const Color.fromARGB(255, 202, 231, 255),
                           child: const Icon(Icons.image, size: 80, color: Colors.grey),
                         ),
                 ),
@@ -43,7 +43,7 @@ class ArticleDetailPageFancy extends StatelessWidget {
                   top: 16,
                   left: 16,
                   child: CircleAvatar(
-                    backgroundColor: Colors.white70,
+                    backgroundColor: const Color.fromARGB(255, 202, 231, 255),
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back, color: Colors.black),
                       onPressed: () => Navigator.pop(context),
@@ -56,7 +56,7 @@ class ArticleDetailPageFancy extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(24),
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: Color.fromARGB(255, 202, 231, 255),
                   borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
                   boxShadow: [
                     BoxShadow(
@@ -73,13 +73,13 @@ class ArticleDetailPageFancy extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF58C48E).withOpacity(0.15),
+                          color: const Color.fromARGB(255, 85, 157, 216).withOpacity(0.15),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
                           category,
                           style: const TextStyle(
-                            color: Color(0xFF58C48E),
+                            color:Color(0xff0D273D),
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),

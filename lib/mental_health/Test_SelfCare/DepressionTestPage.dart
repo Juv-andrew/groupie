@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DepressionTestPage extends StatefulWidget {
   const DepressionTestPage({super.key});
@@ -9,16 +11,15 @@ class DepressionTestPage extends StatefulWidget {
 
 class _DepressionTestPageState extends State<DepressionTestPage> {
   final List<Map<String, dynamic>> questions = [
+    {"question": "Apakah kamu merasa sedih hampir setiap hari?", "score": 0},
     {
-      "question": "Apakah kamu merasa sedih hampir setiap hari?",
+      "question":
+          "Apakah kamu kehilangan minat pada aktivitas yang dulu menyenangkan?",
       "score": 0,
     },
     {
-      "question": "Apakah kamu kehilangan minat pada aktivitas yang dulu menyenangkan?",
-      "score": 0,
-    },
-    {
-      "question": "Apakah kamu mengalami gangguan tidur atau terlalu banyak tidur?",
+      "question":
+          "Apakah kamu mengalami gangguan tidur atau terlalu banyak tidur?",
       "score": 0,
     },
   ];
@@ -47,22 +48,34 @@ class _DepressionTestPageState extends State<DepressionTestPage> {
       result = "Tingkat depresi tinggi";
     }
 
+    // Simpan ke SharedPreferences
+    _saveDepressionResult(totalScore);
+
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text("Hasil Tes"),
-        content: Text(result),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              Navigator.pop(context);
-            },
-            child: const Text("Kembali"),
+      builder:
+          (ctx) => AlertDialog(
+            title: const Text("Hasil Tes"),
+            content: Text(result),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(ctx);
+                  Navigator.pop(context);
+                },
+                child: const Text("Kembali"),
+              ),
+            ],
           ),
-        ],
-      ),
     );
+  }
+
+  Future<void> _saveDepressionResult(int score) async {
+    final prefs = await SharedPreferences.getInstance();
+    final date = DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
+
+    await prefs.setInt('depression_score', score);
+    await prefs.setString('depression_date', date);
   }
 
   @override
@@ -75,18 +88,17 @@ class _DepressionTestPageState extends State<DepressionTestPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Tes Depresi',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        backgroundColor: Color(0xff0D273D),
+        title: const Text("Tes Depresi"),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
       ),
-      backgroundColor: const Color(0xFFF1FDFD),
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Card(
           elevation: 5,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
@@ -94,12 +106,18 @@ class _DepressionTestPageState extends State<DepressionTestPage> {
               children: [
                 Text(
                   "Pertanyaan ${currentQuestion + 1} dari ${questions.length}",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 const SizedBox(height: 20),
                 Text(
                   current['question'],
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 40),
                 _buildAnswerButton("Tidak Pernah", 0, Colors.grey.shade300),
@@ -123,7 +141,9 @@ class _DepressionTestPageState extends State<DepressionTestPage> {
           backgroundColor: color,
           foregroundColor: Colors.black,
           padding: const EdgeInsets.symmetric(vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
         onPressed: () => _answerQuestion(score),
         child: Text(label, style: const TextStyle(fontSize: 16)),
