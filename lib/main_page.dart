@@ -38,14 +38,14 @@ class _MainMenuPageState extends State<MainMenuPage> {
       backgroundColor:
           Theme.of(context).brightness == Brightness.dark
               ? Colors.black
-              : const Color(0xFFDFFFE1),
+              : const  Color.fromARGB(255, 202, 231, 255),
 
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: const BoxDecoration(color: Color(0xFFB9F6CA)),
+              decoration: const BoxDecoration(color:  Color.fromARGB(255, 202, 231, 255)),
               child: Row(
                 children: [
                   const Icon(
@@ -133,7 +133,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
       ),
 
       appBar: AppBar(
-        backgroundColor: const Color(0xFFB9F6CA),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.black),
         title: Padding(
@@ -148,7 +148,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
               ),
               const SizedBox(width: 2),
               const Text(
-                "Groupie",
+                "Lively",
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -187,7 +187,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
               ),
               _buildMenuCard(
                 'Mental Health',
-                'img-project/mental health.jpeg',
+                'img-project/mentalhealth.jpg',
                 onTap: () {
                   Navigator.push(
                     context,

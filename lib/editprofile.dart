@@ -36,18 +36,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.dark
       ? Colors.black
-      : const Color(0xFFDFFFE1),
+      : const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.blue),
+          icon: const Icon(Icons.arrow_back, color: Color(0xff0D273D)),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Edit Profile',
           style: TextStyle(
-            color: Colors.blue,
+            color:  Color(0xff0D273D),
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
@@ -202,14 +202,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Profile berhasil disimpan!'),
-                        backgroundColor: Colors.green,
+                        backgroundColor: Color(0xff0D273D),
                       ),
                     );
                     Navigator.pop(context, usernameController.text);
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: Color(0xff0D273D),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 40,

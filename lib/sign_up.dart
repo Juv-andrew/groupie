@@ -76,7 +76,7 @@ class _SignUpState extends State<SignUp> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(message),
-          backgroundColor: Colors.green,
+          backgroundColor:const Color(0XFF031716),
           behavior: SnackBarBehavior.floating,
           margin: const EdgeInsets.all(16),
         ),
@@ -115,7 +115,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color(0xFFB9F6CA),
+      backgroundColor: const Color(0xffc1e8ff),
       body: Stack(
         children: [
           if (_isLoading)
@@ -126,7 +126,7 @@ class _SignUpState extends State<SignUp> {
               child: LinearProgressIndicator(
                 minHeight: 5,
                 backgroundColor: Colors.white,
-                color: Colors.green,
+                color: const Color(0XFF031716),
               ),
             ),
           // Atas: Icon dan Judul
@@ -148,7 +148,7 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.green,
+                    color: const Color(0XFF031716),
                   ),
                 ),
               ],
@@ -203,7 +203,7 @@ class _SignUpState extends State<SignUp> {
                     ElevatedButton(
                       onPressed: _handleSignUp,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFB9F6CA),
+                        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
                         foregroundColor: Colors.black,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 80,
@@ -231,7 +231,7 @@ class _SignUpState extends State<SignUp> {
                           child: const Text(
                             "Login",
                             style: TextStyle(
-                              color: Colors.blue,
+                              color: const Color(0xff0D273D),
                               fontWeight: FontWeight.bold,
                             ),
                           ),

@@ -75,8 +75,11 @@ class _AnxietyTestPageState extends State<AnxietyTestPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tes Kecemasan"),
-        backgroundColor: Colors.teal,
+        title: const Text(
+          'Tes Kecemasan',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        backgroundColor: Color(0xff0D273D),
       ),
       backgroundColor: const Color(0xFFF1FDFD),
       body: Padding(

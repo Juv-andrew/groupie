@@ -35,15 +35,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
-        scaffoldBackgroundColor: const Color(0xFFB9F6CA),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 202, 231, 255),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.black,
           elevation: 0,
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Color(0xFF1B5E20),
-          selectedItemColor: Color(0xFFB9F6CA),
+          backgroundColor: Color(0xff0D273D),
+          selectedItemColor: Color(0xff8AA7BC),
           unselectedItemColor: Colors.white,
         ),
       ),
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.black,
-          selectedItemColor: Color(0xFFB9F6CA),
+          selectedItemColor: Color(0xff8AA7BC),
           unselectedItemColor: Colors.white70,
         ),
       ),
@@ -117,7 +117,7 @@ class _SplashScreenState extends State<SplashScreen> {
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1B5E20),
+                color: Color(0xff0D273D),
               ),
             ),
           ],

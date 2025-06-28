@@ -13,7 +13,7 @@ class SelfRecoveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFA7ECEE),
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
         title: const Text(
           'Self-Recovery',
@@ -23,7 +23,7 @@ class SelfRecoveryPage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: const Color(0xFFA7ECEE),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -66,7 +66,7 @@ class SelfRecoveryPage extends StatelessWidget {
 
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1B5E20),
+        backgroundColor: const Color(0xff0D273D),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
         currentIndex: 0, 

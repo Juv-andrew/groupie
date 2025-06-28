@@ -40,7 +40,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFB9F6CA),
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       body: SafeArea(
         child: Column(
           children: [
@@ -70,7 +70,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF1B5E20),
+                            color: Color(0xff0D273D),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -98,7 +98,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           },
 
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF1B5E20),
+                            backgroundColor: const Color(0xff0D273D),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -126,7 +126,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               count: onboardingData.length,
               effect: WormEffect(
                 dotColor: Colors.white,
-                activeDotColor: const Color(0xFF1B5E20),
+                activeDotColor: const Color(0xff0D273D),
                 dotHeight: 10,
                 dotWidth: 10,
               ),

@@ -75,8 +75,11 @@ class _BipolarTestPageState extends State<BipolarTestPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tes Bipolar"),
-        backgroundColor: Colors.teal,
+        title: const Text(
+          'Tes Bipolar',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        backgroundColor: Color(0xff0D273D),
       ),
       backgroundColor: const Color(0xFFF1FDFD),
       body: Padding(

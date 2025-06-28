@@ -7,7 +7,7 @@ class ProfileSetupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFB9F6CA),
+      backgroundColor: const Color(0xffc1e8ff),
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: SingleChildScrollView(
@@ -35,7 +35,7 @@ class ProfileSetupPage extends StatelessWidget {
                 child: Icon(
                   Icons.camera_alt,
                   size: 40,
-                  color: Color(0xFFB9F6CA),
+                  color: Color(0xff0D273D),
                 ),
               ),
               const SizedBox(height: 30),
@@ -80,7 +80,7 @@ class ProfileSetupPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 72, 137, 77),
+          color: const Color(0xff0D273D),
           borderRadius: BorderRadius.circular(10),
         ),
         child: ListTile(

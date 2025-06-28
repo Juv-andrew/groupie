@@ -66,10 +66,10 @@ class _QuotesPageState extends State<QuotesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFA7ECEE),
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
         title: const Text('Need Some Quotes?'),
-        backgroundColor: const Color(0xFFA7ECEE),
+        backgroundColor: Color.fromARGB(255, 202, 231, 255),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {

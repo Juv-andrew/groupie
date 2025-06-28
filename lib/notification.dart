@@ -13,7 +13,7 @@ class NotificationsPage extends StatelessWidget {
       backgroundColor:
           Theme.of(context).brightness == Brightness.dark
               ? Colors.black
-              : const Color(0xFFDFFFE1),
+              : const Color.fromARGB(255, 202, 231, 255),
       body: SafeArea(
         child: Column(
           children: [
@@ -90,8 +90,8 @@ class NotificationsPage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1B5E20),
-        selectedItemColor: Color(0xFFB9F6CA),
+        backgroundColor: const Color(0xff0D273D),
+        selectedItemColor: Color.fromARGB(255, 202, 231, 255),
         unselectedItemColor: Colors.white,
         currentIndex: 1,
         onTap: (index) {
@@ -187,7 +187,7 @@ class NotificationCard extends StatelessWidget {
                 child: Text(
                   action1,
                   style: TextStyle(
-                    color: Colors.blue,
+                    color:Color(0xff0D273D),
                     fontSize: 14,
                     decoration: TextDecoration.underline,
                   ),
@@ -199,7 +199,7 @@ class NotificationCard extends StatelessWidget {
                   child: Text(
                     action2!,
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Color(0xff0D273D),
                       fontSize: 14,
                       decoration: TextDecoration.underline,
                     ),

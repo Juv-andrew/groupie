@@ -15,22 +15,22 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[50],
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               children: [
                 Container(
-                  height: 260,
+                  height: 280,
                   width: double.infinity,
-                  color: Colors.green[100],
+                  color: const Color(0xff0D273D),
                 ),
                 Positioned(
                   top: 50,
                   left: 16,
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.black),
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
@@ -50,22 +50,28 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                         style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                       Text(
                         "${widget.doctor['specialist']} • ${widget.doctor['hospital']}",
-                        style: TextStyle(color: Colors.green[900]),
+                        style: TextStyle(color: Colors.white),
                       ),
                       const SizedBox(height: 6),
-                      const Icon(
-                        Icons.location_on_outlined,
-                        size: 16,
-                        color: Colors.grey,
-                      ),
-                      const Text(
-                        "Medan, Indonesia",
-                        style: TextStyle(color: Colors.grey),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.location_on_outlined,
+                            size: 16,
+                            color: Colors.white,
+                          ),
+                          SizedBox(width: 4), // Jarak antara ikon dan teks
+                          Text(
+                            "Medan, Indonesia",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -85,23 +91,30 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
             ),
 
             const SizedBox(height: 16),
-            const Divider(thickness: 1, indent: 24, endIndent: 24),
 
             // Tentang Dokter
-            section(
-              "Tentang Dokter",
-              "Dokter berpengalaman dalam bidang ${widget.doctor['specialist']}. Ramah, komunikatif, dan terpercaya.",
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Divider(thickness: 1),
+                  const SizedBox(height: 12), // Jarak sebelum bagian pertama
+                  section(
+                    "Tentang Dokter",
+                    "Dokter berpengalaman dalam bidang ${widget.doctor['specialist']}. Ramah, komunikatif, dan terpercaya.",
+                  ),
+                  const SizedBox(height: 16),
+                  const Divider(thickness: 1),
+                  const SizedBox(height: 12),
+                  section("Jam Praktik", "Senin – Jumat: 07.00 – 16.30"),
+                  const SizedBox(height: 16),
+                  const Divider(thickness: 1),
+                  const SizedBox(height: 12),
+                  section("Ulasan", "⭐⭐⭐⭐☆ 4.5 (150+ reviews)"),
+                ],
+              ),
             ),
-
-            const Divider(thickness: 1, indent: 24, endIndent: 24),
-
-            // Jam Praktik
-            section("Jam Praktik", "Senin – Jumat: 07.00 – 16.30"),
-
-            const Divider(thickness: 1, indent: 24, endIndent: 24),
-
-            // Ulasan
-            section("Ulasan", "⭐⭐⭐⭐☆ 4.5 (150+ reviews)"),
 
             const SizedBox(height: 16),
 
@@ -110,7 +123,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green[400],
+                  backgroundColor: const Color(0xff0D273D),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -141,7 +154,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                     width: 40,
                                     height: 5,
                                     decoration: BoxDecoration(
-                                      color: Colors.grey[300],
+                                      color: const Color(0xffCDD7DF),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
@@ -153,7 +166,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.green[900],
+                                      color: const Color(0xff0D273D),
                                     ),
                                   ),
                                 ),
@@ -193,7 +206,9 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                             (day) => ChoiceChip(
                                               label: Text(day),
                                               selected: selectedDay == day,
-                                              selectedColor: Colors.green[200],
+                                              selectedColor: const Color(
+                                                0xffA6BED1,
+                                              ),
                                               onSelected: (selected) {
                                                 setModalState(() {
                                                   selectedDay =
@@ -207,7 +222,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                 const SizedBox(height: 16),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.green,
+                                    backgroundColor: const Color(0xff0D273D),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30),
                                     ),
@@ -227,8 +242,12 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                               SnackBar(
                                                 content: Text(
                                                   'Jadwal pada hari $selectedDay berhasil dikonfirmasi!',
+                                                  style: const TextStyle(
+                                                    color: Color(0XFF031716),
+                                                  ),
                                                 ),
-                                                backgroundColor: Colors.green,
+                                                backgroundColor: const Color(
+                                                  0xffCDD7DF),
                                               ),
                                             );
 
@@ -300,33 +319,30 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
             ),
           ),
           const SizedBox(height: 4),
-          Text(title, style: TextStyle(color: Colors.green[900])),
+          Text(title, style: TextStyle(color: const Color(0xff0D273D))),
         ],
       ),
     );
   }
 
   Widget section(String title, String content) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: Colors.black,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: Colors.black,
           ),
-          const SizedBox(height: 6),
-          Text(
-            content,
-            style: TextStyle(color: Colors.green[900], fontSize: 14),
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          content,
+          style: const TextStyle(color: Color(0xff0D273D), fontSize: 14),
+        ),
+      ],
     );
   }
 }

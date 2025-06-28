@@ -12,9 +12,9 @@ class SelfAwarenessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFA7ECEE),
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFA7ECEE),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -30,11 +30,11 @@ class SelfAwarenessPage extends StatelessWidget {
               children: [
                 const Expanded(
                   child: Text(
-                    'Self-\nAwareness',
+                    'Self -\nAwareness',
                     style: TextStyle(
-                      fontSize: 28,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Color (0XFF031716),
                     ),
                   ),
                 ),
@@ -49,9 +49,9 @@ class SelfAwarenessPage extends StatelessWidget {
             const Text(
               'YOU ALWAYS HAVE A CHOICE',
               style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Color(0XFF031716),
               ),
             ),
             const SizedBox(height: 24),
@@ -59,7 +59,7 @@ class SelfAwarenessPage extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFF6BC5D2),
+                color: const Color(0xff05203e),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Column(
@@ -113,7 +113,7 @@ class SelfAwarenessPage extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFF3E8E9F),
+                color: const Color(0xff072f47),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
@@ -159,7 +159,7 @@ class SelfAwarenessPage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1B5E20),
+        backgroundColor: const Color(0xff0D273D),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
         currentIndex: 0,

@@ -151,9 +151,9 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
       backgroundColor:
           Theme.of(context).brightness == Brightness.dark
               ? Colors.black
-              : const Color(0xFFDFFFE1),
+              : const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
-        backgroundColor: Colors.green[100],
+        backgroundColor: Color.fromARGB(255, 202, 231, 255),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -175,7 +175,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                 hintText: "Search Doctor...",
                 prefixIcon: const Icon(Icons.search),
                 filled: true,
-                fillColor: Colors.green[100],
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide.none,
@@ -185,10 +185,10 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
           ),
           TextButton.icon(
             onPressed: _showFilterDialog,
-            icon: Icon(Icons.filter_list, color: Colors.green[900]),
+            icon: Icon(Icons.filter_list, color: const Color(0xff0D273D)),
             label: Text(
               "Filter Spesialis",
-              style: TextStyle(color: Colors.green[900]),
+              style: TextStyle(color: const Color(0xff0D273D)),
             ),
           ),
           Expanded(
@@ -206,11 +206,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                   ),
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Colors.white, Color(0xFFE9FFED)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(25),
                       boxShadow: const [
                         BoxShadow(
@@ -220,6 +216,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                         ),
                       ],
                     ),
+
                     child: ListTile(
                       contentPadding: const EdgeInsets.all(16),
                       leading: CircleAvatar(
@@ -247,7 +244,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                         children: [
                           Text(
                             doctor['specialist']!,
-                            style: TextStyle(color: Colors.green[900]),
+                            style: TextStyle(color: const Color(0xff0D273D)),
                           ),
                           Row(
                             children: [
@@ -277,7 +274,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                               child: const Text(
                                 'selengkapnya',
                                 style: TextStyle(
-                                  color: Colors.blue,
+                                  color: const Color(0xff0D273D),
                                   fontSize: 16,
                                   decoration: TextDecoration.underline,
                                 ),
@@ -296,7 +293,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1B5E20),
+        backgroundColor: const Color(0xff0D273D),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
         currentIndex: 0,
@@ -344,7 +341,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
             MaterialPageRoute(builder: (context) => const ShopPage()),
           );
         },
-        backgroundColor: const Color(0xFF1B5E20),
+        backgroundColor: const Color(0xff0D273D),
         foregroundColor: Colors.white,
         icon: const Icon(Icons.shopping_cart),
         label: const Text("online pharmacy"),

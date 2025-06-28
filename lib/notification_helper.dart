@@ -35,7 +35,7 @@ void showCustomNotification({
         ],
       ),
     ),
-    background: Colors.green[800],
+    background: Color(0xff0D273D),
     duration: const Duration(seconds: 5),
   );
 }

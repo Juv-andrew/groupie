@@ -35,29 +35,23 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFDFFFE1),
-      appBar: AppBar(
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
+       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.blue),
-          onPressed: () {
-            Navigator.pop(
-              context,
-            ); 
-          },
+          icon: const Icon(Icons.arrow_back, color: Color(0xff0D273D)),
+          onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'My Profile',
-          style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+          'Edit Profile',
+          style: TextStyle(
+            color:  Color(0xff0D273D),
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
         ),
         centerTitle: true,
-        actions: const [
-          Icon(Icons.person_outline, color: Colors.blue),
-          SizedBox(width: 16),
-          Icon(Icons.menu, color: Colors.blue),
-          SizedBox(width: 16),
-        ],
       ),
       body: Column(
         children: [
@@ -152,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1B5E20),
+        backgroundColor: const Color(0xff0D273D),
         selectedItemColor: Colors.white,
         currentIndex: 3,
         onTap: (index) {
@@ -227,7 +221,7 @@ class _ProfilePageState extends State<ProfilePage> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
-        leading: Icon(icon, color: Colors.blue),
+        leading: Icon(icon, color:Color(0xff0D273D)),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
         trailing: const Icon(Icons.chevron_right),
         onTap: () async {

@@ -44,7 +44,7 @@ class _SignInState extends State<SignIn> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: const Color(0xff0D273D),
         behavior: SnackBarBehavior.floating,
         margin: const EdgeInsets.all(16),
       ),
@@ -81,7 +81,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFB9F6CA),
+      backgroundColor: const Color(0xffc1e8ff),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -101,7 +101,7 @@ class _SignInState extends State<SignIn> {
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Colors.green,
+                      color: const Color(0XFF031716),
                     ),
                   ),
                 ],
@@ -144,7 +144,7 @@ class _SignInState extends State<SignIn> {
                       },
                       child: const Text(
                         "Forget password?",
-                        style: TextStyle(color: Colors.blue),
+                        style: TextStyle(color: const Color(0XFF031716)),
                       ),
                     ),
                   ),
@@ -152,7 +152,7 @@ class _SignInState extends State<SignIn> {
                   ElevatedButton(
                     onPressed: _handleSignIn,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFB9F6CA),
+                      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
                       foregroundColor: Colors.black,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 80,
@@ -180,7 +180,7 @@ class _SignInState extends State<SignIn> {
                         child: const Text(
                           "Register now",
                           style: TextStyle(
-                            color: Colors.blue,
+                            color: const Color(0XFF031716),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
