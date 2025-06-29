@@ -11,7 +11,7 @@ class CartPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Shopping Cart'),
-        backgroundColor: const Color(0xFFB9F6CA),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -106,7 +106,7 @@ class CartPage extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF00C853),
+                          backgroundColor: const Color(0xff0D273D),
                           padding: const EdgeInsets.symmetric(vertical: 12),
                         ),
                         onPressed: () {
@@ -124,7 +124,7 @@ class CartPage extends StatelessWidget {
                         },
                         child: const Text(
                           'Checkout',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold , color: Colors.white),
                         ),
                       ),
                     ),

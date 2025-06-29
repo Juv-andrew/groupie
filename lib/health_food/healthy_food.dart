@@ -67,7 +67,7 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
 @override
 Widget build(BuildContext context) {
   return Scaffold(
-    backgroundColor: const Color(0xFFB9F6CA),
+    backgroundColor: Color.fromARGB(255, 202, 231, 255),
     appBar: AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -98,7 +98,7 @@ Widget build(BuildContext context) {
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
-              decoration: BoxDecoration(color: Color(0xFFB9F6CA)),
+              decoration: BoxDecoration(color: Color.fromARGB(255, 202, 231, 255)),
               child: Text(
                 'Menu',
                 style: TextStyle(fontSize: 24, color: Colors.black),
@@ -172,7 +172,7 @@ Widget build(BuildContext context) {
                               style: TextStyle(
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.green,
+                                color: Color(0xff0D273D),
                               ),
                             ),
                             const SizedBox(height: 6),
@@ -181,7 +181,7 @@ Widget build(BuildContext context) {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black87,
+                                color: Color(0XFF031716),
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -195,7 +195,7 @@ Widget build(BuildContext context) {
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green[800],
+                                backgroundColor: Color(0xff0D273D),
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 20,
                                   vertical: 12,
@@ -240,7 +240,7 @@ Widget build(BuildContext context) {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.green.withOpacity(0.2),
+                          color: Colors.black.withOpacity(0.2),
                           blurRadius: 6,
                           offset: const Offset(0, 3),
                         ),
@@ -248,7 +248,7 @@ Widget build(BuildContext context) {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.search, color: Colors.green),
+                        const Icon(Icons.search, color: Color(0xff0D273D)),
                         const SizedBox(width: 10),
                         Expanded(
                           child: TextField(
@@ -293,7 +293,7 @@ Widget build(BuildContext context) {
                               ),
                             ),
                             selected: isSelected,
-                            selectedColor: Colors.green[800],
+                            selectedColor: const Color(0xff0D273D),
                             backgroundColor: Colors.white,
                             labelStyle: TextStyle(
                               color: isSelected ? Colors.white : Colors.black87,
@@ -419,7 +419,7 @@ Widget build(BuildContext context) {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1B5E20),
+        backgroundColor: const Color(0xff0D273D),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         currentIndex: 2,

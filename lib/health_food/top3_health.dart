@@ -39,7 +39,7 @@ class _Top3HealthState extends State<Top3Health> {
     return Scaffold(
       backgroundColor: const Color(0xFFEBF5EE),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1B5E20),
+        backgroundColor: const Color(0xff0D273D),
         title: const Text(
           'Top 3 Health Menus',
           style: TextStyle(color: Colors.white),
@@ -88,7 +88,7 @@ class _Top3HealthState extends State<Top3Health> {
                             style: const TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF1B5E20),
+                              color: Color(0xff0D273D),
                             ),
                           ),
                         ),

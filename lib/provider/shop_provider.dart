@@ -1,3 +1,4 @@
+// Updated ShopProvider to track jumlahPembelian
 import 'package:flutter/material.dart';
 import 'package:project/health_food/shop/data_bahan.dart';
 
@@ -8,7 +9,8 @@ class Bahan {
   final String gambar;
   final String satuan;
   final String kategori;
-  int jumlah;
+  int jumlahPembelian;
+  int jumlah; // Untuk keranjang
 
   Bahan({
     required this.nama,
@@ -17,6 +19,7 @@ class Bahan {
     required this.gambar,
     required this.satuan,
     required this.kategori,
+    this.jumlahPembelian = 0,
     this.jumlah = 1,
   });
 }
@@ -31,32 +34,31 @@ class ShopProvider extends ChangeNotifier {
 
   List<Bahan> get keranjang => _keranjang;
 
-  int get totalKeranjang {
-    return _keranjang.length;
-  }
+  int get totalKeranjang => _keranjang.length;
 
-  int totalHarga() {
-    int total = 0;
-    for (var item in _keranjang) {
-      total += item.harga * item.jumlah;
-    }
-    return total;
-  }
+  int totalHarga() => _keranjang.fold(0, (total, item) => total + item.harga * item.jumlah);
 
   List<Bahan> get filteredItems {
     return semuaBahan.where((bahan) {
-      final cocokKategori =
-          selectedCategory == 'Semua' || bahan.kategori == selectedCategory;
+      final cocokKategori = selectedCategory == 'Semua' || bahan.kategori == selectedCategory;
       final cocokTersedia = !isSwitched || bahan.tersedia;
-      final cocokSearch = bahan.nama.toLowerCase().contains(
-        _searchQuery.toLowerCase(),
-      );
+      final cocokSearch = bahan.nama.toLowerCase().contains(_searchQuery.toLowerCase());
       return cocokKategori && cocokTersedia && cocokSearch;
     }).toList();
   }
 
+ List<Bahan> getTopItems(String kategori, [int count = 5]) {
+  final items = semuaBahan
+      .where((item) => item.kategori == kategori)
+      .toList();
+
+  items.sort((a, b) => b.jumlahPembelian.compareTo(a.jumlahPembelian));
+
+  return items.take(count).toList();
+}
+
   void setSearchQuery(String value) {
-    _searchQuery = value;
+    _searchQuery = value; 
     notifyListeners();
   }
 
@@ -77,17 +79,16 @@ class ShopProvider extends ChangeNotifier {
     if (index != -1) {
       _keranjang[index].jumlah += 1;
     } else {
-      _keranjang.add(
-        Bahan(
-          nama: bahan.nama,
-          harga: bahan.harga,
-          tersedia: bahan.tersedia,
-          gambar: bahan.gambar,
-          satuan: bahan.satuan,
-          kategori: bahan.kategori,
-          jumlah: 1,
-        ),
-      );
+      _keranjang.add(Bahan(
+        nama: bahan.nama,
+        harga: bahan.harga,
+        tersedia: bahan.tersedia,
+        gambar: bahan.gambar,
+        satuan: bahan.satuan,
+        kategori: bahan.kategori,
+        jumlahPembelian: bahan.jumlahPembelian,
+        jumlah: 1,
+      ));
     }
     notifyListeners();
   }
@@ -98,6 +99,12 @@ class ShopProvider extends ChangeNotifier {
   }
 
   void checkout() {
+    for (var item in _keranjang) {
+      final index = semuaBahan.indexWhere((b) => b.nama == item.nama);
+      if (index != -1) {
+        semuaBahan[index].jumlahPembelian += item.jumlah;
+      }
+    }
     _keranjang.clear();
     notifyListeners();
   }
@@ -114,9 +121,9 @@ class ShopProvider extends ChangeNotifier {
     final index = _keranjang.indexOf(bahan);
     if (index != -1 && _keranjang[index].jumlah > 1) {
       _keranjang[index].jumlah -= 1;
-      notifyListeners();
     } else {
       removeFromKeranjang(bahan);
     }
+    notifyListeners();
   }
 }

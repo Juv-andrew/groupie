@@ -65,7 +65,7 @@ class _RecipePageState extends State<RecipePage> {
           SliverAppBar(
             pinned: true,
             expandedHeight: 280,
-            backgroundColor: Colors.green.shade300,
+            backgroundColor: Color.fromARGB(255, 202, 231, 255),
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
                 fit: StackFit.expand,
