@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:project/notification_data.dart';
 import 'package:project/notification_helper.dart';
@@ -7,6 +5,7 @@ import 'package:project/notification_helper.dart';
 class DoctorDetailPage extends StatefulWidget {
   final Map<String, String> doctor;
   const DoctorDetailPage({super.key, required this.doctor});
+
   @override
   State<DoctorDetailPage> createState() => _DoctorDetailPageState();
 }
@@ -55,22 +54,17 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                       ),
                       Text(
                         "${widget.doctor['specialist']} • ${widget.doctor['hospital']}",
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       const SizedBox(height: 6),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.location_on_outlined,
-                            size: 16,
-                            color: Colors.white,
-                          ),
-                          SizedBox(width: 4), // Jarak antara ikon dan teks
-                          Text(
-                            "Medan, Indonesia",
-                            style: TextStyle(color: Colors.white),
-                          ),
+                        children: [
+                          Icon(Icons.location_on_outlined,
+                              size: 16, color: Colors.white),
+                          SizedBox(width: 4),
+                          Text("Medan, Indonesia",
+                              style: TextStyle(color: Colors.white)),
                         ],
                       ),
                     ],
@@ -79,8 +73,6 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
               ],
             ),
             const SizedBox(height: 16),
-
-            // Informasi Ringkas
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -89,17 +81,14 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                 infoCard("Rating", "4.5"),
               ],
             ),
-
             const SizedBox(height: 16),
-
-            // Tentang Dokter
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Divider(thickness: 1),
-                  const SizedBox(height: 12), // Jarak sebelum bagian pertama
+                  const SizedBox(height: 12),
                   section(
                     "Tentang Dokter",
                     "Dokter berpengalaman dalam bidang ${widget.doctor['specialist']}. Ramah, komunikatif, dan terpercaya.",
@@ -115,10 +104,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                 ],
               ),
             ),
-
             const SizedBox(height: 16),
-
-            // Tombol Booking
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
@@ -141,10 +127,18 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                     isScrollControlled: true,
                     builder: (context) {
                       String selectedDay = '';
+                      TimeOfDay? selectedTime;
+
                       return StatefulBuilder(
                         builder: (context, setModalState) {
                           return Padding(
-                            padding: const EdgeInsets.all(20),
+                            padding: EdgeInsets.only(
+                              top: 20,
+                              left: 20,
+                              right: 20,
+                              bottom: MediaQuery.of(context).viewInsets.bottom +
+                                  20,
+                            ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,40 +179,86 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                 ),
                                 const SizedBox(height: 12),
                                 const Text(
-                                  "Pilih Hari:",
+                                  "Pilih Tanggal:",
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 const SizedBox(height: 8),
-                                Wrap(
-                                  spacing: 8,
-                                  children:
-                                      [
-                                            'Senin',
-                                            'Selasa',
-                                            'Rabu',
-                                            'Kamis',
-                                            'Jumat',
-                                          ]
-                                          .map(
-                                            (day) => ChoiceChip(
-                                              label: Text(day),
-                                              selected: selectedDay == day,
-                                              selectedColor: const Color(
-                                                0xffA6BED1,
-                                              ),
-                                              onSelected: (selected) {
-                                                setModalState(() {
-                                                  selectedDay =
-                                                      selected ? day : '';
-                                                });
-                                              },
-                                            ),
-                                          )
-                                          .toList(),
+                                ElevatedButton.icon(
+                                  onPressed: () async {
+                                    DateTime? pickedDate =
+                                        await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime.now()
+                                          .add(const Duration(days: 365)),
+                                    );
+                                    if (pickedDate != null) {
+                                      setModalState(() {
+                                        selectedDay =
+                                            "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+                                      });
+                                    }
+                                  },
+                                  icon: const Icon(Icons.calendar_today),
+                                  label: const Text("Pilih Tanggal"),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xff0D273D),
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  ),
                                 ),
+                                if (selectedDay.isNotEmpty) ...[
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    "Tanggal yang dipilih: $selectedDay",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                                const SizedBox(height: 16),
+                                const Text(
+                                  "Pilih Waktu:",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                ElevatedButton.icon(
+                                  onPressed: () async {
+                                    TimeOfDay? pickedTime =
+                                        await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.now(),
+                                    );
+                                    if (pickedTime != null) {
+                                      setModalState(() {
+                                        selectedTime = pickedTime;
+                                      });
+                                    }
+                                  },
+                                  icon: const Icon(Icons.access_time),
+                                  label: const Text("Pilih Waktu"),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xff0D273D),
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  ),
+                                ),
+                                if (selectedTime != null) ...[
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    "Waktu yang dipilih: ${selectedTime!.format(context)}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
                                 const SizedBox(height: 16),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
@@ -226,54 +266,54 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30),
                                     ),
-                                    minimumSize: const Size(
-                                      double.infinity,
-                                      50,
-                                    ),
+                                    minimumSize:
+                                        const Size(double.infinity, 50),
                                   ),
                                   onPressed:
-                                      selectedDay.isNotEmpty
+                                      (selectedDay.isNotEmpty &&
+                                              selectedTime != null)
                                           ? () {
-                                            Navigator.pop(context);
+                                              Navigator.pop(context);
 
-                                            ScaffoldMessenger.of(
-                                              context,
-                                            ).showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'Jadwal pada hari $selectedDay berhasil dikonfirmasi!',
-                                                  style: const TextStyle(
-                                                    color: Color(0XFF031716),
+                                              String formattedTime =
+                                                  selectedTime!
+                                                      .format(context);
+
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Jadwal pada $selectedDay pukul $formattedTime berhasil dikonfirmasi!',
+                                                    style: const TextStyle(
+                                                        color:
+                                                            Color(0XFF031716)),
                                                   ),
+                                                  backgroundColor:
+                                                      const Color(0xffCDD7DF),
                                                 ),
-                                                backgroundColor: const Color(
-                                                  0xffCDD7DF),
-                                              ),
-                                            );
+                                              );
 
-                                            // Tambahkan notifikasi ke daftar
-                                            customNotifications.insert(0, {
-                                              'emoji': '💬',
-                                              'title': 'Booking Berhasil',
-                                              'time': 'Baru saja',
-                                              'description':
-                                                  'Jadwal dengan Dr. ${widget.doctor['name']} telah dikonfirmasi untuk hari $selectedDay.',
-                                              'action1': 'Lihat',
-                                            });
+                                              customNotifications.insert(0, {
+                                                'emoji': '💬',
+                                                'title': 'Booking Berhasil',
+                                                'time': 'Baru saja',
+                                                'description':
+                                                    'Jadwal dengan Dr. ${widget.doctor['name']} telah dikonfirmasi untuk $selectedDay pukul $formattedTime.',
+                                                'action1': 'Lihat',
+                                              });
 
-                                            Future.delayed(
-                                              const Duration(seconds: 8),
-                                              () {
-                                                showCustomNotification(
-                                                  title: "Pesan Baru",
-                                                  message:
-                                                      "Jadwal konsultasi kamu telah dikonfirmasi.",
-                                                );
-                                              },
-                                            );
-                                          }
+                                              Future.delayed(
+                                                const Duration(seconds: 8),
+                                                () {
+                                                  showCustomNotification(
+                                                    title: "Pesan Baru",
+                                                    message:
+                                                        "Jadwal konsultasi kamu telah dikonfirmasi.",
+                                                  );
+                                                },
+                                              );
+                                            }
                                           : null,
-
                                   child: const Text(
                                     "Konfirmasi Jadwal",
                                     style: TextStyle(color: Colors.white),
@@ -319,7 +359,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
             ),
           ),
           const SizedBox(height: 4),
-          Text(title, style: TextStyle(color: const Color(0xff0D273D))),
+          Text(title, style: const TextStyle(color: Color(0xff0D273D))),
         ],
       ),
     );
