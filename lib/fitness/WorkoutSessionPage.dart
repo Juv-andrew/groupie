@@ -78,10 +78,10 @@ class _WorkoutSessionPageState extends State<WorkoutSessionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDF6F6),
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
         title: const Text("Sesi Latihan"),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         elevation: 2,
       ),
       body: SingleChildScrollView(
@@ -113,12 +113,12 @@ class _WorkoutSessionPageState extends State<WorkoutSessionPage> {
               height: 150,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.red.shade100,
+                color: const Color.fromARGB(255, 35, 76, 110),
               ),
               alignment: Alignment.center,
               child: Text(
                 _formatTime(_remainingSeconds),
-                style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Colors.red),
+                style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 202, 231, 255)),
               ),
             ),
             const SizedBox(height: 30),
@@ -130,7 +130,7 @@ class _WorkoutSessionPageState extends State<WorkoutSessionPage> {
               icon: const Icon(Icons.stop_circle, size: 28),
               label: const Text("Akhiri Latihan", style: TextStyle(fontSize: 18)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
+                backgroundColor:const Color(0xff0D273D),
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

@@ -102,10 +102,10 @@ class QuotesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFE3F2FD),
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
       appBar: AppBar(
         title: const Text('Mental Health Quotes'),
-        backgroundColor: const Color(0xFFE3F2FD),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black87),

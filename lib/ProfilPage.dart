@@ -110,7 +110,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               const SizedBox(width: 10),
-              _buildMiniButton(Icons.settings, 'settings'),
             ],
           ),
           const SizedBox(height: 24),

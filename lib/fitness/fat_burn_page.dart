@@ -24,16 +24,16 @@ class FatBurnPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Fat Burn Workout',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color(0xFFB9F6CA),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: Container(
-        color: Colors.white,
+        color: const Color.fromARGB(255, 202, 231, 255),
         child: ListView.builder(
           padding: const EdgeInsets.all(12),
           itemCount: workouts.length,

@@ -16,7 +16,7 @@ class SubscriptionPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 255, 12, 12),
+        backgroundColor: const Color(0xff0D273D),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -86,7 +86,7 @@ class SubscriptionPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () => _showPaymentDialog(context, title, priceValue),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 255, 16, 16),
+                backgroundColor: const Color(0xff0D273D),
                 minimumSize: const Size.fromHeight(40),
               ),
               child: const Text("Purchase",

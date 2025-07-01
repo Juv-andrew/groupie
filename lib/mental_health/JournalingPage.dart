@@ -83,10 +83,10 @@ class _JournalingPageState extends State<JournalingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFA7ECEE),
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
       appBar: AppBar(
         title: const Text('Journaling'),
-        backgroundColor: const Color(0xFFA7ECEE),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

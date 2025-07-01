@@ -11,7 +11,7 @@ class HomeWorkoutPage extends StatefulWidget {
 class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
   final TextEditingController _searchController = TextEditingController();
   String _selectedCategory = "All";
-  double _duration = 30; 
+  double _duration = 30;
 
   final List<Map<String, String>> workouts = [
     {
@@ -159,7 +159,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                             workoutName: workout["name"]!,
                             workoutImage: workout["image"]!,
                             workoutDescription: workout["description"]!,
-                            duration: _duration.round(), 
+                            duration: _duration.round(),
                           ),
                     ),
                   );
@@ -167,7 +167,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                 icon: const Icon(Icons.play_arrow),
                 label: const Text("Mulai Latihan"),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  backgroundColor: const Color(0xff0D273D),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,
@@ -189,14 +189,13 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
         title: const Text(
           'Home Workout',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 214, 19, 19),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
@@ -243,10 +242,10 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                           _selectedCategory = category;
                         });
                       },
-                      selectedColor: Colors.green,
-                      backgroundColor: Colors.black,
-                      labelStyle: const TextStyle(
-                        color: Colors.white,
+                      selectedColor: const Color(0xff0D273D),
+                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                      labelStyle: TextStyle(
+                        color: selected ? Colors.white : Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -276,7 +275,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
               max: 60,
               divisions: 10,
               label: "${_duration.round()} menit",
-              activeColor: Colors.red,
+              activeColor: const Color(0xff0D273D),
               onChanged: (value) {
                 setState(() {
                   _duration = value;
@@ -335,13 +334,6 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
             ),
           ],
         ),
-      ),
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-        },
-        child: const Icon(Icons.add),
-        backgroundColor: const Color.fromARGB(255, 214, 19, 19),
       ),
     );
   }

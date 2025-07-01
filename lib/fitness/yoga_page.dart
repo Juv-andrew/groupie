@@ -204,10 +204,6 @@ class _YogaPageState extends State<YogaPage> {
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.self_improvement, 
-              color: Colors.black,
-            ),
             const SizedBox(width: 8),
             const Text(
               'Yoga',
@@ -219,27 +215,16 @@ class _YogaPageState extends State<YogaPage> {
             ),
           ],
         ),
-        backgroundColor: const Color(0xFFB9F6CA),
-        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle, color: Colors.black),
-            onPressed:
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
-                ),
-          ),
-        ],
       ),
       body: Stack(
         children: [
           Container(
-            color: const Color.fromARGB(255, 255, 255, 255),
+            color: const Color.fromARGB(255, 202, 231, 255),
           ),
           Column(
             children: [
@@ -279,7 +264,7 @@ class _YogaPageState extends State<YogaPage> {
                                 selectedCategory = category;
                               });
                             },
-                            selectedColor: Colors.green,
+                            selectedColor: const Color(0xff0D273D),
                             backgroundColor: Colors.white70,
                             labelStyle: TextStyle(
                               color: isSelected ? Colors.white : Colors.black,
@@ -322,7 +307,7 @@ class _YogaPageState extends State<YogaPage> {
                                   style: const TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 29, 146, 117),
+                                    color: Color.fromARGB(255, 0, 0, 0),
                                   ),
                                 ),
                                 const SizedBox(height: 8),

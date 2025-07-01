@@ -33,34 +33,7 @@ class FitnessHomePage extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-  backgroundColor: const Color.fromARGB(255, 196, 36, 36),
-  centerTitle: true,
-  title: Row(
-    mainAxisSize: MainAxisSize.min,
-    children: const [
-      Icon(Icons.fitness_center, color: Colors.white, size: 28.0),
-      SizedBox(width: 8),
-      Text(
-        'Fitness Journey',
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      ),
-    ],
-  ),
-  actions: [
-    IconButton(
-      icon: const Icon(Icons.account_circle, color: Colors.white),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const ProfilePage()),
-        );
-      },
-    ),
-  ],
+  backgroundColor: const Color.fromARGB(255, 202, 231, 255),
 ),
 drawer: Drawer(
   child: ListView(
@@ -68,16 +41,15 @@ drawer: Drawer(
     children: [
       DrawerHeader(
         decoration: BoxDecoration(
-          color: Colors.red.shade700,
+          color: const Color.fromARGB(255, 202, 231, 255),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
-            Icon(Icons.fitness_center, size: 48, color: Colors.white),
             SizedBox(height: 10),
             Text(
               'Fitness Menu',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 20),
             ),
           ],
         ),
@@ -132,43 +104,13 @@ drawer: Drawer(
           );
         },
       ),
-      ListTile(
-        leading: const Icon(Icons.notifications),
-        title: const Text('Notification'),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const NotificationsPage()),
-          );
-        },
-      ),
-      ListTile(
-        leading: const Icon(Icons.article),
-        title: const Text('Artikel'),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => ArticlePage()),
-          );
-        },
-      ),
-      ListTile(
-        leading: const Icon(Icons.account_circle),
-        title: const Text('Profil'),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const ProfilePage()),
-          );
-        },
-      ),
     ],
   ),
 ),
 
       body: Stack(
         children: [
-          Positioned.fill(child: Container(color: Colors.grey[200])),
+          Positioned.fill(child: Container(color: const Color.fromARGB(255, 202, 231, 255) )),
           SafeArea(
             child: SingleChildScrollView(
               child: Padding(
@@ -228,12 +170,7 @@ drawer: Drawer(
                                     );
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color.fromARGB(
-                                      255,
-                                      255,
-                                      69,
-                                      69,
-                                    ),
+                                    backgroundColor: const Color(0xff0D273D),
                                     padding: EdgeInsets.symmetric(
                                       horizontal:
                                           MediaQuery.of(context).size.width *
@@ -314,7 +251,7 @@ drawer: Drawer(
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color.fromARGB(255, 228, 4, 4),
+        backgroundColor: const Color(0xff0D273D),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
         currentIndex: 0,

@@ -214,10 +214,6 @@ class _weight_training_pageState extends State<weight_training_page> {
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.fitness_center, 
-              color: Colors.black,
-            ),
             const SizedBox(width: 8),
             const Text(
               'Weight Training',
@@ -229,27 +225,16 @@ class _weight_training_pageState extends State<weight_training_page> {
             ),
           ],
         ),
-        backgroundColor: const Color(0xFFB9F6CA),
-        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle, color: Colors.black),
-            onPressed:
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
-                ),
-          ),
-        ],
       ),
       body: Stack(
         children: [
           Container(
-            color: const Color.fromARGB(255, 255, 255, 255),
+            color: const Color.fromARGB(255, 202, 231, 255) ,
           ),
           Column(
             children: [
@@ -289,18 +274,13 @@ class _weight_training_pageState extends State<weight_training_page> {
                                 selectedCategory = category;
                               });
                             },
-                            selectedColor: Colors.green,
-                            backgroundColor: const Color.fromARGB(179, 0, 0, 0),
+                            selectedColor: const Color(0xff0D273D),
+                            backgroundColor: const Color.fromARGB(179, 255, 255, 255),
                             labelStyle: TextStyle(
                               color:
                                   isSelected
                                       ? Colors.white
-                                      : const Color.fromARGB(
-                                        255,
-                                        255,
-                                        255,
-                                        255,
-                                      ),
+                                      : const Color.fromARGB(255, 0, 0, 0),
                             ),
                           ),
                         );
@@ -331,7 +311,7 @@ class _weight_training_pageState extends State<weight_training_page> {
                             ),
                           ),
                           Container(
-                            color: const Color.fromARGB(255, 56, 50, 42),
+                            color: const Color(0xff0D273D),
                             padding: const EdgeInsets.all(12),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
