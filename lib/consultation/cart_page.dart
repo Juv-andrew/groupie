@@ -39,7 +39,7 @@ class _CartPageState extends State<CartPage> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 202, 231, 255),
+                backgroundColor: const Color(0xff0D273D),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -68,7 +68,7 @@ class _CartPageState extends State<CartPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: const [
-                CircularProgressIndicator(color: const Color.fromARGB(255, 202, 231, 255),),
+                CircularProgressIndicator(color: Color(0xff0D273D),),
                 SizedBox(height: 16),
                 Text("Memproses pesanan...", style: TextStyle(fontSize: 16)),
               ],
@@ -91,7 +91,7 @@ class _CartPageState extends State<CartPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: const [
-                Icon(Icons.check_circle, color:Color.fromARGB(255, 202, 231, 255), size: 64),
+                Icon(Icons.check_circle, color: Color(0xff0D273D), size: 64),
                 SizedBox(height: 16),
                 Text("Pesanan berhasil!", style: TextStyle(fontSize: 18)),
               ],
@@ -123,10 +123,10 @@ class _CartPageState extends State<CartPage> {
       appBar: AppBar(
         title: const Text(
           'Keranjang Belanja',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Color(0xff0D273D)),
         ),
         backgroundColor:Color.fromARGB(255, 202, 231, 255),
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Color(0xff0D273D)),
       ),
       body: items.isEmpty
           ? const Center(child: Text('Keranjang Anda kosong.'))
@@ -145,7 +145,7 @@ class _CartPageState extends State<CartPage> {
                         ),
                         elevation: 2,
                         child: ListTile(
-                          leading: const Icon(Icons.medical_services, color: Color.fromARGB(255, 202, 231, 255),),
+                          leading: const Icon(Icons.medical_services, color: Color(0xff0D273D),),
                           title: Text(
                             item['name']!,
                             style: const TextStyle(fontWeight: FontWeight.bold),
@@ -166,7 +166,7 @@ class _CartPageState extends State<CartPage> {
                       const SizedBox(height: 12),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 202, 231, 255),
+                          backgroundColor: const Color(0xff0D273D),
                           minimumSize: const Size(double.infinity, 50),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),

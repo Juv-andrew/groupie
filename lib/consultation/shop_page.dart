@@ -103,7 +103,7 @@ class _ShopPageState extends State<ShopPage> {
           "Toko Obat Mental Health",
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.teal[700],
+        backgroundColor: Color(0xff0D273D),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
@@ -175,13 +175,13 @@ class _ShopPageState extends State<ShopPage> {
                         med['price']!,
                         style: const TextStyle(
                           fontSize: 16,
-                          color: Colors.teal,
+                          color: Color(0xff0D273D),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.teal,
+                          backgroundColor: Color(0xff0D273D),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
