@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project/notification_data.dart';
 import 'package:project/notification_helper.dart';
+import 'package:project/consultation/chat_page.dart';
+
 
 class DoctorDetailPage extends StatefulWidget {
   final Map<String, String> doctor;
@@ -60,11 +62,16 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.location_on_outlined,
-                              size: 16, color: Colors.white),
+                          Icon(
+                            Icons.location_on_outlined,
+                            size: 16,
+                            color: Colors.white,
+                          ),
                           SizedBox(width: 4),
-                          Text("Medan, Indonesia",
-                              style: TextStyle(color: Colors.white)),
+                          Text(
+                            "Medan, Indonesia",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ],
                       ),
                     ],
@@ -82,6 +89,32 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
               ],
             ),
             const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (_) => ChatPage(doctorName: widget.doctor['name']!),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.chat_bubble_outline),
+                label: const Text("Chat dengan Dokter"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: const Color(0xff0D273D),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: const BorderSide(color: Color(0xff0D273D)),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  minimumSize: const Size(double.infinity, 50),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
@@ -136,8 +169,8 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                               top: 20,
                               left: 20,
                               right: 20,
-                              bottom: MediaQuery.of(context).viewInsets.bottom +
-                                  20,
+                              bottom:
+                                  MediaQuery.of(context).viewInsets.bottom + 20,
                             ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -188,13 +221,13 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                 const SizedBox(height: 8),
                                 ElevatedButton.icon(
                                   onPressed: () async {
-                                    DateTime? pickedDate =
-                                        await showDatePicker(
+                                    DateTime? pickedDate = await showDatePicker(
                                       context: context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime.now(),
-                                      lastDate: DateTime.now()
-                                          .add(const Duration(days: 365)),
+                                      lastDate: DateTime.now().add(
+                                        const Duration(days: 365),
+                                      ),
                                     );
                                     if (pickedDate != null) {
                                       setModalState(() {
@@ -233,9 +266,9 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                   onPressed: () async {
                                     TimeOfDay? pickedTime =
                                         await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.now(),
-                                    );
+                                          context: context,
+                                          initialTime: TimeOfDay.now(),
+                                        );
                                     if (pickedTime != null) {
                                       setModalState(() {
                                         selectedTime = pickedTime;
@@ -266,53 +299,56 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30),
                                     ),
-                                    minimumSize:
-                                        const Size(double.infinity, 50),
+                                    minimumSize: const Size(
+                                      double.infinity,
+                                      50,
+                                    ),
                                   ),
                                   onPressed:
                                       (selectedDay.isNotEmpty &&
                                               selectedTime != null)
                                           ? () {
-                                              Navigator.pop(context);
+                                            Navigator.pop(context);
 
-                                              String formattedTime =
-                                                  selectedTime!
-                                                      .format(context);
+                                            String formattedTime = selectedTime!
+                                                .format(context);
 
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'Jadwal pada $selectedDay pukul $formattedTime berhasil dikonfirmasi!',
-                                                    style: const TextStyle(
-                                                        color:
-                                                            Color(0XFF031716)),
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Jadwal pada $selectedDay pukul $formattedTime berhasil dikonfirmasi!',
+                                                  style: const TextStyle(
+                                                    color: Color(0XFF031716),
                                                   ),
-                                                  backgroundColor:
-                                                      const Color(0xffCDD7DF),
                                                 ),
-                                              );
+                                                backgroundColor: const Color(
+                                                  0xffCDD7DF,
+                                                ),
+                                              ),
+                                            );
 
-                                              customNotifications.insert(0, {
-                                                'emoji': '💬',
-                                                'title': 'Booking Berhasil',
-                                                'time': 'Baru saja',
-                                                'description':
-                                                    'Jadwal dengan Dr. ${widget.doctor['name']} telah dikonfirmasi untuk $selectedDay pukul $formattedTime.',
-                                                'action1': 'Lihat',
-                                              });
+                                            customNotifications.insert(0, {
+                                              'emoji': '💬',
+                                              'title': 'Booking Berhasil',
+                                              'time': 'Baru saja',
+                                              'description':
+                                                  'Jadwal dengan Dr. ${widget.doctor['name']} telah dikonfirmasi untuk $selectedDay pukul $formattedTime.',
+                                              'action1': 'Lihat',
+                                            });
 
-                                              Future.delayed(
-                                                const Duration(seconds: 8),
-                                                () {
-                                                  showCustomNotification(
-                                                    title: "Pesan Baru",
-                                                    message:
-                                                        "Jadwal konsultasi kamu telah dikonfirmasi.",
-                                                  );
-                                                },
-                                              );
-                                            }
+                                            Future.delayed(
+                                              const Duration(seconds: 8),
+                                              () {
+                                                showCustomNotification(
+                                                  title: "Pesan Baru",
+                                                  message:
+                                                      "Jadwal konsultasi kamu telah dikonfirmasi.",
+                                                );
+                                              },
+                                            );
+                                          }
                                           : null,
                                   child: const Text(
                                     "Konfirmasi Jadwal",
