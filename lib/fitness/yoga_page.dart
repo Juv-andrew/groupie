@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project/ProfilPage.dart';
+import 'package:intl/intl.dart';
+
 
 class YogaPage extends StatefulWidget {
   const YogaPage({super.key});
@@ -11,6 +12,8 @@ class YogaPage extends StatefulWidget {
 class _YogaPageState extends State<YogaPage> {
   String searchQuery = '';
   String selectedCategory = 'All';
+
+  DateTime? globalYogaSchedule;
 
   final List<Map<String, String>> yogaList = [
     {
@@ -223,9 +226,7 @@ class _YogaPageState extends State<YogaPage> {
       ),
       body: Stack(
         children: [
-          Container(
-            color: const Color.fromARGB(255, 202, 231, 255),
-          ),
+          Container(color: const Color.fromARGB(255, 202, 231, 255)),
           Column(
             children: [
               Padding(
@@ -235,7 +236,12 @@ class _YogaPageState extends State<YogaPage> {
                     hintText: 'Cari gerakan yoga...',
                     prefixIcon: const Icon(Icons.search),
                     filled: true,
-                    fillColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.9),
+                    fillColor: const Color.fromARGB(
+                      255,
+                      255,
+                      255,
+                      255,
+                    ).withOpacity(0.9),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -275,6 +281,69 @@ class _YogaPageState extends State<YogaPage> {
                 ),
               ),
               const SizedBox(height: 10),
+
+              Padding(
+  padding: const EdgeInsets.only(left: 12, top: 8),
+  child: GestureDetector(
+    onTap: () async {
+      final selectedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(const Duration(days: 365)),
+      );
+
+      if (selectedDate != null) {
+        final selectedTime = await showTimePicker(
+          context: context,
+          initialTime: TimeOfDay.now(),
+        );
+
+        if (selectedTime != null) {
+          final combinedDateTime = DateTime(
+            selectedDate.year,
+            selectedDate.month,
+            selectedDate.day,
+            selectedTime.hour,
+            selectedTime.minute,
+          );
+
+          setState(() {
+            globalYogaSchedule = combinedDateTime;
+          });
+        }
+      }
+    },
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: const [
+        Icon(Icons.date_range, color: Color.fromARGB(255, 0, 0, 0)),
+        SizedBox(width: 6),
+        Text(
+          'Atur Jadwal Yoga',
+          style: TextStyle(
+            color: Color.fromARGB(255, 0, 0, 0),
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
+if (globalYogaSchedule != null)
+  Padding(
+    padding: const EdgeInsets.only(left: 12, top: 8),
+    child: Text(
+      'Jadwal Yoga: ${DateFormat('EEEE, dd MMMM yyyy – hh:mm a').format(globalYogaSchedule!)}',
+      style: const TextStyle(
+        color: Color.fromARGB(255, 0, 0, 0),
+        fontStyle: FontStyle.italic,
+      ),
+    ),
+  ),
+
               Expanded(
                 child: ListView.builder(
                   itemCount: filteredList.length,
@@ -312,6 +381,7 @@ class _YogaPageState extends State<YogaPage> {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(item['desc']!),
+                                const SizedBox(height: 12),
                               ],
                             ),
                           ),
