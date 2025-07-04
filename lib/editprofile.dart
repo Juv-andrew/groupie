@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -20,6 +19,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   String selectedGender = 'Female';
   String selectedBloodType = 'O';
+  DateTime? selectedDate;
 
   @override
   void dispose() {
@@ -32,12 +32,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.dispose();
   }
 
+  String getFormattedDate(DateTime? date) {
+    if (date == null) return 'Pilih tanggal lahir';
+    return '${date.day}/${date.month}/${date.year}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).brightness == Brightness.dark
-          ? Colors.black
-          : const Color.fromARGB(255, 202, 231, 255),
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -45,10 +51,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
           icon: const Icon(Icons.arrow_back, color: Color(0xff0D273D)),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
+        title: const Text(
           'Edit Profile',
-          style: GoogleFonts.nunito(
-            color: const Color(0xff0D273D),
+          style: TextStyle(
+            color: Color(0xff0D273D),
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
@@ -148,6 +154,32 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 },
               ),
 
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: ListTile(
+                    leading: const Icon(Icons.cake_outlined),
+                    title: Text(getFormattedDate(selectedDate)),
+                    onTap: () async {
+                      final DateTime? picked = await showDatePicker(
+                        context: context,
+                        initialDate: selectedDate ?? DateTime(2000, 1, 1),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now(),
+                      );
+                      if (picked != null) {
+                        setState(() {
+                          selectedDate = picked;
+                        });
+                      }
+                    },
+                  ),
+                ),
+              ),
               _buildDropdown(
                 icon: Icons.female,
                 label: 'Gender',
@@ -201,19 +233,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Profile berhasil disimpan!',
-                          style: GoogleFonts.nunito(),
-                        ),
-                        backgroundColor: const Color(0xff0D273D),
+                      const SnackBar(
+                        content: Text('Profile berhasil disimpan!'),
+                        backgroundColor: Color(0xff0D273D),
                       ),
                     );
                     Navigator.pop(context, usernameController.text);
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff0D273D),
+                  backgroundColor: Color(0xff0D273D),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 40,
@@ -224,12 +253,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                   elevation: 5,
                 ),
-                child: Text(
+                child: const Text(
                   'Save Profile',
-                  style: GoogleFonts.nunito(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ),
               const SizedBox(height: 30),
@@ -257,11 +283,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
           controller: controller,
           obscureText: isPassword,
           validator: validator,
-          style: GoogleFonts.nunito(),
           decoration: InputDecoration(
             icon: Icon(icon),
             labelText: label,
-            labelStyle: GoogleFonts.nunito(),
             border: InputBorder.none,
           ),
         ),
@@ -287,17 +311,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
           decoration: InputDecoration(
             icon: Icon(icon),
             labelText: label,
-            labelStyle: GoogleFonts.nunito(),
             border: InputBorder.none,
           ),
-          style: GoogleFonts.nunito(),
           onChanged: onChanged,
-          items: items.map((String item) {
-            return DropdownMenuItem<String>(
-              value: item,
-              child: Text(item, style: GoogleFonts.nunito()),
-            );
-          }).toList(),
+          items:
+              items.map((String item) {
+                return DropdownMenuItem<String>(value: item, child: Text(item));
+              }).toList(),
         ),
       ),
     );
