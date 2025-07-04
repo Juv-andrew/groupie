@@ -46,6 +46,7 @@ class SelfRecoveryPage extends StatelessWidget {
           ),
           MenuItem(
             title: 'Need Some Quotes?',
+            subtitle: 'You Are Not Alone',
             onTap: () {
               Navigator.push(
                 context,
@@ -55,6 +56,7 @@ class SelfRecoveryPage extends StatelessWidget {
           ),
           MenuItem(
             title: 'Listen To Your Music Now',
+            subtitle: 'FOLLOW YOUR HEART',
             onTap: () {
               Navigator.push(
                 context,

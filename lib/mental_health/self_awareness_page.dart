@@ -45,7 +45,7 @@ class SelfAwarenessPage extends StatelessWidget {
                 Image.asset(
                   'img-project/logo.png',
                   width: 250,
-                  height: 220,
+                  height: 250,
                 ),
               ],
             ),
