@@ -92,18 +92,10 @@ class _SignInState extends State<SignIn> {
                 children: [
                   Image.asset(
                     'img-project/logo.png', // Path to your image
-                    width: 200, // Adjust the size as needed
-                    height: 200, // Adjust the size as needed
+                    width: 300, // Adjust the size as needed
+                    height: 300, // Adjust the size as needed
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    'Lively',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0XFF031716),
-                    ),
-                  ),
                 ],
               ),
             ),

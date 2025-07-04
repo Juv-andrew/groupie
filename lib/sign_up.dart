@@ -140,16 +140,8 @@ class _SignUpState extends State<SignUp> {
                 // Replace Icon with Image
                 Image.asset(
                   'img-project/logo.png', // Path to your image
-                  width: 200, // Adjust the size as needed
-                  height: 200, // Adjust the size as needed
-                ),
-                const Text(
-                  'Lively',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0XFF031716),
-                  ),
+                  width: 300, // Adjust the size as needed
+                  height: 300, // Adjust the size as needed
                 ),
               ],
             ),

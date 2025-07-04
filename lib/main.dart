@@ -108,18 +108,10 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Image.asset(
               'img-project/logo.png',
-              width: 250,
-              height: 250,
+              width: 350,
+              height: 350,
             ),
             const SizedBox(height: 8),
-            const Text(
-              'Lively',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Color(0xff0D273D),
-              ),
-            ),
           ],
         ),
       ),
