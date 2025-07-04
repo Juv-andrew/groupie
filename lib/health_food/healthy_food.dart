@@ -292,9 +292,7 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                           padding: const EdgeInsets.only(right: 12),
                           child: ChoiceChip(
                             label: Container(
-                              constraints: const BoxConstraints(
-                                minWidth: 80,
-                              ), 
+                              constraints: const BoxConstraints(minWidth: 80),
                               child: Text(
                                 category,
                                 textAlign: TextAlign.center,
@@ -334,7 +332,7 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                             crossAxisCount: 2,
                             crossAxisSpacing: 16,
                             mainAxisSpacing: 16,
-                            childAspectRatio: 0.90,
+                            childAspectRatio: 0.85,
                           ),
                       itemCount: filteredFoods.length,
                       itemBuilder: (context, index) {

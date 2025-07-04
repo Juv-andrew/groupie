@@ -142,20 +142,10 @@ class _MainMenuPageState extends State<MainMenuPage> {
         iconTheme: const IconThemeData(color: Colors.black),
         title: Padding(
           padding: const EdgeInsets.only(left: 20),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset('img-project/logo.png', height: 70, width: 70),
-              const SizedBox(width: 2),
-              Text(
-                "Lively",
-                style: GoogleFonts.nunito(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-            ],
+          child: Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: 
+              Image.asset('img-project/logo.png', height: 100, width: 200),         
           ),
         ),
       ),
