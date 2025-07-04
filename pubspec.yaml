@@ -45,7 +45,7 @@ dependencies:
   flutter_chat_ui: ^1.6.7
   flutter_chat_types: ^3.6.2
   uuid: ^4.1.0
-
+  table_calendar: ^3.0.8
 
 dev_dependencies:
   flutter_test:

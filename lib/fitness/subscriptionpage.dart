@@ -203,6 +203,20 @@ class SubscriptionPage extends StatelessWidget {
 
                       if (schedule != null) {
                         confirmedSchedule = schedule;
+                        confirmedStartDate = schedule.startDate;
+
+                        if (title == 'Weekly') {
+                          confirmedEndDate = confirmedStartDate!.add(
+                            const Duration(days: 6),
+                          ); // 7 hari termasuk start
+                        } else if (title == 'Monthly') {
+                          confirmedEndDate = DateTime(
+                            confirmedStartDate!.year,
+                            confirmedStartDate!.month + 1,
+                            confirmedStartDate!.day,
+                          );
+                        }
+
                         confirmedPlan = title;
 
                         // ✅ Tampilkan notifikasi sebelum dialog ditutup
@@ -212,7 +226,7 @@ class SubscriptionPage extends StatelessWidget {
                               "✅ Pembayaran berhasil dan jadwal telah dikonfirmasi!\n"
                               "Plan: $title\n"
                               "Latihan: ${schedule.workoutType}\n"
-                              "Jadwal: ${schedule.days.join(', ')} - ${schedule.timeSlot}",
+                              "Jadwal: ${schedule.days.join(', ')}\nWaktu: ${schedule.timeSlot}\nMulai: ${schedule.startDate.day}/${schedule.startDate.month}/${schedule.startDate.year}",
                             ),
                             backgroundColor: Colors.green[600],
                             duration: Duration(seconds: 4),
