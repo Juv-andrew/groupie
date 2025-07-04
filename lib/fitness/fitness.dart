@@ -4,6 +4,7 @@ import 'package:project/artikel.dart';
 import 'package:project/fitness/calender_subs.dart';
 import 'package:project/fitness/fat_burn_page.dart';
 import 'package:project/fitness/home_workout_page.dart';
+import 'package:project/fitness/progress_page.dart';
 import 'package:project/fitness/subscriptionpage.dart';
 import 'package:project/fitness/weight_training_page.dart';
 import 'package:project/fitness/yoga_page.dart';
