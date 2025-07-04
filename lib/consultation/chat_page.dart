@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:uuid/uuid.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ChatPage extends StatefulWidget {
   final String doctorName;
@@ -80,13 +81,24 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
-        title: Text("Konsultasi dengan Dr. ${widget.doctorName}",style: TextStyle(color: Colors.white)),
+        title: Text(
+          "Konsultasi dengan Dr. ${widget.doctorName}",
+          style: GoogleFonts.nunito(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: const Color(0xff0D273D),
       ),
       body: Chat(
         messages: _messages,
         onSendPressed: _handleSendPressed,
         user: _user,
+        theme: const DefaultChatTheme(
+          primaryColor: Color(0xff0D273D),
+          inputBackgroundColor: Colors.white,
+          inputTextColor: Colors.black,
+        ),
       ),
     );
   }

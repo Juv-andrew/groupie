@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/health_food/recipe_page.dart';
 import 'package:project/health_food/models/food.dart'; 
 
@@ -40,28 +41,23 @@ class _Top3HealthState extends State<Top3Health> {
       backgroundColor: const Color(0xFFEBF5EE),
       appBar: AppBar(
         backgroundColor: const Color(0xff0D273D),
-        title: const Text(
+        title: Text(
           'Top 3 Health Menus',
-          style: TextStyle(color: Colors.white),
+          style: GoogleFonts.nunito(color: Colors.white),
         ),
         elevation: 2,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person, color: Colors.white),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.menu, color: Colors.white),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: _top3Foods.isEmpty
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: Text(
+                "Loading...",
+                style: GoogleFonts.nunito(fontSize: 18),
+              ),
+            )
           : SingleChildScrollView(
               padding: const EdgeInsets.all(20),
               child: Column(
@@ -85,10 +81,10 @@ class _Top3HealthState extends State<Top3Health> {
                         Expanded(
                           child: Text(
                             'Today\'s Top 3 Healthy Menus!',
-                            style: const TextStyle(
+                            style: GoogleFonts.nunito(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xff0D273D),
+                              color: const Color(0xff0D273D),
                             ),
                           ),
                         ),
@@ -103,7 +99,6 @@ class _Top3HealthState extends State<Top3Health> {
                     ),
                   ),
                   const SizedBox(height: 20),
-
                   for (var food in _top3Foods)
                     buildMenuItem(
                       context,
@@ -113,7 +108,6 @@ class _Top3HealthState extends State<Top3Health> {
                       fullDescription: food.description,
                       rating: food.rating.toString(),
                     ),
-
                   const SizedBox(height: 30),
                 ],
               ),
@@ -169,7 +163,7 @@ class _Top3HealthState extends State<Top3Health> {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: GoogleFonts.nunito(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -177,7 +171,7 @@ class _Top3HealthState extends State<Top3Health> {
                     const SizedBox(height: 6),
                     Text(
                       shortDescription,
-                      style: const TextStyle(fontSize: 13),
+                      style: GoogleFonts.nunito(fontSize: 13),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),

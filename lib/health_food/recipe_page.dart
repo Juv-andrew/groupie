@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RecipePage extends StatefulWidget {
   final String title;
@@ -48,6 +49,7 @@ class _RecipePageState extends State<RecipePage> {
       SnackBar(
         content: Text(
           isFavorited ? 'Ditambahkan ke Favorit' : 'Dihapus dari Favorit',
+          style: GoogleFonts.nunito(),
         ),
         duration: const Duration(seconds: 1),
       ),
@@ -65,7 +67,7 @@ class _RecipePageState extends State<RecipePage> {
           SliverAppBar(
             pinned: true,
             expandedHeight: 280,
-            backgroundColor: Color.fromARGB(255, 202, 231, 255),
+            backgroundColor: const Color.fromARGB(255, 202, 231, 255),
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
                 fit: StackFit.expand,
@@ -92,11 +94,11 @@ class _RecipePageState extends State<RecipePage> {
                       children: [
                         Text(
                           widget.title,
-                          style: const TextStyle(
+                          style: GoogleFonts.nunito(
                             color: Colors.white,
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
-                            shadows: [
+                            shadows: const [
                               Shadow(blurRadius: 4, color: Colors.black),
                             ],
                           ),
@@ -106,29 +108,20 @@ class _RecipePageState extends State<RecipePage> {
                           children: [
                             ...List.generate(5, (index) {
                               if (parsedRating >= index + 1) {
-                                return const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                  size: 20,
-                                );
+                                return const Icon(Icons.star,
+                                    color: Colors.amber, size: 20);
                               } else if (parsedRating > index) {
-                                return const Icon(
-                                  Icons.star_half,
-                                  color: Colors.amber,
-                                  size: 20,
-                                );
+                                return const Icon(Icons.star_half,
+                                    color: Colors.amber, size: 20);
                               } else {
-                                return const Icon(
-                                  Icons.star_border,
-                                  color: Colors.amber,
-                                  size: 20,
-                                );
+                                return const Icon(Icons.star_border,
+                                    color: Colors.amber, size: 20);
                               }
                             }),
                             const SizedBox(width: 8),
                             Text(
                               '${widget.rating} / 5',
-                              style: const TextStyle(
+                              style: GoogleFonts.nunito(
                                 color: Colors.white,
                                 fontSize: 16,
                               ),
@@ -158,28 +151,27 @@ class _RecipePageState extends State<RecipePage> {
                     );
                   }
                 },
-                itemBuilder:
-                    (context) => [
-                      PopupMenuItem<String>(
-                        value: 'favorite',
-                        child: ListTile(
-                          leading: Icon(
-                            isFavorited
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: Colors.pinkAccent,
-                          ),
-                          title: const Text('Favorite'),
-                        ),
+                itemBuilder: (context) => [
+                  PopupMenuItem<String>(
+                    value: 'favorite',
+                    child: ListTile(
+                      leading: Icon(
+                        isFavorited
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: Colors.pinkAccent,
                       ),
-                      const PopupMenuItem<String>(
-                        value: 'share',
-                        child: ListTile(
-                          leading: Icon(Icons.share, color: Colors.black),
-                          title: Text('Share'),
-                        ),
-                      ),
-                    ],
+                      title: Text('Favorite', style: GoogleFonts.nunito()),
+                    ),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'share',
+                    child: ListTile(
+                      leading: const Icon(Icons.share, color: Colors.black),
+                      title: Text('Share', style: GoogleFonts.nunito()),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -202,9 +194,9 @@ class _RecipePageState extends State<RecipePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Deskripsi Resep',
-                      style: TextStyle(
+                      style: GoogleFonts.nunito(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Colors.teal,
@@ -237,7 +229,7 @@ class _RecipePageState extends State<RecipePage> {
             padding: const EdgeInsets.only(top: 16, bottom: 4),
             child: Text(
               line.trim(),
-              style: const TextStyle(
+              style: GoogleFonts.nunito(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
@@ -249,7 +241,10 @@ class _RecipePageState extends State<RecipePage> {
         widgets.add(
           Padding(
             padding: const EdgeInsets.only(left: 12, bottom: 4),
-            child: Text(line.trim(), style: const TextStyle(fontSize: 16)),
+            child: Text(
+              line.trim(),
+              style: GoogleFonts.nunito(fontSize: 16),
+            ),
           ),
         );
       } else if (line.trim().startsWith('-')) {
@@ -263,7 +258,7 @@ class _RecipePageState extends State<RecipePage> {
                 Expanded(
                   child: Text(
                     line.trim().substring(1).trim(),
-                    style: const TextStyle(fontSize: 16),
+                    style: GoogleFonts.nunito(fontSize: 16),
                   ),
                 ),
               ],
@@ -276,7 +271,7 @@ class _RecipePageState extends State<RecipePage> {
             padding: const EdgeInsets.only(bottom: 8),
             child: Text(
               line.trim(),
-              style: const TextStyle(fontSize: 16, height: 1.5),
+              style: GoogleFonts.nunito(fontSize: 16, height: 1.5),
             ),
           ),
         );

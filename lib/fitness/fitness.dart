@@ -7,400 +7,287 @@ import 'package:project/fitness/progress_page.dart';
 import 'package:project/fitness/subscriptionpage.dart';
 import 'package:project/fitness/weight_training_page.dart';
 import 'package:project/fitness/yoga_page.dart';
+import 'package:project/global.dart';
 import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
-import 'package:pie_chart/pie_chart.dart';
 
-class FitnessApp extends StatelessWidget {
-  const FitnessApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fitness App',
-      home: FitnessHomePage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class LegendItem extends StatelessWidget {
-  final Color color;
-  final String text;
-
-  const LegendItem({super.key, required this.color, required this.text});
+class FitnessHomePage extends StatefulWidget {
+  const FitnessHomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 16,
-          height: 16,
-          decoration: BoxDecoration(shape: BoxShape.circle, color: color),
-        ),
-        const SizedBox(width: 8),
-        Flexible(child: Text(text, style: const TextStyle(fontSize: 14))),
-      ],
-    );
-  }
+  State<FitnessHomePage> createState() => _FitnessHomePageState();
 }
 
-class FitnessHomePage extends StatelessWidget {
-  final TextEditingController nameController = TextEditingController();
-
-  final Map<String, double> dataMap = {
-    "Weight Training": 30,
-    "Flexibility Training": 40,
-    "Fat Burn": 30,
-  };
-
-  FitnessHomePage({super.key});
+class _FitnessHomePageState extends State<FitnessHomePage> {
+  @override
+  void initState() {
+    super.initState();
+    // Trigger rebuild jika confirmedSchedule/confirmedPlan berubah
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {}); // force update
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
-        title: const Text(
-          'Fitness Page',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        elevation: 2,
-        iconTheme: const IconThemeData(color: Colors.black),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 202, 231, 255),
+      appBar: AppBar(backgroundColor: const Color.fromARGB(255, 202, 231, 255)),
+      drawer: _buildDrawer(context),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(color: const Color.fromARGB(255, 202, 231, 255)),
+          ),
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildPromoCard(context),
+                    const SizedBox(height: 10),
+                    _buildWorkoutSection(context),
+                  ],
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  SizedBox(height: 10),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: _buildBottomNav(context),
+    );
+  }
+
+  Widget _buildPromoCard(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.width * 0.5,
+      margin: const EdgeInsets.symmetric(vertical: 16),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                'img-project/fitness_test1.jpg',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withAlpha(102),
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  confirmedSchedule != null
+                      ? 'Jadwal Kamu:'
+                      : 'Promo Coaching Online!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: MediaQuery.of(context).size.width * 0.08,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                if (confirmedSchedule != null) ...[
                   Text(
-                    'Fitness Menu',
-                    style: TextStyle(color: Colors.black, fontSize: 20),
+                    confirmedPlan ?? '',
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  Text(
+                    "Latihan: ${confirmedSchedule?.workoutType}",
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  Text(
+                    "Hari: ${confirmedSchedule?.days.join(', ')}",
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  Text(
+                    "Waktu: ${confirmedSchedule?.timeSlot}",
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ] else ...[
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const SubscriptionPage(),
+                        ),
+                      ).then(
+                        (_) => setState(() {}),
+                      ); // refresh if back from subscription
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xff0D273D),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.1,
+                        vertical: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                    ),
+                    child: Text(
+                      'TRY IT NOW!!',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWorkoutSection(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: latihanCard(
+                'home workout',
+                'img-project/home_workout.jpg',
+                "Latihan untuk melatih otot dengan berat badan sendiri",
+                context,
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.fitness_center),
-              title: const Text('Home Workout'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomeWorkoutPage()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.fitness_center),
-              title: const Text('Weight Training'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const weight_training_page(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.local_fire_department),
-              title: const Text('Fat Burn'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const FatBurnPage()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.self_improvement),
-              title: const Text('Yoga'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const YogaPage()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.subscriptions),
-              title: const Text('Subscription'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const SubscriptionPage()),
-                );
-              },
+            Expanded(
+              child: latihanCard(
+                'weight training',
+                'img-project/weight_training.jpg',
+                "Latihan untuk meningkatkan kekuatan otot dan massa otot",
+                context,
+              ),
             ),
           ],
         ),
-      ),
+        Row(
+          children: [
+            Expanded(
+              child: latihanCard(
+                'fat burn',
+                'img-project/fat_burn.jpg',
+                "Latihan untuk menurunkan berat badan dan membakar lemak",
+                context,
+              ),
+            ),
+            Expanded(
+              child: latihanCard(
+                'Yoga',
+                'img-project/yoga.jpg',
+                "Latihan untuk flexibilitas dan pernafasan serta keseimbangan",
+                context,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 
-      body: Container(
-        color: const Color.fromARGB(255, 202, 231, 255),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.width * 0.5,
-                    margin: const EdgeInsets.symmetric(vertical: 16),
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'img-project/fitness_test1.jpg',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black.withAlpha(102),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Promo Coaching Online!',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.08,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:
-                                          (context) => const SubscriptionPage(),
-                                    ),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xff0D273D),
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        MediaQuery.of(context).size.width * 0.1,
-                                    vertical:
-                                        MediaQuery.of(context).size.height *
-                                        0.02,
-                                  ),
-                                ),
-                                child: Text(
-                                  'TRY IT NOW!!',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                        0.04,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const ProgressPage(),
+  Widget _buildDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 202, 231, 255),
+            ),
+            child: Text('Fitness Menu', style: TextStyle(fontSize: 20)),
+          ),
+          _drawerItem(
+            Icons.fitness_center,
+            'Home Workout',
+            const HomeWorkoutPage(),
+          ),
+          _drawerItem(
+            Icons.fitness_center,
+            'Weight Training',
+            const weight_training_page(),
+          ),
+          _drawerItem(
+            Icons.local_fire_department,
+            'Fat Burn',
+            const FatBurnPage(),
+          ),
+          _drawerItem(Icons.self_improvement, 'Yoga', const YogaPage()),
+          _drawerItem(
+            Icons.subscriptions,
+            'Subscription',
+            const SubscriptionPage(),
+          ),
+        ],
       ),
     );
-  },
-  child: Card(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16),
-    ),
-    elevation: 4,
-    margin: const EdgeInsets.only(bottom: 20),
-    child: Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 2,
-            child: PieChart(
-              dataMap: dataMap,
-              animationDuration: const Duration(milliseconds: 800),
-              chartRadius: MediaQuery.of(context).size.width * 0.3,
-              colorList: [
-                Colors.blueAccent,
-                Colors.orangeAccent,
-                Colors.redAccent,
-              ],
-              chartType: ChartType.disc,
-              chartValuesOptions: const ChartValuesOptions(
-                showChartValuesInPercentage: true,
-                showChartValueBackground: false,
-                decimalPlaces: 0,
-              ),
-              legendOptions: const LegendOptions(
-                showLegends: false,
-              ),
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  LegendItem(
-                    color: Colors.blueAccent,
-                    text: 'Weight Training',
-                  ),
-                  SizedBox(height: 15),
-                  LegendItem(
-                    color: Colors.orangeAccent,
-                    text: 'Flexibility Training',
-                  ),
-                  SizedBox(height: 15),
-                  LegendItem(
-                    color: Colors.redAccent,
-                    text: 'Fat Burn',
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  ),
-),
+  }
 
+  ListTile _drawerItem(IconData icon, String title, Widget page) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) => page));
+      },
+    );
+  }
 
-                  const SizedBox(height: 10),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: latihanCard(
-                              'home workout',
-                              'img-project/home_workout.jpg',
-                              "Latihan untuk melatih otot dengan berat badan sendiri",
-                              context,
-                            ),
-                          ),
-                          Expanded(
-                            child: latihanCard(
-                              'weight training',
-                              'img-project/weight_training.jpg',
-                              "Latihan untuk meningkatkan kekuatan otot dan massa otot",
-                              context,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: latihanCard(
-                              'fat burn',
-                              'img-project/fat_burn.jpg',
-                              "Latihan untuk menurunkan berat badan dan membakar lemak",
-                              context,
-                            ),
-                          ),
-                          Expanded(
-                            child: latihanCard(
-                              'Yoga',
-                              'img-project/yoga.jpg',
-                              "Latihan untuk flexibilitas dan pernafasan serta keseimbangan",
-                              context,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xff0D273D),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white,
-        currentIndex: 0,
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const MainMenuPage()),
-              );
-              {}
-            case 1:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationsPage(),
-                ),
-              );
-              break;
-            case 2:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => ArticlePage()),
-              );
-              break;
-            case 3:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
-              );
-              break;
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-        ],
-      ),
+  BottomNavigationBar _buildBottomNav(BuildContext context) {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: const Color(0xff0D273D),
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white,
+      currentIndex: 0,
+      onTap: (index) {
+        switch (index) {
+          case 0:
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const MainMenuPage()),
+            );
+            break;
+          case 1:
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const NotificationsPage()),
+            );
+            break;
+          case 2:
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => ArticlePage()),
+            );
+            break;
+          case 3:
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const ProfilePage()),
+            );
+            break;
+        }
+      },
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
+        BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
+      ],
     );
   }
 

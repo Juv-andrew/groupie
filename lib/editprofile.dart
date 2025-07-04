@@ -19,6 +19,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   String selectedGender = 'Female';
   String selectedBloodType = 'O';
+  DateTime? selectedDate;
 
   @override
   void dispose() {
@@ -31,12 +32,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.dispose();
   }
 
+  String getFormattedDate(DateTime? date) {
+    if (date == null) return 'Pilih tanggal lahir';
+    return '${date.day}/${date.month}/${date.year}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).brightness == Brightness.dark
-      ? Colors.black
-      : const Color.fromARGB(255, 202, 231, 255),
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -47,7 +54,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         title: const Text(
           'Edit Profile',
           style: TextStyle(
-            color:  Color(0xff0D273D),
+            color: Color(0xff0D273D),
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
@@ -147,6 +154,32 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 },
               ),
 
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: ListTile(
+                    leading: const Icon(Icons.cake_outlined),
+                    title: Text(getFormattedDate(selectedDate)),
+                    onTap: () async {
+                      final DateTime? picked = await showDatePicker(
+                        context: context,
+                        initialDate: selectedDate ?? DateTime(2000, 1, 1),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now(),
+                      );
+                      if (picked != null) {
+                        setState(() {
+                          selectedDate = picked;
+                        });
+                      }
+                    },
+                  ),
+                ),
+              ),
               _buildDropdown(
                 icon: Icons.female,
                 label: 'Gender',
@@ -281,9 +314,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
             border: InputBorder.none,
           ),
           onChanged: onChanged,
-          items: items.map((String item) {
-            return DropdownMenuItem<String>(value: item, child: Text(item));
-          }).toList(),
+          items:
+              items.map((String item) {
+                return DropdownMenuItem<String>(value: item, child: Text(item));
+              }).toList(),
         ),
       ),
     );

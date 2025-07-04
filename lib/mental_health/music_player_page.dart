@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
 
 class MusicPlayerPage extends StatefulWidget {
@@ -77,7 +78,7 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(widget.title, style: const TextStyle(color: Colors.black)),
+        title: Text(widget.title, style: GoogleFonts.nunito(color: Colors.black)),
         iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Padding(
@@ -89,7 +90,7 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
             const SizedBox(height: 30),
             Text(
               widget.title,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: GoogleFonts.nunito(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 40),
@@ -110,7 +111,7 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
             ),
             Text(
               '${_formatDuration(_position)} / ${isDurationKnown ? _formatDuration(_duration) : "--:--"}',
-              style: const TextStyle(fontSize: 14, color: Colors.black87),
+              style: GoogleFonts.nunito(fontSize: 14, color: Colors.black87),
             ),
             const SizedBox(height: 30),
 

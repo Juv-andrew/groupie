@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/provider/shop_provider.dart';
 import 'provider/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -108,8 +109,8 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Image.asset(
               'img-project/logo.png',
-              width: 250,
-              height: 250,
+              width: 350,
+              height: 350,
             ),
             const SizedBox(height: 8),
             const Text(

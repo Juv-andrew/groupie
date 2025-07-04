@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/artikel.dart';
 import 'package:project/editprofile.dart';
 import 'package:project/main_page.dart';
@@ -36,17 +37,17 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 202, 231, 255),
-       appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xff0D273D)),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           'Edit Profile',
-          style: TextStyle(
-            color:  Color(0xff0D273D),
+          style: GoogleFonts.nunito(
+            color: const Color(0xff0D273D),
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
@@ -64,11 +65,11 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(height: 12),
           Text(
             userName,
-            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            style: GoogleFonts.nunito(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           Text(
             userEmail,
-            style: const TextStyle(fontSize: 16, color: Colors.black54),
+            style: GoogleFonts.nunito(fontSize: 16, color: Colors.black54),
           ),
           const SizedBox(height: 8),
           Row(
@@ -90,9 +91,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   }
                 },
                 icon: const Icon(Icons.edit, color: Colors.black),
-                label: const Text(
+                label: Text(
                   'edit profile',
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
                   ),
@@ -113,25 +114,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
           const SizedBox(height: 24),
-          // Bagian Dark Mode DITUTUP SEMENTARA
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       const Text(
-          //         'Dark Mode',
-          //         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-          //       ),
-          //       Switch(
-          //         value: isDarkMode,
-          //         onChanged: (value) {
-          //           themeProvider.toggleTheme(value);
-          //         },
-          //       ),
-          //     ],
-          //   ),
-          // ),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -188,60 +170,36 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildMiniButton(IconData icon, String label) {
-    return ElevatedButton.icon(
-      onPressed: () {
-        if (label == 'Favorites') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => FavoriteDoctorsPage()),
-          );
-        }
-      },
-      icon: Icon(icon, color: Colors.black),
-      label: Text(
-        label,
-        style: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white.withOpacity(0.9),
-        elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      ),
-    );
-  }
-
   Widget _buildProfileOption(IconData icon, String title) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
-        leading: Icon(icon, color:Color(0xff0D273D)),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
+        leading: Icon(icon, color: const Color(0xff0D273D)),
+        title: Text(
+          title,
+          style: GoogleFonts.nunito(fontWeight: FontWeight.w500),
+        ),
         trailing: const Icon(Icons.chevron_right),
         onTap: () async {
           if (title == 'Logout') {
             bool? confirm = await showDialog<bool>(
               context: context,
-              builder:
-                  (context) => AlertDialog(
-                    title: const Text('Konfirmasi Logout'),
-                    content: const Text('Apakah Anda yakin ingin keluar?'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, false),
-                        child: const Text('Batal'),
-                      ),
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, true),
-                        child: const Text('Ya, Keluar'),
-                      ),
-                    ],
+              builder: (context) => AlertDialog(
+                title: Text('Konfirmasi Logout', style: GoogleFonts.nunito()),
+                content: Text('Apakah Anda yakin ingin keluar?',
+                    style: GoogleFonts.nunito()),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, false),
+                    child: Text('Batal', style: GoogleFonts.nunito()),
                   ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    child: Text('Ya, Keluar', style: GoogleFonts.nunito()),
+                  ),
+                ],
+              ),
             );
 
             if (confirm == true) {

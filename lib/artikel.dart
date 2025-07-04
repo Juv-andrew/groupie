@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/main_page.dart';
 import 'package:project/notification.dart';
@@ -11,41 +12,32 @@ class ArticlePage extends StatelessWidget {
     {
       'category': 'Hidup Sehat',
       'title': 'Cara Merawat Kulit Wajah yang Baik dan Benar',
-
-      'image':
-          'https://awsimages.detik.net.id/community/media/visual/2019/10/24/453c1300-a714-49b4-9ab8-760f2f73ea32.jpeg?w=1200',
+      'image': 'https://awsimages.detik.net.id/community/media/visual/2019/10/24/453c1300-a714-49b4-9ab8-760f2f73ea32.jpeg?w=1200',
     },
     {
       'category': 'Kesehatan',
       'title': 'Makin Cantik setelah Tahu Cara Membersihkan Wajah dengan Benar',
-      'image':
-          'https://res.cloudinary.com/dk0z4ums3/image/upload/v1623652646/attached_image/perawatan-wajah-kusam-agar-tampil-lebih-cerah-0-alodokter.jpg',
+      'image': 'https://res.cloudinary.com/dk0z4ums3/image/upload/v1623652646/attached_image/perawatan-wajah-kusam-agar-tampil-lebih-cerah-0-alodokter.jpg',
     },
     {
       'category': 'Kesehatan Mental',
-      'title':
-          'Cara Healing yang cocok untuk introvert agar tak gampang stress',
-      'image':
-          'https://cdn1-production-images-kly.akamaized.net/MJP69y9UBONvwEboVO43yB20lRk=/0x154:3000x1845/500x281/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4090631/original/047923700_1657944348-rekomendasi_buku_bagus.jpg',
+      'title': 'Cara Healing yang cocok untuk introvert agar tak gampang stress',
+      'image': 'https://cdn1-production-images-kly.akamaized.net/MJP69y9UBONvwEboVO43yB20lRk=/0x154:3000x1845/500x281/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4090631/original/047923700_1657944348-rekomendasi_buku_bagus.jpg',
     },
     {
       'category': 'Fitness',
-      'title':
-          'Tips Menghilangkan pegal di kaki dan paha setelah olahraga lari',
-      'image':
-          'https://www.neorheumacyl.com/public/files/Tips-Menghilangkan-Pegal-di-Kaki-dan-Paha-Setelah-Olahraga-Lari.jpg',
+      'title': 'Tips Menghilangkan pegal di kaki dan paha setelah olahraga lari',
+      'image': 'https://www.neorheumacyl.com/public/files/Tips-Menghilangkan-Pegal-di-Kaki-dan-Paha-Setelah-Olahraga-Lari.jpg',
     },
     {
       'category': 'Makanan Sehat',
       'title': 'Alasan dan Bahaya Makan Mie Pakai Nasi untuk tubuh',
-      'image':
-          'https://mmc.tirto.id/image/2024/04/05/ilustrasi-makan-mie-pakai-nasi-tirto-01_ratio-16x9.jpg',
+      'image': 'https://mmc.tirto.id/image/2024/04/05/ilustrasi-makan-mie-pakai-nasi-tirto-01_ratio-16x9.jpg',
     },
     {
       'category': 'Makanan Sehat',
       'title': 'Ini Kriteria Makanan Sehat untuk Anak',
-      'image':
-          'https://www.vidoran.com/public/files/kriteria_makanan_sehat_untuk_anak.jpg',
+      'image': 'https://www.vidoran.com/public/files/kriteria_makanan_sehat_untuk_anak.jpg',
     },
     {
       'category': 'Hidup Sehat',
@@ -70,30 +62,28 @@ class ArticlePage extends StatelessWidget {
     {
       'category': 'Kesehatan Mental',
       'title': 'Kenali Tanda-Tanda Burnout dan Cara Mengatasinya',
-      'image':
-          'https://media.kompas.tv/library/image/content_article/article_img/20210207164102.jpg',
+      'image': 'https://media.kompas.tv/library/image/content_article/article_img/20210207164102.jpg',
     },
     {
       'category': 'Fitness',
-      'title':
-          'Bukan Cuma Sit Up, ini beberapa latihan untuk membentuk Otot Perut',
-      'image':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy5jb1iwtKu_0TiflcFG5EMYMIuHJRY4itaWLCAdnIJqvgt9iwjVrpOtfKhSRq2sBMQnU&usqp=CAU',
+      'title': 'Bukan Cuma Sit Up, ini beberapa latihan untuk membentuk Otot Perut',
+      'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy5jb1iwtKu_0TiflcFG5EMYMIuHJRY4itaWLCAdnIJqvgt9iwjVrpOtfKhSRq2sBMQnU&usqp=CAU',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          Theme.of(context).brightness == Brightness.dark
-              ? Colors.black
-              : const Color.fromARGB(255, 202, 231, 255),
-
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.black
+          : const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Artikel Kesehatan',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: GoogleFonts.nunito(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
@@ -111,14 +101,13 @@ class ArticlePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder:
-                      (context) => ArticleDetailPageFancy(
-                        title: article['title'] ?? '',
-                        category: article['category'] ?? '',
-                        content:
-                            'Ini adalah isi lengkap dari artikel berjudul "${article['title']}". Nanti bisa kamu ganti sesuai kebutuhan.',
-                        imageUrl: article['image'] ?? '',
-                      ),
+                  builder: (context) => ArticleDetailPageFancy(
+                    title: article['title'] ?? '',
+                    category: article['category'] ?? '',
+                    content:
+                        'Ini adalah isi lengkap dari artikel berjudul "${article['title']}". Nanti bisa kamu ganti sesuai kebutuhan.',
+                    imageUrl: article['image'] ?? '',
+                  ),
                 ),
               );
             },
@@ -140,25 +129,24 @@ class ArticlePage extends StatelessWidget {
                     borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(18),
                     ),
-                    child:
-                        article['image']!.isNotEmpty
-                            ? Image.network(
-                              article['image']!,
-                              width: double.infinity,
-                              height: 160,
-                              fit: BoxFit.cover,
-                            )
-                            : Container(
-                              height: 160,
-                              color: const Color(0xFFE6F3EB),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.image,
-                                  size: 50,
-                                  color: Colors.grey,
-                                ),
+                    child: article['image']!.isNotEmpty
+                        ? Image.network(
+                            article['image']!,
+                            width: double.infinity,
+                            height: 160,
+                            fit: BoxFit.cover,
+                          )
+                        : Container(
+                            height: 160,
+                            color: const Color(0xFFE6F3EB),
+                            child: const Center(
+                              child: Icon(
+                                Icons.image,
+                                size: 50,
+                                color: Colors.grey,
                               ),
                             ),
+                          ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16),
@@ -167,18 +155,17 @@ class ArticlePage extends StatelessWidget {
                       children: [
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 4,
-                          ),
+                              horizontal: 10, vertical: 4),
                           decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 85, 157, 216).withOpacity(0.15),
+                            color: const Color.fromARGB(255, 85, 157, 216)
+                                .withOpacity(0.15),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
                             article['category']!,
-                            style: const TextStyle(
+                            style: GoogleFonts.nunito(
                               fontSize: 12,
-                              color: Color(0xff0D273D),
+                              color: const Color(0xff0D273D),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -186,7 +173,7 @@ class ArticlePage extends StatelessWidget {
                         const SizedBox(height: 10),
                         Text(
                           article['title']!,
-                          style: const TextStyle(
+                          style: GoogleFonts.nunito(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: Colors.black87,
@@ -218,16 +205,10 @@ class ArticlePage extends StatelessWidget {
             case 1:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationsPage(),
-                ),
+                MaterialPageRoute(builder: (context) => const NotificationsPage()),
               );
               break;
             case 2:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => ArticlePage()),
-              );
               break;
             case 3:
               Navigator.pushReplacement(

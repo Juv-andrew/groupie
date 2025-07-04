@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:project/main_page.dart';
@@ -40,9 +41,9 @@ class _SelfCarePageState extends State<SelfCarePage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Self-Care',
-          style: TextStyle(
+          style: GoogleFonts.nunito(
             color: Colors.black,
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -67,7 +68,7 @@ class _SelfCarePageState extends State<SelfCarePage> {
               formattedDate.isEmpty
                   ? 'Memuat tanggal...'
                   : 'Tanggal Tes: $formattedDate',
-              style: const TextStyle(
+              style: GoogleFonts.nunito(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color: Colors.black87,
@@ -157,9 +158,9 @@ class _SelfCarePageState extends State<SelfCarePage> {
                     padding: const EdgeInsets.only(bottom: 16),
                     child: ElevatedButton.icon(
                       icon: const Icon(Icons.history),
-                      label: const Text(
+                      label: Text(
                         'Riwayat Tes',
-                        style: TextStyle(
+                        style: GoogleFonts.nunito(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -208,9 +209,7 @@ class _SelfCarePageState extends State<SelfCarePage> {
             case 1:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationsPage(),
-                ),
+                MaterialPageRoute(builder: (context) => const NotificationsPage()),
               );
               break;
             case 2:
@@ -260,6 +259,7 @@ class MenuItem extends StatelessWidget {
   final String title;
   final String tooltip;
   final VoidCallback? onTap;
+
   const MenuItem({
     super.key,
     required this.title,
@@ -272,7 +272,7 @@ class MenuItem extends StatelessWidget {
     return Tooltip(
       message: tooltip,
       padding: const EdgeInsets.all(12),
-      textStyle: const TextStyle(color: Colors.white),
+      textStyle: GoogleFonts.nunito(color: Colors.white),
       decoration: BoxDecoration(
         color: Colors.black87,
         borderRadius: BorderRadius.circular(8),
@@ -283,7 +283,7 @@ class MenuItem extends StatelessWidget {
         child: ListTile(
           title: Text(
             title,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w500),
           ),
           trailing: const Icon(Icons.arrow_forward_ios),
           onTap: onTap,

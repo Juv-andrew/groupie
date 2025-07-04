@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CartPage extends StatefulWidget {
   final List<Map<String, String>> cartItems;
@@ -30,25 +31,23 @@ class _CartPageState extends State<CartPage> {
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          title: const Text('Konfirmasi Pesanan'),
-          content: const Text('Apakah Anda yakin ingin memesan barang ini?'),
+          title: Text('Konfirmasi Pesanan', style: GoogleFonts.nunito(fontWeight: FontWeight.bold)),
+          content: Text('Apakah Anda yakin ingin memesan barang ini?', style: GoogleFonts.nunito()),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(),
-              child: const Text('Batal'),
+              child: Text('Batal', style: GoogleFonts.nunito()),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff0D273D),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
                 showLoadingAndSuccess();
               },
-              child: const Text('Ya, Pesan', style: TextStyle(color: Colors.white)),
+              child: Text('Ya, Pesan', style: GoogleFonts.nunito(color: Colors.white)),
             ),
           ],
         );
@@ -60,17 +59,17 @@ class _CartPageState extends State<CartPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) {
+      builder: (_) {
         return Dialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                CircularProgressIndicator(color: Color(0xff0D273D),),
-                SizedBox(height: 16),
-                Text("Memproses pesanan...", style: TextStyle(fontSize: 16)),
+              children: [
+                const CircularProgressIndicator(color: Color(0xff0D273D)),
+                const SizedBox(height: 16),
+                Text("Memproses pesanan...", style: GoogleFonts.nunito(fontSize: 16)),
               ],
             ),
           ),
@@ -79,7 +78,8 @@ class _CartPageState extends State<CartPage> {
     );
 
     await Future.delayed(const Duration(seconds: 3));
-    if (mounted) Navigator.of(context).pop(); 
+    if (mounted) Navigator.of(context).pop();
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -90,10 +90,10 @@ class _CartPageState extends State<CartPage> {
             padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Icon(Icons.check_circle, color: Color(0xff0D273D), size: 64),
-                SizedBox(height: 16),
-                Text("Pesanan berhasil!", style: TextStyle(fontSize: 18)),
+              children: [
+                const Icon(Icons.check_circle, color: Color(0xff0D273D), size: 64),
+                const SizedBox(height: 16),
+                Text("Pesanan berhasil!", style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -105,9 +105,9 @@ class _CartPageState extends State<CartPage> {
     if (mounted) Navigator.of(context).pop();
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Barang telah dipesan!'),
-        duration: Duration(seconds: 2),
+      SnackBar(
+        content: Text('Barang telah dipesan!', style: GoogleFonts.nunito()),
+        duration: const Duration(seconds: 2),
       ),
     );
 
@@ -118,18 +118,23 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Keranjang Belanja',
-          style: TextStyle(color: Color(0xff0D273D)),
-        ),
-        backgroundColor:Color.fromARGB(255, 202, 231, 255),
+        title: Text('Keranjang Belanja', style: GoogleFonts.nunito(color: const Color(0xff0D273D), fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         iconTheme: const IconThemeData(color: Color(0xff0D273D)),
       ),
       body: items.isEmpty
-          ? const Center(child: Text('Keranjang Anda kosong.'))
+          ? Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.remove_shopping_cart, size: 80, color: Colors.grey),
+                  const SizedBox(height: 10),
+                  Text('Keranjang Anda kosong.', style: GoogleFonts.nunito(fontSize: 16, color: Colors.black54)),
+                ],
+              ),
+            )
           : Column(
               children: [
                 Expanded(
@@ -140,17 +145,12 @@ class _CartPageState extends State<CartPage> {
                       final item = items[index];
                       return Card(
                         margin: const EdgeInsets.symmetric(vertical: 8),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                         elevation: 2,
                         child: ListTile(
-                          leading: const Icon(Icons.medical_services, color: Color(0xff0D273D),),
-                          title: Text(
-                            item['name']!,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(item['price']!),
+                          leading: const Icon(Icons.medical_services, color: Color(0xff0D273D)),
+                          title: Text(item['name']!, style: GoogleFonts.nunito(fontWeight: FontWeight.bold)),
+                          subtitle: Text(item['price']!, style: GoogleFonts.nunito()),
                         ),
                       );
                     },
@@ -160,23 +160,15 @@ class _CartPageState extends State<CartPage> {
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      ),
                       const SizedBox(height: 12),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff0D273D),
                           minimumSize: const Size(double.infinity, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         onPressed: showConfirmationDialog,
-                        label: const Text(
-                          'Pesan Sekarang',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
+                        label: Text('Pesan Sekarang', style: GoogleFonts.nunito(color: Colors.white, fontSize: 16)),
                       ),
                     ],
                   ),

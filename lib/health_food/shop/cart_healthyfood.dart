@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project/health_food/shop/shop_page.dart';
 import 'package:provider/provider.dart';
+import 'package:project/health_food/shop/shop_page.dart';
 import 'package:project/provider/shop_provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -10,13 +11,11 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shopping Cart'),
+        title: Text('Shopping Cart', style: GoogleFonts.nunito()),
         backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       body: Consumer<ShopProvider>(
@@ -24,7 +23,12 @@ class CartPage extends StatelessWidget {
           final cartItems = provider.keranjang;
 
           if (cartItems.isEmpty) {
-            return const Center(child: Text('Keranjang kamu kosong!'));
+            return Center(
+              child: Text(
+                'Keranjang kamu kosong!',
+                style: GoogleFonts.nunito(fontSize: 16),
+              ),
+            );
           }
 
           return Column(
@@ -45,25 +49,24 @@ class CartPage extends StatelessWidget {
                           height: 50,
                           fit: BoxFit.cover,
                         ),
-                        title: Text(item.nama),
+                        title: Text(item.nama, style: GoogleFonts.nunito()),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Rp ${item.harga} (${item.satuan})'),
+                            Text(
+                              'Rp ${item.harga} (${item.satuan})',
+                              style: GoogleFonts.nunito(fontSize: 14),
+                            ),
                             Row(
                               children: [
                                 IconButton(
                                   icon: const Icon(Icons.remove),
-                                  onPressed: () {
-                                    provider.kurangJumlah(item);
-                                  },
+                                  onPressed: () => provider.kurangJumlah(item),
                                 ),
-                                Text('${item.jumlah}'),
+                                Text('${item.jumlah}', style: GoogleFonts.nunito()),
                                 IconButton(
                                   icon: const Icon(Icons.add),
-                                  onPressed: () {
-                                    provider.tambahJumlah(item);
-                                  },
+                                  onPressed: () => provider.tambahJumlah(item),
                                 ),
                               ],
                             ),
@@ -71,9 +74,7 @@ class CartPage extends StatelessWidget {
                         ),
                         trailing: IconButton(
                           icon: const Icon(Icons.delete),
-                          onPressed: () {
-                            provider.removeFromKeranjang(item);
-                          },
+                          onPressed: () => provider.removeFromKeranjang(item),
                         ),
                       ),
                     );
@@ -91,13 +92,13 @@ class CartPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Total:',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Rp ${provider.totalHarga()}',
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -115,16 +116,18 @@ class CartPage extends StatelessWidget {
                             builder: (BuildContext context) {
                               return PaymentDialog(
                                 totalHarga: provider.totalHarga(),
-                                onBayar: () {
-                                  provider.checkout();
-                                },
+                                onBayar: () => provider.checkout(),
                               );
                             },
                           );
                         },
-                        child: const Text(
+                        child: Text(
                           'Checkout',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold , color: Colors.white),
+                          style: GoogleFonts.nunito(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -162,25 +165,28 @@ class _PaymentDialogState extends State<PaymentDialog> {
     final cartItems = Provider.of<ShopProvider>(context, listen: false).keranjang;
 
     return AlertDialog(
-      title: Text(_step == 1 ? 'Pilih Metode Pembayaran' : 'Konfirmasi Pesanan'),
+      title: Text(
+        _step == 1 ? 'Pilih Metode Pembayaran' : 'Konfirmasi Pesanan',
+        style: GoogleFonts.nunito(fontWeight: FontWeight.bold),
+      ),
       content: _step == 1
           ? Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 RadioListTile<String>(
-                  title: const Text('Kartu Kredit'),
+                  title: Text('Kartu Kredit', style: GoogleFonts.nunito()),
                   value: 'Kartu Kredit',
                   groupValue: _selectedPaymentMethod,
                   onChanged: (value) => setState(() => _selectedPaymentMethod = value),
                 ),
                 RadioListTile<String>(
-                  title: const Text('E-Wallet'),
+                  title: Text('E-Wallet', style: GoogleFonts.nunito()),
                   value: 'E-Wallet',
                   groupValue: _selectedPaymentMethod,
                   onChanged: (value) => setState(() => _selectedPaymentMethod = value),
                 ),
                 RadioListTile<String>(
-                  title: const Text('Transfer Bank'),
+                  title: Text('Transfer Bank', style: GoogleFonts.nunito()),
                   value: 'Transfer Bank',
                   groupValue: _selectedPaymentMethod,
                   onChanged: (value) => setState(() => _selectedPaymentMethod = value),
@@ -189,19 +195,19 @@ class _PaymentDialogState extends State<PaymentDialog> {
             )
           : SizedBox(
               width: double.maxFinite,
-              height: MediaQuery.of(context).size.height * 0.5, 
+              height: MediaQuery.of(context).size.height * 0.5,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     ...cartItems.map((item) => ListTile(
-                          title: Text(item.nama),
+                          title: Text(item.nama, style: GoogleFonts.nunito()),
                           subtitle: Text(
                             '${item.jumlah} x Rp ${item.harga}',
-                            style: const TextStyle(fontSize: 14),
+                            style: GoogleFonts.nunito(fontSize: 14),
                           ),
                           trailing: Text(
                             'Rp ${item.jumlah * item.harga}',
-                            style: const TextStyle(
+                            style: GoogleFonts.nunito(
                               fontSize: 14,
                               color: Colors.black87,
                               fontWeight: FontWeight.bold,
@@ -213,7 +219,10 @@ class _PaymentDialogState extends State<PaymentDialog> {
                       alignment: Alignment.centerRight,
                       child: Text(
                         'Total: Rp ${widget.totalHarga}',
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: GoogleFonts.nunito(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
@@ -224,32 +233,34 @@ class _PaymentDialogState extends State<PaymentDialog> {
           ? [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Batal'),
+                child: Text('Batal', style: GoogleFonts.nunito()),
               ),
               ElevatedButton(
                 onPressed: _selectedPaymentMethod == null
                     ? null
                     : () => setState(() => _step = 2),
-                child: const Text('Next'),
+                child: Text('Next', style: GoogleFonts.nunito()),
               ),
             ]
           : [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Batal'),
+                child: Text('Batal', style: GoogleFonts.nunito()),
               ),
               ElevatedButton(
                 onPressed: () {
                   widget.onBayar();
                   Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => ShopPage()),
+                    MaterialPageRoute(builder: (context) => const ShopPage()),
                     (route) => false,
                   );
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Pembayaran Sukses!')),
+                    SnackBar(
+                      content: Text('Pembayaran Sukses!', style: GoogleFonts.nunito()),
+                    ),
                   );
                 },
-                child: const Text('Bayar'),
+                child: Text('Bayar', style: GoogleFonts.nunito()),
               ),
             ],
     );

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project/fitness/schedule.dart';
+import 'package:project/global.dart';
+// berisi confirmedSchedule & confirmedPlan
 
 class SubscriptionPage extends StatelessWidget {
   const SubscriptionPage({super.key});
@@ -9,7 +12,9 @@ class SubscriptionPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Subscription Plans'),
         titleTextStyle: const TextStyle(
-          fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white,
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -67,21 +72,25 @@ class SubscriptionPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title,
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            Text(
+              title,
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 4),
             Text(price, style: const TextStyle(fontSize: 16)),
             const Divider(height: 20, thickness: 1),
-            ...features.map((f) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Row(
-                children: [
-                  const Icon(Icons.check, color: Colors.green, size: 20),
-                  const SizedBox(width: 8),
-                  Expanded(child: Text(f)),
-                ],
+            ...features.map(
+              (f) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Row(
+                  children: [
+                    const Icon(Icons.check, color: Colors.green, size: 20),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(f)),
+                  ],
+                ),
               ),
-            )),
+            ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () => _showPaymentDialog(context, title, priceValue),
@@ -89,9 +98,14 @@ class SubscriptionPage extends StatelessWidget {
                 backgroundColor: const Color(0xff0D273D),
                 minimumSize: const Size.fromHeight(40),
               ),
-              child: const Text("Purchase",
-                  style: TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+              child: const Text(
+                "Purchase",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),
@@ -99,7 +113,11 @@ class SubscriptionPage extends StatelessWidget {
     );
   }
 
-  void _showPaymentDialog(BuildContext context, String title, double originalPrice) {
+  void _showPaymentDialog(
+    BuildContext context,
+    String title,
+    double originalPrice,
+  ) {
     bool discountApplied = false;
     String selectedPayment = 'Credit Card';
 
@@ -108,19 +126,22 @@ class SubscriptionPage extends StatelessWidget {
       builder: (context) {
         return StatefulBuilder(
           builder: (ctx, setState) {
-            double finalPrice = discountApplied
-                ? originalPrice * 0.9
-                : originalPrice;
+            double finalPrice =
+                discountApplied ? originalPrice * 0.9 : originalPrice;
 
             return AlertDialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
               title: const Text("Confirm Subscription"),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ListTile(
                     title: Text("Plan: $title"),
-                    subtitle: Text("Original Price: \$${originalPrice.toStringAsFixed(2)}"),
+                    subtitle: Text(
+                      "Original Price: \$${originalPrice.toStringAsFixed(2)}",
+                    ),
                     leading: const Icon(Icons.subscriptions, color: Colors.red),
                   ),
                   const SizedBox(height: 10),
@@ -130,12 +151,15 @@ class SubscriptionPage extends StatelessWidget {
                       labelText: "Payment Method",
                       border: OutlineInputBorder(),
                     ),
-                    items: ["Credit Card", "PayPal", "Gopay", "OVO"]
-                        .map((method) => DropdownMenuItem(
-                              value: method,
-                              child: Text(method),
-                            ))
-                        .toList(),
+                    items:
+                        ["Credit Card", "PayPal", "Gopay", "OVO"]
+                            .map(
+                              (method) => DropdownMenuItem(
+                                value: method,
+                                child: Text(method),
+                              ),
+                            )
+                            .toList(),
                     onChanged: (value) {
                       if (value != null) {
                         setState(() {
@@ -156,23 +180,14 @@ class SubscriptionPage extends StatelessWidget {
                     activeColor: Colors.green,
                   ),
                   const SizedBox(height: 10),
-                  if (discountApplied)
-                    Text(
-                      "Final Price: \$${(originalPrice * 0.9).toStringAsFixed(2)}",
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
-                      ),
-                    )
-                  else
-                    Text(
-                      "Final Price: \$${originalPrice.toStringAsFixed(2)}",
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                    "Final Price: \$${finalPrice.toStringAsFixed(2)}",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: discountApplied ? Colors.green : Colors.black,
                     ),
+                  ),
                 ],
               ),
               actions: [
@@ -182,14 +197,36 @@ class SubscriptionPage extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          "Subscription to $title confirmed via $selectedPayment"
-                          "${discountApplied ? " with 10% discount." : "."}"),
-                      ),
-                    );
+                    Future.delayed(Duration.zero, () async {
+                      // Buka dialog pemilihan jadwal
+                      Schedule? schedule = await showScheduleDialog(context);
+
+                      if (schedule != null) {
+                        confirmedSchedule = schedule;
+                        confirmedPlan = title;
+
+                        // ✅ Tampilkan notifikasi sebelum dialog ditutup
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "✅ Pembayaran berhasil dan jadwal telah dikonfirmasi!\n"
+                              "Plan: $title\n"
+                              "Latihan: ${schedule.workoutType}\n"
+                              "Jadwal: ${schedule.days.join(', ')} - ${schedule.timeSlot}",
+                            ),
+                            backgroundColor: Colors.green[600],
+                            duration: Duration(seconds: 4),
+                          ),
+                        );
+
+                        // Tunggu sebentar agar user bisa baca notifikasi
+                        await Future.delayed(const Duration(seconds: 1));
+
+                        // ✅ Lalu tutup 2x: dialog jadwal dan halaman Subscription
+                        Navigator.pop(context); // Tutup dialog jadwal
+                        Navigator.pop(context); // Tutup halaman subscription
+                      }
+                    });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.redAccent,

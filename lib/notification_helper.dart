@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:project/notification.dart';
 import 'package:project/navigation_service.dart'; 
@@ -25,10 +26,10 @@ void showCustomNotification({
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(title,
-                    style: const TextStyle(
+                    style: GoogleFonts.nunito(
                         color: Colors.white, fontWeight: FontWeight.bold)),
                 Text(message,
-                    style: const TextStyle(color: Colors.white70)),
+                    style: GoogleFonts.nunito(color: Colors.white70)),
               ],
             ),
           ),
