@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '/sign_in.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -61,7 +62,7 @@ class _SignUpState extends State<SignUp> {
           _isLoading = false;
         });
 
-      _showSnackbar("Pendaftaran berhasil!");
+        _showSnackbar("Pendaftaran berhasil!");
 
         Navigator.pushReplacement(
           context,
@@ -76,7 +77,7 @@ class _SignUpState extends State<SignUp> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(message),
-          backgroundColor:const Color(0XFF031716),
+          backgroundColor: const Color(0XFF031716),
           behavior: SnackBarBehavior.floating,
           margin: const EdgeInsets.all(16),
         ),
@@ -129,8 +130,6 @@ class _SignUpState extends State<SignUp> {
                 color: const Color(0XFF031716),
               ),
             ),
-          // Atas: Icon dan Judul
-          // Inside the Positioned widget for the icon
           Positioned(
             top: 40,
             left: 0,
@@ -140,8 +139,8 @@ class _SignUpState extends State<SignUp> {
                 // Replace Icon with Image
                 Image.asset(
                   'img-project/logo.png', // Path to your image
-                  width: 300, // Adjust the size as needed
-                  height: 300, // Adjust the size as needed
+                  width: 200, // Adjust the size as needed
+                  height: 200, // Adjust the size as needed
                 ),
               ],
             ),
@@ -195,7 +194,12 @@ class _SignUpState extends State<SignUp> {
                     ElevatedButton(
                       onPressed: _handleSignUp,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
+                        backgroundColor: const Color.fromARGB(
+                          255,
+                          202,
+                          231,
+                          255,
+                        ),
                         foregroundColor: Colors.black,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 80,
@@ -206,13 +210,24 @@ class _SignUpState extends State<SignUp> {
                           side: const BorderSide(color: Colors.black),
                         ),
                       ),
-                      child: const Text("SIGN UP"),
+                      child:  Text(
+                        "SIGN UP",
+                        style: GoogleFonts.nunito(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Have an account? "),
+                        Text(
+                          "Have an account? ",
+                          style: GoogleFonts.nunito(
+                            fontSize: 16
+                          ),
+                        ),
                         GestureDetector(
                           onTap: () {
                             Navigator.pushReplacement(
@@ -220,11 +235,12 @@ class _SignUpState extends State<SignUp> {
                               MaterialPageRoute(builder: (_) => const SignIn()),
                             );
                           },
-                          child: const Text(
+                          child: Text(
                             "Login",
-                            style: TextStyle(
+                            style: GoogleFonts.nunito(
                               color: const Color(0xff0D273D),
                               fontWeight: FontWeight.bold,
+                              fontSize: 16
                             ),
                           ),
                         ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/health_food/recipe_page.dart';
 
 class FavoriteRecipesDrawer extends StatefulWidget {
@@ -59,12 +60,12 @@ class _FavoriteRecipesDrawerState extends State<FavoriteRecipesDrawer> {
               ),
             ),
             child: Row(
-              children: const [
-                Icon(Icons.favorite, color: Colors.white, size: 32),
-                SizedBox(width: 12),
+              children: [
+                const Icon(Icons.favorite, color: Colors.white, size: 32),
+                const SizedBox(width: 12),
                 Text(
                   'Resep Favorit',
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     color: Colors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -75,10 +76,13 @@ class _FavoriteRecipesDrawerState extends State<FavoriteRecipesDrawer> {
           ),
           Expanded(
             child: favoriteTitles.isEmpty
-                ? const Center(
+                ? Center(
                     child: Text(
                       'Belum ada resep favorit.',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                      style: GoogleFonts.nunito(
+                        fontSize: 16,
+                        color: Colors.grey,
+                      ),
                     ),
                   )
                 : ListView.separated(
@@ -102,7 +106,10 @@ class _FavoriteRecipesDrawerState extends State<FavoriteRecipesDrawer> {
                         ),
                         title: Text(
                           food['title'] ?? '',
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                          style: GoogleFonts.nunito(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         subtitle: Row(
                           children: [
@@ -110,13 +117,13 @@ class _FavoriteRecipesDrawerState extends State<FavoriteRecipesDrawer> {
                             const SizedBox(width: 4),
                             Text(
                               food['category'] ?? '',
-                              style: const TextStyle(fontSize: 13),
+                              style: GoogleFonts.nunito(fontSize: 13),
                             ),
                             const SizedBox(width: 10),
                             const Icon(Icons.star, size: 16, color: Colors.amber),
                             Text(
                               food['rating']?.toString() ?? '0.0',
-                              style: const TextStyle(fontSize: 13),
+                              style: GoogleFonts.nunito(fontSize: 13),
                             ),
                           ],
                         ),

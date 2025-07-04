@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/provider/shop_provider.dart';
 import 'provider/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -112,6 +113,14 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 350,
             ),
             const SizedBox(height: 8),
+            const Text(
+              'Lively',
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+                color: Color(0xff0D273D),
+              ),
+            ),
           ],
         ),
       ),

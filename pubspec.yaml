@@ -2,7 +2,7 @@ name: project
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using flutter pub publish. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -35,6 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   smooth_page_indicator: ^1.1.0
+  google_fonts: ^6.1.0
   image_picker: ^1.1.2
   shared_preferences: ^2.1.2
   just_audio: ^0.9.36
@@ -44,7 +45,6 @@ dependencies:
   flutter_chat_ui: ^1.6.7
   flutter_chat_types: ^3.6.2
   uuid: ^4.1.0
-  flutter_launcher_icons: ^0.13.1 
 
 
 dev_dependencies:
@@ -64,7 +64,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -74,8 +73,7 @@ flutter:
   assets:
     - assets/food.json
     - img-project/
-    - img-project/healthyfoods/
-    - img-project/logos/  #   - images/a_dot_ham.jpeg
+    - img-project/healthyfoods/  #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -102,7 +100,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "img-project/logos/app_icon.png" # Ganti dengan path ke ikon kamu

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class JournalingPage extends StatefulWidget {
   const JournalingPage({super.key});
@@ -51,20 +52,20 @@ class _JournalingPageState extends State<JournalingPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Add Journal Entry'),
+          title: Text('Add Journal Entry', style: GoogleFonts.nunito(fontWeight: FontWeight.bold)),
           content: TextField(
             controller: _textController,
             maxLines: 3,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: 'Type your thoughts...',
+              hintStyle: GoogleFonts.nunito(),
             ),
+            style: GoogleFonts.nunito(),
           ),
           actions: [
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Cancel', style: GoogleFonts.nunito()),
             ),
             ElevatedButton(
               onPressed: () {
@@ -72,7 +73,7 @@ class _JournalingPageState extends State<JournalingPage> {
                   _addJournalEntry(_textController.text);
                 }
               },
-              child: const Text('Submit'),
+              child: Text('Submit', style: GoogleFonts.nunito()),
             ),
           ],
         );
@@ -83,67 +84,73 @@ class _JournalingPageState extends State<JournalingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
-        title: const Text('Journaling'),
-        backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
+        title: Text(
+          'Journaling',
+          style: GoogleFonts.nunito(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child:
-            _journalEntries.isEmpty
-                ? const Center(
-                  child: Text(
-                    'No journal entries yet. Start adding your thoughts!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, color: Colors.black54),
+        child: _journalEntries.isEmpty
+            ? Center(
+                child: Text(
+                  'No journal entries yet. Start adding your thoughts!',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.nunito(
+                    fontSize: 16,
+                    color: Colors.black54,
                   ),
-                )
-                : GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 3 / 2,
-                  ),
-                  itemCount: _journalEntries.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      elevation: 5,
-                      child: Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Text(
-                              _journalEntries[index],
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 4,
-                            right: 4,
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.delete,
-                                size: 20,
-                                color: Colors.red,
-                              ),
-                              onPressed: () => _deleteJournalEntry(index),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
                 ),
+              )
+            : GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 3 / 2,
+                ),
+                itemCount: _journalEntries.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    elevation: 5,
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            _journalEntries[index],
+                            style: GoogleFonts.nunito(fontSize: 14),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 4,
+                          right: 4,
+                          child: IconButton(
+                            icon: const Icon(Icons.delete, size: 20, color: Colors.red),
+                            onPressed: () => _deleteJournalEntry(index),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddEntryDialog,
-        backgroundColor: const Color.fromARGB(255, 252, 253, 253),
+        backgroundColor: Colors.white,
         child: const Icon(Icons.add, color: Colors.black),
       ),
     );

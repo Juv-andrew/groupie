@@ -1,6 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, unused_local_variable
-
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/consultation/DoctorDetailPage.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/main_page.dart';
@@ -94,14 +94,14 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
       context: context,
       builder:
           (context) => SimpleDialog(
-            title: Text('Pilih Spesialis'),
+            title: Text('Pilih Spesialis', style: GoogleFonts.nunito(),),
             children: [
               SimpleDialogOption(
                 onPressed: () {
                   Navigator.pop(context);
                   _filterBySpecialist(null); // Tampilkan semua
                 },
-                child: Text('Semua'),
+                child: Text('Semua', style: GoogleFonts.nunito(),),
               ),
               ..._getSpecialistList().map((specialist) {
                 return SimpleDialogOption(
@@ -109,7 +109,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                     Navigator.pop(context);
                     _filterBySpecialist(specialist);
                   },
-                  child: Text(specialist),
+                  child: Text(specialist, style: GoogleFonts.nunito(),),
                 );
               }).toList(),
             ],
@@ -163,9 +163,9 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
       body: Column(
         children: [
           Image.asset('img-project/logo.png', width: 200, height: 150),
-          const Text(
+          Text(
             'medan doctor',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            style: GoogleFonts.nunito(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
@@ -188,7 +188,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
             icon: Icon(Icons.filter_list, color: const Color(0xff0D273D)),
             label: Text(
               "Filter Spesialis",
-              style: TextStyle(color: const Color(0xff0D273D)),
+              style: GoogleFonts.nunito(color: const Color(0xff0D273D)),
             ),
           ),
           Expanded(
@@ -225,7 +225,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                       ),
                       title: Text(
                         doctor['name']!,
-                        style: const TextStyle(
+                        style:  GoogleFonts.nunito(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -244,7 +244,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                         children: [
                           Text(
                             doctor['specialist']!,
-                            style: TextStyle(color: const Color(0xff0D273D)),
+                            style: GoogleFonts.nunito(color: const Color(0xff0D273D)),
                           ),
                           Row(
                             children: [
@@ -254,7 +254,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                                 color: Colors.grey,
                               ),
                               const SizedBox(width: 4),
-                              Text(doctor['hospital']!),
+                              Text(doctor['hospital']!, style: GoogleFonts.nunito()),
                             ],
                           ),
                           const SizedBox(height: 4),
@@ -271,9 +271,9 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                                   ),
                                 );
                               },
-                              child: const Text(
+                              child: Text(
                                 'selengkapnya',
-                                style: TextStyle(
+                                style: GoogleFonts.nunito(
                                   color: const Color(0xff0D273D),
                                   fontSize: 16,
                                   decoration: TextDecoration.underline,
@@ -344,7 +344,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
         backgroundColor: const Color(0xff0D273D),
         foregroundColor: Colors.white,
         icon: const Icon(Icons.shopping_cart),
-        label: const Text("online pharmacy"),
+        label: Text("online pharmacy", style: GoogleFonts.nunito(),),
       ),
     );
   }

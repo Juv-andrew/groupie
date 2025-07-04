@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 class BipolarTestPage extends StatefulWidget {
   const BipolarTestPage({super.key});
 
@@ -48,31 +49,34 @@ class _BipolarTestPageState extends State<BipolarTestPage> {
     } else {
       result = "Kemungkinan gangguan bipolar tinggi.";
     }
-    _saveBipolartestResult(totalScore);
+
+    _saveBipolarTestResult(totalScore);
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text("Hasil Tes"),
-        content: Text(result),
+        title: Text("Hasil Tes", style: GoogleFonts.nunito(fontWeight: FontWeight.bold)),
+        content: Text(result, style: GoogleFonts.nunito()),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(ctx);
               Navigator.pop(context);
             },
-            child: const Text("Kembali"),
+            child: Text("Kembali", style: GoogleFonts.nunito()),
           ),
         ],
       ),
     );
   }
-  Future<void> _saveBipolartestResult(int score) async {
+
+  Future<void> _saveBipolarTestResult(int score) async {
     final prefs = await SharedPreferences.getInstance();
     final date = DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
 
-    await prefs.setInt('depression_score', score);
-    await prefs.setString('depression_date', date);
+    await prefs.setInt('bipolar_score', score);
+    await prefs.setString('bipolar_date', date);
   }
+
   @override
   Widget build(BuildContext context) {
     if (currentQuestion >= questions.length) {
@@ -83,10 +87,10 @@ class _BipolarTestPageState extends State<BipolarTestPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tes Bipolar"),
-        backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
+        title: Text("Tes Bipolar", style: GoogleFonts.nunito(fontWeight: FontWeight.bold)),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       ),
-      backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Card(
@@ -99,12 +103,12 @@ class _BipolarTestPageState extends State<BipolarTestPage> {
               children: [
                 Text(
                   "Pertanyaan ${currentQuestion + 1} dari ${questions.length}",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 20),
                 Text(
                   current['question'],
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.nunito(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 40),
                 _buildAnswerButton("Tidak Pernah", 0, Colors.grey.shade300),
@@ -131,7 +135,7 @@ class _BipolarTestPageState extends State<BipolarTestPage> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
         onPressed: () => _answerQuestion(score),
-        child: Text(label, style: const TextStyle(fontSize: 16)),
+        child: Text(label, style: GoogleFonts.nunito(fontSize: 16)),
       ),
     );
   }
