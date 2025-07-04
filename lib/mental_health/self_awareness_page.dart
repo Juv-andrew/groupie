@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/main_page.dart';
 import 'package:project/artikel.dart';
 import 'package:project/ProfilPage.dart';
@@ -16,9 +17,12 @@ class SelfAwarenessPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+        leading: Tooltip(
+          message: 'Kembali',
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -28,30 +32,30 @@ class SelfAwarenessPage extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Expanded(
+                Expanded(
                   child: Text(
                     'Self -\nAwareness',
-                    style: TextStyle(
+                    style: GoogleFonts.nunito(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Color (0XFF031716),
+                      color: const Color(0XFF031716),
                     ),
                   ),
                 ),
                 Image.asset(
-                  'img-project/logo.png', 
+                  'img-project/logo.png',
                   width: 250,
                   height: 220,
                 ),
               ],
             ),
             const SizedBox(height: 4),
-            const Text(
+            Text(
               'YOU ALWAYS HAVE A CHOICE',
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Color(0XFF031716),
+                color: const Color(0XFF031716),
               ),
             ),
             const SizedBox(height: 24),
@@ -82,24 +86,33 @@ class SelfAwarenessPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: const Text('Self-Recovery'),
+                        child: Text(
+                          'Self-Recovery',
+                          style: GoogleFonts.nunito(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
-                      const Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
                             'Small Steps\nEvery Day',
-                            style: TextStyle(
+                            style: GoogleFonts.nunito(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
                             textAlign: TextAlign.right,
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
                             'To make you feel better',
-                            style: TextStyle(fontSize: 12, color: Colors.white),
+                            style: GoogleFonts.nunito(
+                              fontSize: 12,
+                              color: Colors.white,
+                            ),
                           ),
                         ],
                       ),
@@ -108,7 +121,7 @@ class SelfAwarenessPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20), 
+            const SizedBox(height: 20),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
@@ -119,9 +132,9 @@ class SelfAwarenessPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Take a\nMental Health Test',
-                    style: TextStyle(
+                    style: GoogleFonts.nunito(
                       fontSize: 18,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -143,12 +156,21 @@ class SelfAwarenessPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text('Self-Care'),
+                    child: Text(
+                      'Self-Care',
+                      style: GoogleFonts.nunito(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 12),
-                  const Text(
+                  Text(
                     'Mental health conditions, such as depression or\nanxiety, are real, common and treatable. And\nrecovery is possible.',
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+                    style: GoogleFonts.nunito(
+                      color: Colors.white,
+                      fontSize: 12,
+                    ),
                   ),
                 ],
               ),
@@ -194,10 +216,22 @@ class SelfAwarenessPage extends StatelessWidget {
           }
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.mail), label: 'Inbox'),
-          BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Article'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
+          BottomNavigationBarItem(
+            icon: Tooltip(message: 'Beranda', child: Icon(Icons.home)),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Tooltip(message: 'Notifikasi', child: Icon(Icons.mail)),
+            label: 'Inbox',
+          ),
+          BottomNavigationBarItem(
+            icon: Tooltip(message: 'Artikel Kesehatan', child: Icon(Icons.article)),
+            label: 'Article',
+          ),
+          BottomNavigationBarItem(
+            icon: Tooltip(message: 'Profil Pengguna', child: Icon(Icons.person)),
+            label: 'Profil',
+          ),
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/onboarding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:project/ProfilPage.dart';
@@ -38,32 +39,34 @@ class _MainMenuPageState extends State<MainMenuPage> {
       backgroundColor:
           Theme.of(context).brightness == Brightness.dark
               ? Colors.black
-              : const  Color.fromARGB(255, 202, 231, 255),
-
+              : const Color.fromARGB(255, 202, 231, 255),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: const BoxDecoration(color:  Color.fromARGB(255, 202, 231, 255)),
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 202, 231, 255),
+              ),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.account_circle,
-                    size: 48,
-                    color: Colors.black,
-                  ),
+                  const Icon(Icons.account_circle,
+                      size: 48, color: Colors.black),
                   const SizedBox(width: 12),
                   Text(
                     userName,
-                    style: const TextStyle(fontSize: 20, color: Colors.black),
+                    style: GoogleFonts.nunito(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
             ),
             ListTile(
               leading: const Icon(Icons.mail),
-              title: const Text('Notifications'),
+              title: Text('Notifications', style: GoogleFonts.nunito()),
               onTap: () {
                 Navigator.pushReplacement(
                   context,
@@ -73,7 +76,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
             ),
             ListTile(
               leading: const Icon(Icons.person),
-              title: const Text('Profile'),
+              title: Text('Profile', style: GoogleFonts.nunito()),
               onTap: () {
                 Navigator.pushReplacement(
                   context,
@@ -83,7 +86,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
             ),
             ListTile(
               leading: const Icon(Icons.article),
-              title: const Text('Articles'),
+              title: Text('Articles', style: GoogleFonts.nunito()),
               onTap: () {
                 Navigator.pushReplacement(
                   context,
@@ -94,25 +97,28 @@ class _MainMenuPageState extends State<MainMenuPage> {
             const Divider(),
             ListTile(
               leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
+              title: Text('Logout', style: GoogleFonts.nunito()),
               onTap: () async {
                 bool? confirmLogout = await showDialog<bool>(
                   context: context,
-                  builder:
-                      (context) => AlertDialog(
-                        title: const Text('Konfirmasi Logout'),
-                        content: const Text('Apakah Anda yakin ingin keluar?'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, false),
-                            child: const Text('Batal'),
-                          ),
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, true),
-                            child: const Text('Ya, Keluar'),
-                          ),
-                        ],
+                  builder: (context) => AlertDialog(
+                    title: Text('Konfirmasi Logout',
+                        style: GoogleFonts.nunito(fontWeight: FontWeight.bold)),
+                    content: Text('Apakah Anda yakin ingin keluar?',
+                        style: GoogleFonts.nunito()),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        child: Text('Batal', style: GoogleFonts.nunito()),
                       ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, true),
+                        child: Text('Ya, Keluar',
+                            style: GoogleFonts.nunito(
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ],
+                  ),
                 );
 
                 if (confirmLogout == true) {
@@ -121,8 +127,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const OnboardingScreen(),
-                    ),
+                        builder: (context) => const OnboardingScreen()),
                     (route) => false,
                   );
                 }
@@ -131,7 +136,6 @@ class _MainMenuPageState extends State<MainMenuPage> {
           ],
         ),
       ),
-
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         elevation: 0,
@@ -141,15 +145,11 @@ class _MainMenuPageState extends State<MainMenuPage> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                'img-project/logo.png', 
-                height: 70,
-                width: 70,
-              ),
+              Image.asset('img-project/logo.png', height: 70, width: 70),
               const SizedBox(width: 2),
-              const Text(
+              Text(
                 "Lively",
-                style: TextStyle(
+                style: GoogleFonts.nunito(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -159,32 +159,25 @@ class _MainMenuPageState extends State<MainMenuPage> {
           ),
         ),
       ),
-
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              _buildMenuCard(
-                'Fitness',
-                'img-project/fitness.jpeg',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => FitnessHomePage()),
-                  );
-                },
-              ),
-              _buildMenuCard(
-                'Healthy Food',
-                'img-project/healthy food.jpeg',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const FoodMenuPage()),
-                  );
-                },
-              ),
+              _buildMenuCard('Fitness', 'img-project/fitness.jpeg',
+                  onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => FitnessHomePage()),
+                );
+              }),
+              _buildMenuCard('Healthy Food', 'img-project/healthy food.jpeg',
+                  onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const FoodMenuPage()),
+                );
+              }),
               _buildMenuCard(
                 'Mental Health',
                 'img-project/mentalhealth.jpg',
@@ -219,9 +212,8 @@ class _MainMenuPageState extends State<MainMenuPage> {
       child: GestureDetector(
         onTap: onTap,
         child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           clipBehavior: Clip.antiAlias,
           child: Stack(
             alignment: Alignment.center,
@@ -234,11 +226,11 @@ class _MainMenuPageState extends State<MainMenuPage> {
               ),
               Text(
                 title,
-                style: const TextStyle(
+                style: GoogleFonts.nunito(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
-                  shadows: [Shadow(blurRadius: 6, color: Colors.black)],
+                  shadows: [const Shadow(blurRadius: 6, color: Colors.black)],
                 ),
               ),
               const Positioned(

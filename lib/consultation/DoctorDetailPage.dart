@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/notification_data.dart';
 import 'package:project/notification_helper.dart';
 import 'package:project/consultation/chat_page.dart';
-
 
 class DoctorDetailPage extends StatefulWidget {
   final Map<String, String> doctor;
@@ -48,18 +48,19 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                       const SizedBox(height: 10),
                       Text(
                         "Dr. ${widget.doctor['name']!}",
-                        style: const TextStyle(
+                        style: GoogleFonts.nunito(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
+
                       Text(
                         "${widget.doctor['specialist']} • ${widget.doctor['hospital']}",
-                        style: const TextStyle(color: Colors.white),
+                        style: GoogleFonts.nunito(color: Colors.white),
                       ),
                       const SizedBox(height: 6),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
@@ -70,7 +71,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                           SizedBox(width: 4),
                           Text(
                             "Medan, Indonesia",
-                            style: TextStyle(color: Colors.white),
+                            style: GoogleFonts.nunito(color: Colors.white),
                           ),
                         ],
                       ),
@@ -190,7 +191,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                 Center(
                                   child: Text(
                                     "Konfirmasi Jadwal",
-                                    style: TextStyle(
+                                    style: GoogleFonts.nunito(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: const Color(0xff0D273D),
@@ -200,20 +201,20 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                 const SizedBox(height: 16),
                                 Text(
                                   "Nama Dokter: Dr. ${widget.doctor['name']}",
-                                  style: const TextStyle(fontSize: 16),
+                                  style: GoogleFonts.nunito(fontSize: 16),
                                 ),
                                 Text(
                                   "Spesialis: ${widget.doctor['specialist']}",
-                                  style: const TextStyle(fontSize: 16),
+                                  style: GoogleFonts.nunito(fontSize: 16),
                                 ),
                                 Text(
                                   "Rumah Sakit: ${widget.doctor['hospital']}",
-                                  style: const TextStyle(fontSize: 16),
+                                  style: GoogleFonts.nunito(fontSize: 16),
                                 ),
                                 const SizedBox(height: 12),
-                                const Text(
+                                Text(
                                   "Pilih Tanggal:",
-                                  style: TextStyle(
+                                  style: GoogleFonts.nunito(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -250,13 +251,13 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                   const SizedBox(height: 8),
                                   Text(
                                     "Tanggal yang dipilih: $selectedDay",
-                                    style: const TextStyle(fontSize: 16),
+                                    style: GoogleFonts.nunito(fontSize: 16),
                                   ),
                                 ],
                                 const SizedBox(height: 16),
-                                const Text(
+                                Text(
                                   "Pilih Waktu:",
-                                  style: TextStyle(
+                                  style: GoogleFonts.nunito(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -289,7 +290,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                   const SizedBox(height: 8),
                                   Text(
                                     "Waktu yang dipilih: ${selectedTime!.format(context)}",
-                                    style: const TextStyle(fontSize: 16),
+                                    style: GoogleFonts.nunito(fontSize: 16),
                                   ),
                                 ],
                                 const SizedBox(height: 16),
@@ -319,7 +320,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                               SnackBar(
                                                 content: Text(
                                                   'Jadwal pada $selectedDay pukul $formattedTime berhasil dikonfirmasi!',
-                                                  style: const TextStyle(
+                                                  style: GoogleFonts.nunito(
                                                     color: Color(0XFF031716),
                                                   ),
                                                 ),
@@ -350,9 +351,9 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                                             );
                                           }
                                           : null,
-                                  child: const Text(
+                                  child: Text(
                                     "Konfirmasi Jadwal",
-                                    style: TextStyle(color: Colors.white),
+                                    style: GoogleFonts.nunito(color: Colors.white),
                                   ),
                                 ),
                               ],
@@ -363,9 +364,9 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
                     },
                   );
                 },
-                child: const Text(
+                child: Text(
                   "Book an Appointment",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: GoogleFonts.nunito(fontSize: 16, color: Colors.white),
                 ),
               ),
             ),
@@ -388,14 +389,14 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
         children: [
           Text(
             value,
-            style: const TextStyle(
+            style: GoogleFonts.nunito(
               fontSize: 16,
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
           ),
           const SizedBox(height: 4),
-          Text(title, style: const TextStyle(color: Color(0xff0D273D))),
+          Text(title, style: GoogleFonts.nunito(color: Color(0xff0D273D))),
         ],
       ),
     );
@@ -407,7 +408,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: GoogleFonts.nunito(
             fontWeight: FontWeight.bold,
             fontSize: 16,
             color: Colors.black,
@@ -416,7 +417,7 @@ class _DoctorDetailPageState extends State<DoctorDetailPage> {
         const SizedBox(height: 6),
         Text(
           content,
-          style: const TextStyle(color: Color(0xff0D273D), fontSize: 14),
+          style: GoogleFonts.nunito(color: Color(0xff0D273D), fontSize: 14),
         ),
       ],
     );

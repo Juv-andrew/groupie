@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/mental_health/JournalingPage.dart';
 import 'package:project/mental_health/QuotesPage.dart';
 import 'package:project/main_page.dart';
@@ -15,9 +16,9 @@ class SelfRecoveryPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Self-Recovery',
-          style: TextStyle(
+          style: GoogleFonts.nunito(
             color: Colors.black,
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -63,13 +64,12 @@ class SelfRecoveryPage extends StatelessWidget {
           ),
         ],
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xff0D273D),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
-        currentIndex: 0, 
+        currentIndex: 0,
         onTap: (index) {
           switch (index) {
             case 0:
@@ -81,9 +81,7 @@ class SelfRecoveryPage extends StatelessWidget {
             case 1:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationsPage(),
-                ),
+                MaterialPageRoute(builder: (context) => const NotificationsPage()),
               );
               break;
             case 2:
@@ -135,7 +133,7 @@ class MenuItem extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
+              style: GoogleFonts.nunito(
                 color: Colors.white,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -144,7 +142,10 @@ class MenuItem extends StatelessWidget {
             if (subtitle != null)
               Text(
                 subtitle!,
-                style: const TextStyle(color: Colors.white70, fontSize: 14),
+                style: GoogleFonts.nunito(
+                  color: Colors.white70,
+                  fontSize: 14,
+                ),
               ),
           ],
         ),

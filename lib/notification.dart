@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/main_page.dart';
@@ -10,28 +11,26 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          Theme.of(context).brightness == Brightness.dark
-              ? Colors.black
-              : const Color.fromARGB(255, 202, 231, 255),
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.black
+          : const Color.fromARGB(255, 202, 231, 255),
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'Notifications',
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[900],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
-                  // Notifikasi dari user (paling atas)
                   for (var notif in customNotifications)
                     NotificationCard(
                       emoji: notif['emoji'] ?? '🔔',
@@ -49,7 +48,7 @@ class NotificationsPage extends StatelessWidget {
                     action1: "Mark as done",
                     action2: "Update",
                   ),
-                  NotificationCard(
+                  const NotificationCard(
                     emoji: "❤️",
                     title: "Your weekly health tip is ready!",
                     time: "2 hr",
@@ -57,7 +56,7 @@ class NotificationsPage extends StatelessWidget {
                         "We've prepared your weekly health tip to help you improve your mood.",
                     action1: "Open weekly tips",
                   ),
-                  NotificationCard(
+                  const NotificationCard(
                     emoji: "⚖️",
                     title: "It’s time to enter your weight",
                     time: "1 d",
@@ -65,7 +64,7 @@ class NotificationsPage extends StatelessWidget {
                         "Track your weight and help us customize your weekly health tip for you.",
                     action1: "Add weight entry",
                   ),
-                  NotificationCard(
+                  const NotificationCard(
                     emoji: "📅",
                     title: "Moment remainder!",
                     time: "1 wk",
@@ -74,7 +73,7 @@ class NotificationsPage extends StatelessWidget {
                     action1: "View",
                     action2: "Update",
                   ),
-                  NotificationCard(
+                  const NotificationCard(
                     emoji: "⚖️",
                     title: "It’s time to enter your weight",
                     time: "1 yr",
@@ -91,7 +90,7 @@ class NotificationsPage extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xff0D273D),
-        selectedItemColor: Color.fromARGB(255, 202, 231, 255),
+        selectedItemColor: const Color.fromARGB(255, 202, 231, 255),
         unselectedItemColor: Colors.white,
         currentIndex: 1,
         onTap: (index) {
@@ -150,8 +149,8 @@ class NotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 14),
-      padding: EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
@@ -162,23 +161,35 @@ class NotificationCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(emoji, style: TextStyle(fontSize: 20)),
-              SizedBox(width: 8),
+              Text(emoji, style: GoogleFonts.nunito(fontSize: 20)),
+              const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: GoogleFonts.nunito(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
               ),
-              Text(time, style: TextStyle(color: Colors.black, fontSize: 12)),
+              Text(
+                time,
+                style: GoogleFonts.nunito(
+                  color: Colors.black,
+                  fontSize: 12,
+                ),
+              ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             description,
-            style: TextStyle(color: Colors.grey[700], fontSize: 14),
+            style: GoogleFonts.nunito(
+              color: Colors.grey[700],
+              fontSize: 14,
+            ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Wrap(
             spacing: 10,
             children: [
@@ -186,8 +197,8 @@ class NotificationCard extends StatelessWidget {
                 onTap: () {},
                 child: Text(
                   action1,
-                  style: TextStyle(
-                    color:Color(0xff0D273D),
+                  style: GoogleFonts.nunito(
+                    color: const Color(0xff0D273D),
                     fontSize: 14,
                     decoration: TextDecoration.underline,
                   ),
@@ -198,8 +209,8 @@ class NotificationCard extends StatelessWidget {
                   onTap: () {},
                   child: Text(
                     action2!,
-                    style: TextStyle(
-                      color: Color(0xff0D273D),
+                    style: GoogleFonts.nunito(
+                      color: const Color(0xff0D273D),
                       fontSize: 14,
                       decoration: TextDecoration.underline,
                     ),

@@ -1,4 +1,3 @@
-// Updated ShopProvider to track jumlahPembelian
 import 'package:flutter/material.dart';
 import 'package:project/health_food/shop/data_bahan.dart';
 
@@ -10,7 +9,7 @@ class Bahan {
   final String satuan;
   final String kategori;
   int jumlahPembelian;
-  int jumlah; // Untuk keranjang
+  int jumlah; 
 
   Bahan({
     required this.nama,

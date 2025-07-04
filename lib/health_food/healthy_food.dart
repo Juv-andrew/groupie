@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/main_page.dart';
@@ -57,56 +58,60 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
       filtered =
           filtered.where((food) => food.category == selectedCategory).toList();
     }
-    
-    print('Total data from JSON: ${foods.length}');
-    print('Filtered data: ${filtered.length}');
 
     return filtered;
   }
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: Color.fromARGB(255, 202, 231, 255),
-    appBar: AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: Builder(
-        builder: (context) => Tooltip(
-          message: 'Menu',
-          child: IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Builder(
+          builder:
+              (context) => Tooltip(
+                message: 'Menu',
+                child: IconButton(
+                  icon: const Icon(Icons.menu, color: Colors.black),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
+              ),
         ),
-      ),
-      actions: [
-        Tooltip(
-          message: 'Shop Now',
-          child: IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const ShopPage()),
+        actions: [
+          Tooltip(
+            message: 'Shop Now',
+            child: IconButton(
+              icon: const Icon(
+                Icons.shopping_cart_outlined,
+                color: Colors.black,
+              ),
+              onPressed:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const ShopPage()),
+                  ),
             ),
           ),
-        ),
-      ],
-    ),
+        ],
+      ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Color.fromARGB(255, 202, 231, 255)),
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 202, 231, 255),
+              ),
               child: Text(
                 'Menu',
-                style: TextStyle(fontSize: 24, color: Colors.black),
+                style: GoogleFonts.nunito(fontSize: 24, color: Colors.black),
               ),
             ),
             ListTile(
               leading: const Icon(Icons.favorite),
-              title: const Text('Favorite'),
+              title: Text('Favorite', style: GoogleFonts.nunito()),
               onTap:
                   () => Navigator.push(
                     context,
@@ -117,7 +122,7 @@ Widget build(BuildContext context) {
             ),
             ListTile(
               leading: const Icon(Icons.article),
-              title: const Text('Artikel'),
+              title: Text('Artikel', style: GoogleFonts.nunito()),
               onTap:
                   () => Navigator.push(
                     context,
@@ -126,7 +131,7 @@ Widget build(BuildContext context) {
             ),
             ListTile(
               leading: const Icon(Icons.notifications),
-              title: const Text('Notifikasi'),
+              title: Text('Notifikasi', style: GoogleFonts.nunito()),
               onTap:
                   () => Navigator.push(
                     context,
@@ -146,10 +151,15 @@ Widget build(BuildContext context) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(
-                child: Text('Error loading foods: ${snapshot.error}'),
+                child: Text(
+                  'Error loading foods: ${snapshot.error}',
+                  style: GoogleFonts.nunito(),
+                ),
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('No foods found.'));
+              return Center(
+                child: Text('No foods found.', style: GoogleFonts.nunito()),
+              );
             }
 
             final filteredFoods = filterFoods(snapshot.data!);
@@ -167,21 +177,21 @@ Widget build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Tasty & Healthy',
-                              style: TextStyle(
+                              style: GoogleFonts.nunito(
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xff0D273D),
+                                color: const Color(0xff0D273D),
                               ),
                             ),
                             const SizedBox(height: 6),
-                            const Text(
+                            Text(
                               'TOP Menu for Today',
-                              style: TextStyle(
+                              style: GoogleFonts.nunito(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0XFF031716),
+                                color: const Color(0XFF031716),
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -195,7 +205,7 @@ Widget build(BuildContext context) {
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xff0D273D),
+                                backgroundColor: const Color(0xff0D273D),
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 20,
                                   vertical: 12,
@@ -204,9 +214,9 @@ Widget build(BuildContext context) {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Explore More',
-                                style: TextStyle(
+                                style: GoogleFonts.nunito(
                                   fontSize: 16,
                                   color: Colors.white,
                                 ),
@@ -229,8 +239,6 @@ Widget build(BuildContext context) {
                   ),
                 ),
                 const SizedBox(height: 10),
-
-                // Search Bar
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Container(
@@ -258,10 +266,10 @@ Widget build(BuildContext context) {
                                 selectedCategory = 'All';
                               });
                             },
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Find Recipe Here...',
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: GoogleFonts.nunito(color: Colors.grey),
                             ),
                           ),
                         ),
@@ -270,8 +278,6 @@ Widget build(BuildContext context) {
                   ),
                 ),
                 const SizedBox(height: 15),
-
-                // Categories
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: SizedBox(
@@ -285,17 +291,23 @@ Widget build(BuildContext context) {
                         return Padding(
                           padding: const EdgeInsets.only(right: 12),
                           child: ChoiceChip(
-                            label: Text(
-                              category,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15,
+                            label: Container(
+                              constraints: const BoxConstraints(
+                                minWidth: 80,
+                              ), 
+                              child: Text(
+                                category,
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.nunito(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
                             selected: isSelected,
                             selectedColor: const Color(0xff0D273D),
                             backgroundColor: Colors.white,
-                            labelStyle: TextStyle(
+                            labelStyle: GoogleFonts.nunito(
                               color: isSelected ? Colors.white : Colors.black87,
                             ),
                             shape: RoundedRectangleBorder(
@@ -313,8 +325,6 @@ Widget build(BuildContext context) {
                   ),
                 ),
                 const SizedBox(height: 15),
-
-                // Grid of food
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -353,15 +363,13 @@ Widget build(BuildContext context) {
                             child: Column(
                               children: [
                                 AspectRatio(
-                                  aspectRatio:
-                                      4 / 3, 
+                                  aspectRatio: 4 / 3,
                                   child: Image.asset(
                                     food.image,
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                   ),
                                 ),
-                               
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Column(
@@ -370,7 +378,7 @@ Widget build(BuildContext context) {
                                     children: [
                                       Text(
                                         food.title,
-                                        style: const TextStyle(
+                                        style: GoogleFonts.nunito(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -388,13 +396,13 @@ Widget build(BuildContext context) {
                                           const SizedBox(width: 4),
                                           Text(
                                             food.rating.toStringAsFixed(1),
-                                            style: const TextStyle(
+                                            style: GoogleFonts.nunito(
                                               fontSize: 14,
                                             ),
                                           ),
-                                          const Text(
+                                          Text(
                                             ' (413)',
-                                            style: TextStyle(
+                                            style: GoogleFonts.nunito(
                                               fontSize: 12,
                                               color: Colors.grey,
                                             ),

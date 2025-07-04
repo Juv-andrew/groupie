@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'cart_page.dart'; 
 
 class ShopPage extends StatefulWidget {
@@ -18,8 +19,7 @@ class _ShopPageState extends State<ShopPage> {
     {
       'name': 'Fluoxetine',
       'price': 'Rp 40.000',
-      'description':
-          'Meningkatkan suasana hati, digunakan untuk depresi berat.',
+      'description': 'Meningkatkan suasana hati, digunakan untuk depresi berat.',
     },
     {
       'name': 'Diazepam',
@@ -71,7 +71,10 @@ class _ShopPageState extends State<ShopPage> {
     });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('${item['name']} ditambahkan ke keranjang!'),
+        content: Text(
+          '${item['name']} ditambahkan ke keranjang!',
+          style: GoogleFonts.nunito(),
+        ),
         duration: const Duration(seconds: 2),
       ),
     );
@@ -99,11 +102,11 @@ class _ShopPageState extends State<ShopPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Toko Obat Mental Health",
-          style: TextStyle(color: Colors.white),
+          style: GoogleFonts.nunito(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xff0D273D),
+        backgroundColor: const Color(0xff0D273D),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
@@ -120,7 +123,7 @@ class _ShopPageState extends State<ShopPage> {
                   child: Container(
                     padding: const EdgeInsets.all(2),
                     decoration: const BoxDecoration(
-                      color: Colors.red,
+                      color:  Color.fromARGB(255, 87, 156, 212),
                       shape: BoxShape.circle,
                     ),
                     constraints: const BoxConstraints(
@@ -129,8 +132,11 @@ class _ShopPageState extends State<ShopPage> {
                     ),
                     child: Text(
                       '${cartItems.length}',
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 10),
+                      style: GoogleFonts.nunito(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -157,7 +163,7 @@ class _ShopPageState extends State<ShopPage> {
                 children: [
                   Text(
                     med['name']!,
-                    style: const TextStyle(
+                    style: GoogleFonts.nunito(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -165,7 +171,10 @@ class _ShopPageState extends State<ShopPage> {
                   const SizedBox(height: 6),
                   Text(
                     med['description']!,
-                    style: const TextStyle(fontSize: 14, color: Colors.black87),
+                    style: GoogleFonts.nunito(
+                      fontSize: 14,
+                      color: Colors.black87,
+                    ),
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -173,23 +182,26 @@ class _ShopPageState extends State<ShopPage> {
                     children: [
                       Text(
                         med['price']!,
-                        style: const TextStyle(
+                        style: GoogleFonts.nunito(
                           fontSize: 16,
-                          color: Color(0xff0D273D),
+                          color: const Color(0xff0D273D),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff0D273D),
+                          backgroundColor: const Color(0xff0D273D),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                         onPressed: () => addToCart(med),
-                        child: const Text(
+                        child: Text(
                           'Beli',
-                          style: TextStyle(color: Colors.white),
+                          style: GoogleFonts.nunito(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ],

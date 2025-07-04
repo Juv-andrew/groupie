@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ProfilPage.dart';
 import 'sign_up.dart';
@@ -85,21 +86,16 @@ class _SignInState extends State<SignIn> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Top part with icon and title
             Container(
               padding: const EdgeInsets.only(top: 60),
               child: Column(
                 children: [
-                  Image.asset(
-                    'img-project/logo.png', // Path to your image
-                    width: 200, // Adjust the size as needed
-                    height: 200, // Adjust the size as needed
-                  ),
+                  Image.asset('img-project/logo.png', width: 200, height: 200),
                   const SizedBox(height: 12),
-                  const Text(
+                  Text(
                     'Lively',
-                    style: TextStyle(
-                      fontSize: 32,
+                    style: GoogleFonts.nunito(
+                      fontSize: 36,
                       fontWeight: FontWeight.bold,
                       color: const Color(0XFF031716),
                     ),
@@ -108,7 +104,6 @@ class _SignInState extends State<SignIn> {
               ),
             ),
 
-            // Main content with input fields and button
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
               decoration: const BoxDecoration(
@@ -139,12 +134,12 @@ class _SignInState extends State<SignIn> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      onPressed: () {
-                        // Tambahkan fungsi lupa password di sini
-                      },
-                      child: const Text(
+                      onPressed: () {},
+                      child: Text(
                         "Forget password?",
-                        style: TextStyle(color: const Color(0XFF031716)),
+                        style: GoogleFonts.nunito(
+                          color: const Color(0XFF031716),
+                        ),
                       ),
                     ),
                   ),
@@ -163,13 +158,22 @@ class _SignInState extends State<SignIn> {
                         side: const BorderSide(color: Colors.black),
                       ),
                     ),
-                    child: const Text("SIGN IN"),
+                    child: Text(
+                      "SIGN IN",
+                      style: GoogleFonts.nunito(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("no account? "),
+                      Text(
+                        "no account? ",
+                        style: GoogleFonts.nunito(fontSize: 16),
+                      ),
                       GestureDetector(
                         onTap: () {
                           Navigator.pushReplacement(
@@ -177,11 +181,12 @@ class _SignInState extends State<SignIn> {
                             MaterialPageRoute(builder: (_) => const SignUp()),
                           );
                         },
-                        child: const Text(
+                        child: Text(
                           "Register now",
-                          style: TextStyle(
+                          style: GoogleFonts.nunito(
                             color: const Color(0XFF031716),
                             fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
                         ),
                       ),

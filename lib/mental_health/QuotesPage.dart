@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class QuotesPage extends StatelessWidget {
   const QuotesPage({super.key});
@@ -102,10 +103,17 @@ class QuotesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
-        title: const Text('Mental Health Quotes'),
-        backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
+        title: Text(
+          'Mental Health Quotes',
+          style: GoogleFonts.nunito(
+            fontSize: 20,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black87),
@@ -117,11 +125,7 @@ class QuotesPage extends StatelessWidget {
         child: LayoutBuilder(
           builder: (context, constraints) {
             int crossAxisCount =
-                constraints.maxWidth > 900
-                    ? 4
-                    : constraints.maxWidth > 600
-                    ? 3
-                    : 2;
+                constraints.maxWidth > 900 ? 4 : constraints.maxWidth > 600 ? 3 : 2;
 
             return MasonryGridView.count(
               crossAxisCount: crossAxisCount,
@@ -142,23 +146,23 @@ class QuotesPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           backgroundColor: Colors.white,
-                          title: const Text(
+                          title: Text(
                             'Quote Detail',
                             textAlign: TextAlign.center,
+                            style: GoogleFonts.nunito(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(
-                                Icons.format_quote,
-                                size: 40,
-                                color: Colors.blueGrey,
-                              ),
+                              const Icon(Icons.format_quote, size: 40, color: Colors.blueGrey),
                               const SizedBox(height: 16),
                               Text(
                                 quote['en']!,
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
+                                style: GoogleFonts.nunito(
                                   fontSize: 16,
                                   fontStyle: FontStyle.italic,
                                 ),
@@ -167,7 +171,7 @@ class QuotesPage extends StatelessWidget {
                               Text(
                                 quote['id']!,
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
+                                style: GoogleFonts.nunito(
                                   fontSize: 14,
                                   color: Colors.black54,
                                 ),
@@ -176,7 +180,13 @@ class QuotesPage extends StatelessWidget {
                           ),
                           actions: [
                             TextButton(
-                              child: const Text('Close'),
+                              child: Text(
+                                'Close',
+                                style: GoogleFonts.nunito(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue,
+                                ),
+                              ),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
                           ],
@@ -201,16 +211,12 @@ class QuotesPage extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        const Icon(
-                          Icons.format_quote,
-                          color: Colors.blueGrey,
-                          size: 32,
-                        ),
+                        const Icon(Icons.format_quote, color: Colors.blueGrey, size: 32),
                         const SizedBox(height: 10),
                         Text(
                           quote['en']!,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: GoogleFonts.nunito(
                             fontSize: 16,
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.w500,
@@ -221,7 +227,7 @@ class QuotesPage extends StatelessWidget {
                         Text(
                           quote['id']!,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: GoogleFonts.nunito(
                             fontSize: 14,
                             color: Colors.black54,
                           ),

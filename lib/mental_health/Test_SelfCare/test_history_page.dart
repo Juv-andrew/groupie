@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TestHistoryPage extends StatefulWidget {
   const TestHistoryPage({super.key});
@@ -60,10 +61,18 @@ class _TestHistoryPageState extends State<TestHistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Riwayat Tes"),
-        backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
+        title: Text(
+          "Riwayat Tes",
+          style: GoogleFonts.nunito(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(255, 202, 231, 255),
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
-      backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       body: ListView.builder(
         padding: const EdgeInsets.all(20),
         itemCount: testLabels.length,
@@ -78,15 +87,18 @@ class _TestHistoryPageState extends State<TestHistoryPage> {
             margin: const EdgeInsets.only(bottom: 16),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             child: ListTile(
+              leading: const Icon(Icons.health_and_safety, color: Colors.teal),
               title: Text(
                 label,
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.nunito(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               subtitle: Text(
                 "Hasil: $result\nTanggal: $date",
-                style: const TextStyle(fontSize: 16),
+                style: GoogleFonts.nunito(fontSize: 16),
               ),
-              leading: const Icon(Icons.health_and_safety, color: Colors.teal),
             ),
           );
         },

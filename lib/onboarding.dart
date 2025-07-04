@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/sign_in.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'sign_in.dart' show SignIn;
@@ -67,7 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         const SizedBox(height: 20),
                         Text(
                           data['title']!,
-                          style: const TextStyle(
+                          style: GoogleFonts.nunito(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Color(0xff0D273D),
@@ -77,7 +78,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         Text(
                           data['desc']!,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 16),
+                          style: GoogleFonts.nunito(fontSize: 19),
                         ),
                         const SizedBox(height: 30),
                         ElevatedButton(
@@ -111,7 +112,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             index == onboardingData.length - 1
                                 ? "GET STARTED"
                                 : "NEXT",
-                            style: const TextStyle(color: Colors.white),
+                            style: GoogleFonts.nunito(color: Colors.white),
                           ),
                         ),
                       ],

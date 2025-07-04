@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ArticleDetailPageFancy extends StatelessWidget {
   final String title;
@@ -78,8 +79,8 @@ class ArticleDetailPageFancy extends StatelessWidget {
                         ),
                         child: Text(
                           category,
-                          style: const TextStyle(
-                            color:Color(0xff0D273D),
+                          style: GoogleFonts.nunito(
+                            color: const Color(0xff0D273D),
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -88,16 +89,17 @@ class ArticleDetailPageFancy extends StatelessWidget {
                       const SizedBox(height: 16),
                       Text(
                         title,
-                        style: const TextStyle(
+                        style: GoogleFonts.nunito(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           height: 1.4,
+                          color: Colors.black,
                         ),
                       ),
                       const SizedBox(height: 24),
                       Text(
                         content,
-                        style: const TextStyle(
+                        style: GoogleFonts.nunito(
                           fontSize: 16,
                           height: 1.6,
                           color: Colors.black87,
