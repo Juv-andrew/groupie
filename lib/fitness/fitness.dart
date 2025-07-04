@@ -3,6 +3,7 @@ import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/fitness/fat_burn_page.dart';
 import 'package:project/fitness/home_workout_page.dart';
+import 'package:project/fitness/progress_page.dart';
 import 'package:project/fitness/subscriptionpage.dart';
 import 'package:project/fitness/weight_training_page.dart';
 import 'package:project/fitness/yoga_page.dart';
@@ -231,77 +232,80 @@ class FitnessHomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.all(16),
-                    margin: const EdgeInsets.only(bottom: 20),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: PieChart(
-                            dataMap: dataMap,
-                            animationDuration: const Duration(
-                              milliseconds: 800,
-                            ),
-                            chartRadius:
-                                MediaQuery.of(context).size.width * 0.3,
-                            colorList: [
-                              Colors.blueAccent,
-                              Colors.orangeAccent,
-                              Colors.redAccent,
-                            ],
-                            chartType: ChartType.disc,
-                            chartValuesOptions: const ChartValuesOptions(
-                              showChartValuesInPercentage: true,
-                              showChartValueBackground: false,
-                              decimalPlaces: 0,
-                            ),
-                            legendOptions: const LegendOptions(
-                              showLegends: false,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          flex: 3,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 30),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                LegendItem(
-                                  color: Colors.blueAccent,
-                                  text: 'Weight Training ',
-                                ),
-                                SizedBox(height: 15),
-                                LegendItem(
-                                  color: Colors.orangeAccent,
-                                  text: 'Flexibility Training ',
-                                ),
-                                SizedBox(height: 15),
-                                LegendItem(
-                                  color: Colors.redAccent,
-                                  text: 'Fat Burn ',
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  InkWell(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const ProgressPage(),
+      ),
+    );
+  },
+  child: Card(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+    elevation: 4,
+    margin: const EdgeInsets.only(bottom: 20),
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 2,
+            child: PieChart(
+              dataMap: dataMap,
+              animationDuration: const Duration(milliseconds: 800),
+              chartRadius: MediaQuery.of(context).size.width * 0.3,
+              colorList: [
+                Colors.blueAccent,
+                Colors.orangeAccent,
+                Colors.redAccent,
+              ],
+              chartType: ChartType.disc,
+              chartValuesOptions: const ChartValuesOptions(
+                showChartValuesInPercentage: true,
+                showChartValueBackground: false,
+                decimalPlaces: 0,
+              ),
+              legendOptions: const LegendOptions(
+                showLegends: false,
+              ),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  LegendItem(
+                    color: Colors.blueAccent,
+                    text: 'Weight Training',
                   ),
+                  SizedBox(height: 15),
+                  LegendItem(
+                    color: Colors.orangeAccent,
+                    text: 'Flexibility Training',
+                  ),
+                  SizedBox(height: 15),
+                  LegendItem(
+                    color: Colors.redAccent,
+                    text: 'Fat Burn',
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  ),
+),
+
 
                   const SizedBox(height: 10),
                   Column(
