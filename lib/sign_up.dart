@@ -139,8 +139,8 @@ class _SignUpState extends State<SignUp> {
                 // Replace Icon with Image
                 Image.asset(
                   'img-project/logo.png', // Path to your image
-                  width: 200, // Adjust the size as needed
-                  height: 200, // Adjust the size as needed
+                  width: 300, // Adjust the size as needed
+                  height: 300, // Adjust the size as needed
                 ),
               ],
             ),

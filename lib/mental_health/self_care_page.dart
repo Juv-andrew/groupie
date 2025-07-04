@@ -12,7 +12,7 @@ import 'package:project/mental_health/Test_SelfCare/BipolarTestPage.dart';
 import 'package:project/mental_health/Test_SelfCare/DepressionTestPage.dart';
 import 'package:project/mental_health/Test_SelfCare/PTSDTestPage.dart';
 import 'package:project/mental_health/Test_SelfCare/test_history_page.dart';
-import 'package:project/notification.dart';
+import 'package:project/consultation/notification.dart';
 
 class SelfCarePage extends StatefulWidget {
   const SelfCarePage({super.key});

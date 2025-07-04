@@ -65,9 +65,10 @@ Future<Schedule?> showScheduleDialog(BuildContext context) async {
                       "Pilih Jadwal Latihan",
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
+                    const Divider(),
                     const SizedBox(height: 16),
 
-                    const Text("Pilih tepat 3 hari:"),
+                    const Text("Pilih Hari:"),
                     Wrap(
                       spacing: 8,
                       children: allDays.map((day) {
@@ -95,8 +96,9 @@ Future<Schedule?> showScheduleDialog(BuildContext context) async {
                         child: Text(
                           "Pilih tepat 3 hari.",
                           style: TextStyle(color: Colors.red),
-                        ),
+                        ),  
                       ),
+                      const Divider(),
 
                     const SizedBox(height: 16),
                     DropdownButtonFormField<String>(
@@ -182,7 +184,7 @@ Future<Schedule?> showScheduleDialog(BuildContext context) async {
                         ),
                         child: const Text(
                           "Confirm Jadwal",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold ,color: Colors.white),
                         ),
                       ),
                     ),

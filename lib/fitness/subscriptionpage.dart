@@ -30,8 +30,8 @@ class SubscriptionPage extends StatelessWidget {
             _buildPlanCard(
               context,
               title: "Weekly",
-              price: "\$10",
-              priceValue: 10,
+              price: "\$200",
+              priceValue: 200,
               features: [
                 "Private training sessions online",
                 "Unlimited access to all features",
@@ -233,19 +233,17 @@ class SubscriptionPage extends StatelessWidget {
                           ),
                         );
 
-                        // Tunggu sebentar agar user bisa baca notifikasi
                         await Future.delayed(const Duration(seconds: 1));
 
-                        // ✅ Lalu tutup 2x: dialog jadwal dan halaman Subscription
-                        Navigator.pop(context); // Tutup dialog jadwal
-                        Navigator.pop(context); // Tutup halaman subscription
+                        Navigator.pop(context); 
+                        Navigator.pop(context); 
                       }
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent,
+                    backgroundColor: Color(0xff0D273D),
                   ),
-                  child: const Text("Confirm"),
+                  child: const Text("Confirm", style: TextStyle(color: Colors.white),),
                 ),
               ],
             );

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project/artikel.dart';
 import 'package:project/editprofile.dart';
 import 'package:project/main_page.dart';
-import 'package:project/notification.dart';
+import 'package:project/consultation/notification.dart';
 import 'package:project/onboarding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'consultation/favorite.dart';

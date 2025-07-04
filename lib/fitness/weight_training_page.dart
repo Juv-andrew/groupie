@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project/ProfilPage.dart';
 
 class weight_training_page extends StatefulWidget {
   const weight_training_page({super.key});

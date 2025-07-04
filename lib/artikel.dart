@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/main_page.dart';
-import 'package:project/notification.dart';
+import 'package:project/consultation/notification.dart';
 import 'ArticleDetailPage.dart';
 
 class ArticlePage extends StatelessWidget {

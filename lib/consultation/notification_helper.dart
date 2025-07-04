@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:project/notification.dart';
+import 'package:project/consultation/notification.dart';
 import 'package:project/navigation_service.dart'; 
 
 void showCustomNotification({

@@ -18,6 +18,13 @@ class SubscriptionCalendar extends StatelessWidget {
       lastDay: DateTime.utc(2030, 12, 31),
       focusedDay: startDate,
       calendarFormat: CalendarFormat.month,
+      availableCalendarFormats: const {
+        CalendarFormat.month: 'Month', // atau bisa kosong juga
+      },
+      headerStyle: const HeaderStyle(
+        formatButtonVisible:
+            false, // 🔥 ini yang menghilangkan tombol "2 weeks"
+      ),
       rangeStartDay: startDate,
       rangeEndDay: endDate,
       rangeSelectionMode: RangeSelectionMode.toggledOn,
@@ -42,10 +49,10 @@ class SubscriptionCalendar extends StatelessWidget {
           return null;
         },
         // Optional: customize range start and end text
-        rangeStartBuilder: (context, day, focusedDay) =>
-            _buildMarker(day, Colors.green),
-        rangeEndBuilder: (context, day, focusedDay) =>
-            _buildMarker(day, Colors.red),
+        rangeStartBuilder:
+            (context, day, focusedDay) => _buildMarker(day, Colors.green),
+        rangeEndBuilder:
+            (context, day, focusedDay) => _buildMarker(day, Colors.red),
       ),
     );
   }

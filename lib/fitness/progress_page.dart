@@ -92,7 +92,7 @@ class _ProgressPageState extends State<ProgressPage> {
           'YOUR PROGRESS',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.blue[900],
+        backgroundColor: Color(0xff0D273D),
         foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
@@ -196,7 +196,7 @@ class _ProgressPageState extends State<ProgressPage> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue[900],
+        backgroundColor: Color(0xff0D273D),
         shape: const CircleBorder(),
         child: const Icon(Icons.add, color: Colors.white),
         onPressed: () async {

@@ -4,19 +4,37 @@ import 'package:project/artikel.dart';
 import 'package:project/fitness/calender_subs.dart';
 import 'package:project/fitness/fat_burn_page.dart';
 import 'package:project/fitness/home_workout_page.dart';
-import 'package:project/fitness/progress_page.dart';
 import 'package:project/fitness/subscriptionpage.dart';
 import 'package:project/fitness/weight_training_page.dart';
 import 'package:project/fitness/yoga_page.dart';
 import 'package:project/global.dart';
 import 'package:project/main_page.dart';
-import 'package:project/notification.dart';
+import 'package:project/consultation/notification.dart';
+import 'package:project/fitness/progress_page.dart';
 
 class FitnessHomePage extends StatefulWidget {
   const FitnessHomePage({super.key});
 
   @override
   State<FitnessHomePage> createState() => _FitnessHomePageState();
+}
+
+class LegendItem extends StatelessWidget {
+  final Color color;
+  final String text;
+
+  const LegendItem({super.key, required this.color, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(width: 16, height: 16, color: color),
+        const SizedBox(width: 8),
+        Text(text),
+      ],
+    );
+  }
 }
 
 class CalendarDateRange extends StatelessWidget {
@@ -203,24 +221,41 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
             color: Colors.black.withOpacity(0.5),
           ),
           child: Center(
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const SubscriptionPage()),
-                ).then((_) => setState(() {}));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff0D273D),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 16,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Start Your Fitness Journey Today!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              child: const Text(
-                'TRY IT NOW!!',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const SubscriptionPage(),
+                      ),
+                    ).then((_) => setState(() {}));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xff0D273D),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                      vertical: 16,
+                    ),
+                  ),
+                  child: const Text(
+                    'TRY IT NOW!!',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -362,11 +397,18 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
         padding: EdgeInsets.zero,
         children: [
           const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 202, 231, 255),
+            decoration: BoxDecoration(color: Color(0xff0D273D)),
+            child: Text(
+              'Fitness Menu',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-            child: Text('Fitness Menu', style: TextStyle(fontSize: 20)),
           ),
+          _drawerItem(Icons.bar_chart, 'Progress', const ProgressPage()),
+
           _drawerItem(
             Icons.fitness_center,
             'Home Workout',
@@ -500,14 +542,14 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
                   Text(
                     nama.toUpperCase(),
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     deskripsi,
-                    style: const TextStyle(fontSize: 15, color: Colors.grey),
+                    style: const TextStyle(fontSize: 13, color: Colors.grey),
                   ),
                 ],
               ),
