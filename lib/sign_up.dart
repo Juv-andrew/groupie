@@ -42,6 +42,10 @@ class _SignUpState extends State<SignUp> {
       return;
     }
 
+    if (password.length < 8) {
+      _showSnackbar("Password minimal 8 karakter!");
+      return;
+    }
     if (password != confirmPassword) {
       _showSnackbar("Password dan konfirmasi tidak cocok!");
       return;
@@ -210,7 +214,7 @@ class _SignUpState extends State<SignUp> {
                           side: const BorderSide(color: Colors.black),
                         ),
                       ),
-                      child:  Text(
+                      child: Text(
                         "SIGN UP",
                         style: GoogleFonts.nunito(
                           fontWeight: FontWeight.bold,
@@ -224,9 +228,7 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         Text(
                           "Have an account? ",
-                          style: GoogleFonts.nunito(
-                            fontSize: 16
-                          ),
+                          style: GoogleFonts.nunito(fontSize: 16),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -240,7 +242,7 @@ class _SignUpState extends State<SignUp> {
                             style: GoogleFonts.nunito(
                               color: const Color(0xff0D273D),
                               fontWeight: FontWeight.bold,
-                              fontSize: 16
+                              fontSize: 16,
                             ),
                           ),
                         ),

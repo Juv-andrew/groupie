@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Schedule {
   final List<String> days;
-  final String timeSlot; // format: "08:00", "14:00", etc
+  final String timeSlot; 
   final String workoutType;
   final DateTime startDate;
 
@@ -19,11 +20,11 @@ class Schedule {
   }
 }
 
-// label tampilan untuk user, key-nya dipakai untuk parsing waktu
+
 const Map<String, String> timeSlotLabels = {
-  "08:00": "08.00–10.00",
-  "14:00": "14.00–16.00",
-  "18:00": "18.00–20.00",
+  "08:00": "08.00-10.00",
+  "14:00": "14.00-16.00",
+  "18:00": "18.00-20.00",
 };
 
 const List<String> timeSlots = ["08:00", "14:00", "18:00"];
@@ -61,14 +62,14 @@ Future<Schedule?> showScheduleDialog(BuildContext context) async {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Pilih Jadwal Latihan",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     const Divider(),
                     const SizedBox(height: 16),
 
-                    const Text("Pilih Hari:"),
+                    Text("Pilih Hari:", style: GoogleFonts.nunito()),
                     Wrap(
                       spacing: 8,
                       children: allDays.map((day) {
@@ -91,11 +92,11 @@ Future<Schedule?> showScheduleDialog(BuildContext context) async {
                     ),
 
                     if (selectedDays.length != 3)
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(top: 8.0),
                         child: Text(
                           "Pilih tepat 3 hari.",
-                          style: TextStyle(color: Colors.red),
+                          style: GoogleFonts.nunito(color: Colors.red),
                         ),  
                       ),
                       const Divider(),
@@ -103,8 +104,9 @@ Future<Schedule?> showScheduleDialog(BuildContext context) async {
                     const SizedBox(height: 16),
                     DropdownButtonFormField<String>(
                       value: selectedTimeSlot,
-                      decoration: const InputDecoration(
+                      decoration:  InputDecoration(
                         labelText: "Pilih Waktu Latihan",
+                        labelStyle: GoogleFonts.nunito(),
                         border: OutlineInputBorder(),
                       ),
                       items: timeSlots.map((slot) {
@@ -123,8 +125,9 @@ Future<Schedule?> showScheduleDialog(BuildContext context) async {
                     const SizedBox(height: 16),
                     DropdownButtonFormField<String>(
                       value: selectedWorkoutType,
-                      decoration: const InputDecoration(
+                      decoration:InputDecoration(
                         labelText: "Pilih Jenis Latihan",
+                        labelStyle: GoogleFonts.nunito(),
                         border: OutlineInputBorder(),
                       ),
                       items: workoutTypes.map((type) {
@@ -182,9 +185,9 @@ Future<Schedule?> showScheduleDialog(BuildContext context) async {
                           backgroundColor: const Color(0xff0D273D),
                           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                         ),
-                        child: const Text(
+                        child: Text(
                           "Confirm Jadwal",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold ,color: Colors.white),
+                          style: GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.bold ,color: Colors.white),
                         ),
                       ),
                     ),

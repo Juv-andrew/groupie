@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/fitness/schedule.dart';
 import 'package:project/global.dart';
-// berisi confirmedSchedule & confirmedPlan
 
 class SubscriptionPage extends StatelessWidget {
   const SubscriptionPage({super.key});
@@ -10,8 +10,8 @@ class SubscriptionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Subscription Plans'),
-        titleTextStyle: const TextStyle(
+        title: Text('Subscription Plans',),
+        titleTextStyle: GoogleFonts.nunito(
           fontSize: 24,
           fontWeight: FontWeight.bold,
           color: Colors.white,
@@ -74,10 +74,10 @@ class SubscriptionPage extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: GoogleFonts.nunito(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-            Text(price, style: const TextStyle(fontSize: 16)),
+            Text(price, style: GoogleFonts.nunito(fontSize: 16)),
             const Divider(height: 20, thickness: 1),
             ...features.map(
               (f) => Padding(
@@ -98,9 +98,9 @@ class SubscriptionPage extends StatelessWidget {
                 backgroundColor: const Color(0xff0D273D),
                 minimumSize: const Size.fromHeight(40),
               ),
-              child: const Text(
+              child:  Text(
                 "Purchase",
-                style: TextStyle(
+                style: GoogleFonts.nunito(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -133,7 +133,7 @@ class SubscriptionPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
-              title: const Text("Confirm Subscription"),
+              title: Text("Confirm Subscription"),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -142,7 +142,7 @@ class SubscriptionPage extends StatelessWidget {
                     subtitle: Text(
                       "Original Price: \$${originalPrice.toStringAsFixed(2)}",
                     ),
-                    leading: const Icon(Icons.subscriptions, color: Colors.red),
+                    leading: const Icon(Icons.subscriptions, color: Color(0xff0D273D)),
                   ),
                   const SizedBox(height: 10),
                   DropdownButtonFormField<String>(
@@ -182,7 +182,7 @@ class SubscriptionPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   Text(
                     "Final Price: \$${finalPrice.toStringAsFixed(2)}",
-                    style: TextStyle(
+                    style: GoogleFonts.nunito(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: discountApplied ? Colors.green : Colors.black,
@@ -198,7 +198,6 @@ class SubscriptionPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     Future.delayed(Duration.zero, () async {
-                      // Buka dialog pemilihan jadwal
                       Schedule? schedule = await showScheduleDialog(context);
 
                       if (schedule != null) {
@@ -208,7 +207,7 @@ class SubscriptionPage extends StatelessWidget {
                         if (title == 'Weekly') {
                           confirmedEndDate = confirmedStartDate!.add(
                             const Duration(days: 6),
-                          ); // 7 hari termasuk start
+                          ); 
                         } else if (title == 'Monthly') {
                           confirmedEndDate = DateTime(
                             confirmedStartDate!.year,
@@ -219,7 +218,6 @@ class SubscriptionPage extends StatelessWidget {
 
                         confirmedPlan = title;
 
-                        // ✅ Tampilkan notifikasi sebelum dialog ditutup
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(

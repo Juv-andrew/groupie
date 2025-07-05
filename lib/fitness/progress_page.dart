@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,7 +39,6 @@ class _ProgressPageState extends State<ProgressPage> {
         });
       });
     } else {
-      // Default dummy events
       events = {
         DateTime.utc(2025, 12, 3): ['Strength Training'],
         DateTime.utc(2025, 12, 4): ['Flexibility Session'],
@@ -88,9 +88,9 @@ class _ProgressPageState extends State<ProgressPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'YOUR PROGRESS',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Color(0xff0D273D),
         foregroundColor: Colors.white,
@@ -101,7 +101,6 @@ class _ProgressPageState extends State<ProgressPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /// Donut charts
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -133,12 +132,12 @@ class _ProgressPageState extends State<ProgressPage> {
               const SizedBox(height: 20),
 
               Row(
-                children: const [
+                children:  [
                   Icon(Icons.calendar_today, color: Colors.black),
                   SizedBox(width: 8),
                   Text(
                     "Set a reminder for you",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: GoogleFonts.nunito(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ],
               ),
@@ -170,7 +169,7 @@ class _ProgressPageState extends State<ProgressPage> {
                   ),
                 ),
                 headerStyle: const HeaderStyle(
-                  formatButtonVisible: false, // <<< HILANGKAN TOMBOL 2 weeks
+                  formatButtonVisible: false, 
                 ),
               ),
 
@@ -180,7 +179,7 @@ class _ProgressPageState extends State<ProgressPage> {
                 ...getEventsForDay(selectedDay!).map((event) {
                   return ListTile(
                     leading: const Icon(Icons.fitness_center),
-                    title: Text(event),
+                    title: Text(event, style: GoogleFonts.nunito(),),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
@@ -202,7 +201,7 @@ class _ProgressPageState extends State<ProgressPage> {
         onPressed: () async {
           if (selectedDay == null) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Pilih tanggal dulu.')),
+              SnackBar(content: Text('Pilih tanggal dulu.', style: GoogleFonts.nunito())),
             );
             return;
           }
@@ -212,18 +211,18 @@ class _ProgressPageState extends State<ProgressPage> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text('Tambah Event'),
+                title: Text('Tambah Event', style: GoogleFonts.nunito(),),
                 content: TextField(
                   controller: controller,
-                  decoration: const InputDecoration(hintText: 'Nama Event'),
+                  decoration:  InputDecoration(hintText: 'Nama Event', hintStyle: GoogleFonts.nunito()),
                 ),
                 actions: [
                   TextButton(
-                    child: const Text('BATAL'),
+                    child: Text('BATAL', style: GoogleFonts.nunito()),
                     onPressed: () => Navigator.pop(context),
                   ),
                   ElevatedButton(
-                    child: const Text('SIMPAN'),
+                    child: Text('SIMPAN', style: GoogleFonts.nunito()),
                     onPressed: () {
                       Navigator.pop(context, controller.text);
                     },
@@ -281,7 +280,7 @@ class _ProgressPageState extends State<ProgressPage> {
               ),
             ),
             const SizedBox(height: 4),
-            Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text(label, style: GoogleFonts.nunito(fontWeight: FontWeight.bold)),
           ],
         ),
       ),
@@ -293,7 +292,7 @@ class _ProgressPageState extends State<ProgressPage> {
       children: [
         Expanded(
           flex: 2,
-          child: Text(label, style: const TextStyle(fontSize: 16)),
+          child: Text(label, style:  GoogleFonts.nunito(fontSize: 16)),
         ),
         Expanded(
           flex: 5,
@@ -304,7 +303,7 @@ class _ProgressPageState extends State<ProgressPage> {
             progressColor: color,
             center: Text(
               "${(percent * 100).toInt()} %",
-              style: const TextStyle(fontSize: 12, color: Colors.white),
+              style:  GoogleFonts.nunito(fontSize: 12, color: Colors.white),
             ),
           ),
         ),

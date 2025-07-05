@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/fitness/calender_subs.dart';
@@ -47,16 +48,16 @@ class CalendarDateRange extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment:
-          CrossAxisAlignment.start, // ⬅️ ini yang bikin rata kiri
+          CrossAxisAlignment.start, 
       children: [
-        const Text(
+        Text(
           "Subscription Period",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          style: GoogleFonts.nunito(fontWeight: FontWeight.bold, fontSize: 20),
         ),
         const SizedBox(height: 4),
         Text(
           "${start.toLocal().toShort()} → ${end.toLocal().toShort()}",
-          style: const TextStyle(fontSize: 20),
+          style: GoogleFonts.nunito(fontSize: 20),
         ),
         const Divider(height: 20, thickness: 1),
       ],
@@ -103,10 +104,10 @@ class _CountdownWidgetState extends State<CountdownWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.centerLeft, // ⬅️ membuat teks rata kiri
+      alignment: Alignment.centerLeft,
       child: Text(
         "Next Workout in: ${remaining.inHours.toString().padLeft(2, '0')}:${(remaining.inMinutes % 60).toString().padLeft(2, '0')}:${(remaining.inSeconds % 60).toString().padLeft(2, '0')}",
-        style: const TextStyle(
+        style: GoogleFonts.nunito(
           fontSize: 16,
           fontWeight: FontWeight.bold,
           color: Colors.redAccent,
@@ -155,7 +156,7 @@ class _MotivationalTextSwitcherState extends State<MotivationalTextSwitcher> {
   Widget build(BuildContext context) {
     return Text(
       messages[currentIndex],
-      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+      style: GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.w500),
       textAlign: TextAlign.center,
     );
   }
@@ -165,9 +166,8 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
   @override
   void initState() {
     super.initState();
-    // Trigger rebuild jika confirmedSchedule/confirmedPlan berubah
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {}); // force update
+      setState(() {}); 
     });
   }
 
@@ -224,10 +224,10 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
+                Text(
                   'Start Your Fitness Journey Today!',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -250,9 +250,9 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
                       vertical: 16,
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'TRY IT NOW!!',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                 ),
               ],
@@ -262,7 +262,6 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
       );
     }
 
-    // jika sudah langganan
     DateTime now = DateTime.now();
     DateTime startDate = confirmedStartDate ?? now;
     DateTime endDate =
@@ -305,16 +304,15 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
 
             const Divider(height: 24),
 
-            const Align(
+            Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "Your Schedule:",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 10),
 
-            // Hari-hari latihan
             Row(
               children:
                   confirmedSchedule!.days
@@ -356,10 +354,10 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
   Widget _buildWorkoutSection(BuildContext context) {
     return GridView.count(
       physics:
-          const NeverScrollableScrollPhysics(), // biar scroll nya dari atas
+          const NeverScrollableScrollPhysics(), 
       shrinkWrap: true,
       crossAxisCount: 2,
-      childAspectRatio: 0.8, // atur proporsi card
+      childAspectRatio: 0.8, 
       mainAxisSpacing: 12,
       crossAxisSpacing: 12,
       children: [
@@ -396,11 +394,11 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(color: Color(0xff0D273D)),
             child: Text(
               'Fitness Menu',
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -541,7 +539,7 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
                 children: [
                   Text(
                     nama.toUpperCase(),
-                    style: const TextStyle(
+                    style: GoogleFonts.nunito(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -549,7 +547,7 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
                   const SizedBox(height: 6),
                   Text(
                     deskripsi,
-                    style: const TextStyle(fontSize: 13, color: Colors.grey),
+                    style: GoogleFonts.nunito(fontSize: 13, color: Colors.black),
                   ),
                 ],
               ),
@@ -574,7 +572,7 @@ DateTime? _getNextWorkoutTime(DateTime startDate, String day, String timeSlot) {
 
   int targetWeekday = dayMap[day]!;
 
-  final parts = timeSlot.split(':'); // "18:00" -> ["18", "00"]
+  final parts = timeSlot.split(':');
   final hour = int.parse(parts[0]);
   final minute = int.parse(parts[1]);
 

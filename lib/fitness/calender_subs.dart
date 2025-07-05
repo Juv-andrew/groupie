@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class SubscriptionCalendar extends StatelessWidget {
@@ -19,11 +20,11 @@ class SubscriptionCalendar extends StatelessWidget {
       focusedDay: startDate,
       calendarFormat: CalendarFormat.month,
       availableCalendarFormats: const {
-        CalendarFormat.month: 'Month', // atau bisa kosong juga
+        CalendarFormat.month: 'Month', 
       },
       headerStyle: const HeaderStyle(
         formatButtonVisible:
-            false, // 🔥 ini yang menghilangkan tombol "2 weeks"
+            false, 
       ),
       rangeStartDay: startDate,
       rangeEndDay: endDate,
@@ -45,10 +46,8 @@ class SubscriptionCalendar extends StatelessWidget {
       ),
       calendarBuilders: CalendarBuilders(
         defaultBuilder: (context, day, focusedDay) {
-          // Optional: custom builder logic if needed
           return null;
         },
-        // Optional: customize range start and end text
         rangeStartBuilder:
             (context, day, focusedDay) => _buildMarker(day, Colors.green),
         rangeEndBuilder:
@@ -67,7 +66,7 @@ class SubscriptionCalendar extends StatelessWidget {
       ),
       child: Text(
         '${date.day}',
-        style: const TextStyle(
+        style: GoogleFonts.nunito(
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class YogaPage extends StatefulWidget {
   const YogaPage({super.key});
@@ -188,6 +189,20 @@ class _YogaPageState extends State<YogaPage> {
     'Stretching',
     'Balance',
   ];
+  Future<void> saveYogaSchedule(DateTime dateTime) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('yoga_schedule', dateTime.toIso8601String());
+  }
+
+  Future<void> loadYogaSchedule() async {
+    final prefs = await SharedPreferences.getInstance();
+    final stored = prefs.getString('yoga_schedule');
+    if (stored != null) {
+      setState(() {
+        globalYogaSchedule = DateTime.tryParse(stored);
+      });
+    }
+  }
 
   List<Map<String, String>> get filteredList {
     return yogaList.where((pose) {
@@ -201,6 +216,12 @@ class _YogaPageState extends State<YogaPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    loadYogaSchedule();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -208,9 +229,9 @@ class _YogaPageState extends State<YogaPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(width: 8),
-            const Text(
+            Text(
               'Yoga',
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
@@ -234,6 +255,7 @@ class _YogaPageState extends State<YogaPage> {
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: 'Cari gerakan yoga...',
+                    hintStyle: GoogleFonts.nunito(),
                     prefixIcon: const Icon(Icons.search),
                     filled: true,
                     fillColor: const Color.fromARGB(
@@ -272,7 +294,7 @@ class _YogaPageState extends State<YogaPage> {
                             },
                             selectedColor: const Color(0xff0D273D),
                             backgroundColor: Colors.white70,
-                            labelStyle: TextStyle(
+                            labelStyle: GoogleFonts.nunito(
                               color: isSelected ? Colors.white : Colors.black,
                             ),
                           ),
@@ -283,66 +305,71 @@ class _YogaPageState extends State<YogaPage> {
               const SizedBox(height: 10),
 
               Padding(
-  padding: const EdgeInsets.only(left: 12, top: 8),
-  child: GestureDetector(
-    onTap: () async {
-      final selectedDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime.now().add(const Duration(days: 365)),
-      );
+                padding: const EdgeInsets.only(left: 12, top: 8),
+                child: GestureDetector(
+                  onTap: () async {
+                    final selectedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(const Duration(days: 365)),
+                    );
 
-      if (selectedDate != null) {
-        final selectedTime = await showTimePicker(
-          context: context,
-          initialTime: TimeOfDay.now(),
-        );
+                    if (selectedDate != null) {
+                      final selectedTime = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                      );
 
-        if (selectedTime != null) {
-          final combinedDateTime = DateTime(
-            selectedDate.year,
-            selectedDate.month,
-            selectedDate.day,
-            selectedTime.hour,
-            selectedTime.minute,
-          );
+                      if (selectedTime != null) {
+                        final combinedDateTime = DateTime(
+                          selectedDate.year,
+                          selectedDate.month,
+                          selectedDate.day,
+                          selectedTime.hour,
+                          selectedTime.minute,
+                        );
 
-          setState(() {
-            globalYogaSchedule = combinedDateTime;
-          });
-        }
-      }
-    },
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: const [
-        Icon(Icons.date_range, color: Color.fromARGB(255, 0, 0, 0)),
-        SizedBox(width: 6),
-        Text(
-          'Atur Jadwal Yoga',
-          style: TextStyle(
-            color: Color.fromARGB(255, 0, 0, 0),
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
-    ),
-  ),
-),
+                        setState(() {
+                          globalYogaSchedule = combinedDateTime;
+                        });
 
-if (globalYogaSchedule != null)
-  Padding(
-    padding: const EdgeInsets.only(left: 12, top: 8),
-    child: Text(
-      'Jadwal Yoga: ${DateFormat('EEEE, dd MMMM yyyy – hh:mm a').format(globalYogaSchedule!)}',
-      style: const TextStyle(
-        color: Color.fromARGB(255, 0, 0, 0),
-        fontStyle: FontStyle.italic,
-      ),
-    ),
-  ),
+                        await saveYogaSchedule(combinedDateTime);
+                      }
+                    }
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.date_range,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      SizedBox(width: 6),
+                      Text(
+                        'Atur Jadwal Yoga',
+                        style: GoogleFonts.nunito(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              if (globalYogaSchedule != null)
+                Padding(
+                  padding: const EdgeInsets.only(left: 12, top: 8),
+                  child: Text(
+                    'Jadwal Yoga: ${DateFormat('EEEE, dd MMMM yyyy – hh:mm a').format(globalYogaSchedule!)}',
+                    style: GoogleFonts.nunito(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
 
               Expanded(
                 child: ListView.builder(
@@ -373,14 +400,17 @@ if (globalYogaSchedule != null)
                               children: [
                                 Text(
                                   item['name']!,
-                                  style: const TextStyle(
+                                  style: GoogleFonts.nunito(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromARGB(255, 0, 0, 0),
                                   ),
                                 ),
                                 const SizedBox(height: 8),
-                                Text(item['desc']!),
+                                Text(
+                                  item['desc']!,
+                                  style: GoogleFonts.nunito(),
+                                ),
                                 const SizedBox(height: 12),
                               ],
                             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/fitness/WorkoutSessionPage.dart';
 
 class HomeWorkoutPage extends StatefulWidget {
@@ -127,7 +128,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
               const SizedBox(height: 16),
               Text(
                 workout["name"]!,
-                style: const TextStyle(
+                style: GoogleFonts.nunito(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -137,12 +138,12 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
               Text(
                 workout["description"]!,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16, color: Colors.black87),
+                style: GoogleFonts.nunito(fontSize: 16, color: Colors.black87),
               ),
               const SizedBox(height: 20),
               Text(
                 "Durasi latihan: ${_duration.round()} menit",
-                style: const TextStyle(
+                style: GoogleFonts.nunito(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
@@ -173,7 +174,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                     horizontal: 24,
                     vertical: 12,
                   ),
-                  textStyle: const TextStyle(
+                  textStyle: GoogleFonts.nunito(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -191,9 +192,9 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Home Workout',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          style: GoogleFonts.nunito(fontWeight: FontWeight.bold, color: Colors.black),
         ),
         backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         leading: IconButton(
@@ -211,7 +212,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
               decoration: InputDecoration(
                 hintText: "Cari latihan...",
                 prefixIcon: const Icon(Icons.search, color: Colors.black),
-                hintStyle: const TextStyle(color: Colors.black54),
+                hintStyle: GoogleFonts.nunito(color: Colors.black54),
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -219,7 +220,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                   borderSide: const BorderSide(color: Colors.grey),
                 ),
               ),
-              style: const TextStyle(color: Colors.black),
+              style: GoogleFonts.nunito(color: Colors.black),
               onChanged: (_) => setState(() {}),
             ),
             const SizedBox(height: 12),
@@ -244,7 +245,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                       },
                       selectedColor: const Color(0xff0D273D),
                       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                      labelStyle: TextStyle(
+                      labelStyle: GoogleFonts.nunito(
                         color: selected ? Colors.white : Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
@@ -259,13 +260,13 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "Durasi Latihan:",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "${_duration.round()} menit",
-                  style: const TextStyle(fontSize: 16),
+                  style: GoogleFonts.nunito(fontSize: 16),
                 ),
               ],
             ),
@@ -320,7 +321,7 @@ class _HomeWorkoutPageState extends State<HomeWorkoutPage> {
                         Text(
                           workout["name"]!,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: GoogleFonts.nunito(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
