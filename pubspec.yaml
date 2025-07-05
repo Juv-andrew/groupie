@@ -41,6 +41,7 @@ dependencies:
   percent_indicator: ^4.2.5
   table_calendar: ^3.0.9
   flutter_launcher_icons: ^0.14.4
+  
 
 flutter_icons:
   android: true
@@ -52,6 +53,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
   share_plus: ^7.2.1
+  rename: ^2.1.1
 
 flutter:
   uses-material-design: true
@@ -59,4 +61,4 @@ flutter:
   assets:
     - assets/food.json
     - img-project/
-    - img-project/healthyfoods/  
+    - img-project/healthyfoods/
