@@ -84,20 +84,19 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffc1e8ff),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(top: 60),
-              child: Column(
-                children: [
-                  Image.asset('img-project/logo.png', width: 300, height: 300),
-                  const SizedBox(height: 12),
-                ],
-              ),
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.only(top: 60),
+            child: Column(
+              children: [
+                Image.asset('img-project/logo.png', width: 300, height: 300),
+                const SizedBox(height: 12),
+              ],
             ),
-
-            Container(
+          ),
+          Expanded(
+            child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -106,98 +105,103 @@ class _SignInState extends State<SignIn> {
                   topRight: Radius.circular(32),
                 ),
               ),
-              child: Column(
-                children: [
-                  _buildTextField(
-                    hint: "enter your email or username",
-                    icon: Icons.email,
-                    controller: _emailController,
-                    inputAction: TextInputAction.next,
-                  ),
-                  const SizedBox(height: 16),
-                  _buildTextField(
-                    hint: "enter your password",
-                    icon: Icons.lock,
-                    controller: _passwordController,
-                    obscure: true,
-                    inputAction: TextInputAction.done,
-                    onSubmitted: (_) => _handleSignIn(),
-                  ),
-                  const SizedBox(height: 4),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const ForgotPasswordPage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "Lupa Password?",
-                        style: GoogleFonts.nunito(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _buildTextField(
+                      hint: "enter your email or username",
+                      icon: Icons.email,
+                      controller: _emailController,
+                      inputAction: TextInputAction.next,
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: _handleSignIn,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
-                      foregroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 80,
-                        vertical: 16,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: const BorderSide(color: Colors.black),
-                      ),
+                    const SizedBox(height: 16),
+                    _buildTextField(
+                      hint: "enter your password",
+                      icon: Icons.lock,
+                      controller: _passwordController,
+                      obscure: true,
+                      inputAction: TextInputAction.done,
+                      onSubmitted: (_) => _handleSignIn(),
                     ),
-                    child: Text(
-                      "SIGN IN",
-                      style: GoogleFonts.nunito(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "no account? ",
-                        style: GoogleFonts.nunito(fontSize: 16),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacement(
+                    const SizedBox(height: 4),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (_) => const SignUp()),
+                            MaterialPageRoute(
+                              builder: (_) => const ForgotPasswordPage(),
+                            ),
                           );
                         },
                         child: Text(
-                          "Register now",
+                          "Lupa Password?",
                           style: GoogleFonts.nunito(
-                            color: const Color(0XFF031716),
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            color: Colors.black,
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: _handleSignIn,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 202, 231, 255),
+                        foregroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 80,
+                          vertical: 16,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: const BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      child: Text(
+                        "SIGN IN",
+                        style: GoogleFonts.nunito(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "no account? ",
+                          style: GoogleFonts.nunito(fontSize: 16),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const SignUp(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Register now",
+                            style: GoogleFonts.nunito(
+                              color: const Color(0XFF031716),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

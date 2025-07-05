@@ -47,8 +47,7 @@ class CalendarDateRange extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment:
-          CrossAxisAlignment.start, 
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "Subscription Period",
@@ -167,7 +166,7 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {}); 
+      setState(() {});
     });
   }
 
@@ -252,7 +251,11 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
                   ),
                   child: Text(
                     'TRY IT NOW!!',
-                    style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: GoogleFonts.nunito(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
@@ -308,7 +311,10 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
               alignment: Alignment.centerLeft,
               child: Text(
                 "Your Schedule:",
-                style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.nunito(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -353,11 +359,10 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
 
   Widget _buildWorkoutSection(BuildContext context) {
     return GridView.count(
-      physics:
-          const NeverScrollableScrollPhysics(), 
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       crossAxisCount: 2,
-      childAspectRatio: 0.8, 
+      childAspectRatio: 0.8,
       mainAxisSpacing: 12,
       crossAxisSpacing: 12,
       children: [
@@ -547,7 +552,12 @@ class _FitnessHomePageState extends State<FitnessHomePage> {
                   const SizedBox(height: 6),
                   Text(
                     deskripsi,
-                    style: GoogleFonts.nunito(fontSize: 13, color: Colors.black),
+                    style: GoogleFonts.nunito(
+                      fontSize: 13,
+                      color: Colors.black,
+                    ),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),

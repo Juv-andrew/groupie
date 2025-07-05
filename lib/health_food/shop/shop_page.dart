@@ -199,7 +199,7 @@ class BahanMakananTab extends StatelessWidget {
               crossAxisCount: width < 360 ? 2 : 2,
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
-              childAspectRatio: width < 360 ? 0.85 : 0.95,
+              childAspectRatio: width < 360 ? 0.7 : 0.9,
             ),
             itemBuilder: (context, index) => ProductCard(item: items[index]),
           ),
@@ -218,110 +218,115 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<ShopProvider>(context, listen: false);
     final width = MediaQuery.of(context).size.width;
+    final isSmallScreen = width < 360;
 
     return SizedBox(
       width: isHorizontal ? 140 : null,
+      height: isHorizontal ? 200 : null, // batasi tinggi jika horizontal
       child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(12),
-              ),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
               child: Image.asset(
                 item.gambar,
-                height: isHorizontal ? 100 : (width < 360 ? 90 : 110),
+                height: isHorizontal ? 90 : (isSmallScreen ? 80 : 100),
                 fit: BoxFit.cover,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.nama,
-                    style: GoogleFonts.nunito(
-                      fontWeight: FontWeight.bold,
-                      fontSize: width < 360 ? 13 : 14,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(6),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.nama,
+                      style: GoogleFonts.nunito(
+                        fontWeight: FontWeight.w600,
+                        fontSize: isSmallScreen ? 11.5 : 12.5,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Rp ${item.harga}',
-                    style: GoogleFonts.nunito(
-                      color: const Color(0xff0D273D),
-                      fontWeight: FontWeight.bold,
-                      fontSize: width < 360 ? 12 : 13,
+                    Text(
+                      'Rp ${item.harga}',
+                      style: GoogleFonts.nunito(
+                        fontSize: isSmallScreen ? 11 : 12,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xff0D273D),
+                      ),
                     ),
-                  ),
-                  Text(
-                    item.satuan,
-                    style: GoogleFonts.nunito(
-                      fontSize: 12,
-                      color: Colors.black54,
+                    Text(
+                      item.satuan,
+                      style: GoogleFonts.nunito(
+                        fontSize: 10,
+                        color: Colors.black54,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 6),
-                  item.tersedia
-                      ? SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            provider.tambahKeKeranjang(item);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  '${item.nama} ditambahkan ke keranjang.',
-                                  style: GoogleFonts.nunito(),
+                    const Spacer(),
+                    item.tersedia
+                        ? SizedBox(
+                            width: double.infinity,
+                            height: 26,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                provider.tambahKeKeranjang(item);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      '${item.nama} ditambahkan ke keranjang.',
+                                      style: GoogleFonts.nunito(),
+                                    ),
+                                    duration: const Duration(seconds: 1),
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xff0D273D),
+                                foregroundColor: Colors.white,
+                                padding: EdgeInsets.zero,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6),
                                 ),
-                                duration: const Duration(seconds: 1),
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                               ),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.shopping_cart_outlined,
-                            size: 16,
-                          ),
-                          label: Text('Add', style: GoogleFonts.nunito()),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xff0D273D),
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 6),
-                            textStyle: GoogleFonts.nunito(fontSize: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.shopping_cart_outlined, size: 13),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    'Add',
+                                    style: GoogleFonts.nunito(fontSize: 11),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        : Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.red.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(color: Colors.red),
+                            ),
+                            child: Text(
+                              'Tidak Tersedia',
+                              style: GoogleFonts.nunito(
+                                fontSize: 11,
+                                color: Colors.red,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
-                        ),
-                      )
-                      : Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.red.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: Colors.red),
-                        ),
-                        child: Text(
-                          'Tidak Tersedia',
-                          style: GoogleFonts.nunito(
-                            color: Colors.red,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
