@@ -53,7 +53,7 @@ class _FavoriteRecipesDrawerState extends State<FavoriteRecipesDrawer> {
             padding: const EdgeInsets.only(top: 40, left: 20, bottom: 20),
             width: double.infinity,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 202, 231, 255),
+              color: Color(0xff0D273D),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(24),
                 bottomRight: Radius.circular(24),

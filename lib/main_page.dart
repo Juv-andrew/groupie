@@ -8,7 +8,7 @@ import 'package:project/consultation/consultation.dart';
 import 'package:project/fitness/fitness.dart';
 import 'package:project/health_food/healthy_food.dart';
 import 'package:project/mental_health/self_awareness_page.dart';
-import 'notification.dart';
+import 'consultation/notification.dart';
 
 class MainMenuPage extends StatefulWidget {
   const MainMenuPage({super.key});

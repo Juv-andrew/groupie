@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/ProfilPage.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class weight_training_page extends StatefulWidget {
   const weight_training_page({super.key});
@@ -215,9 +215,9 @@ class _weight_training_pageState extends State<weight_training_page> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(width: 8),
-            const Text(
+            Text(
               'Weight Training',
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
@@ -243,6 +243,7 @@ class _weight_training_pageState extends State<weight_training_page> {
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: 'cari nama latihan ...',
+                    hintStyle: GoogleFonts.nunito(),
                     prefixIcon: const Icon(Icons.search),
                     filled: true,
                     fillColor: Colors.white.withOpacity(0.9),
@@ -276,7 +277,7 @@ class _weight_training_pageState extends State<weight_training_page> {
                             },
                             selectedColor: const Color(0xff0D273D),
                             backgroundColor: const Color.fromARGB(179, 255, 255, 255),
-                            labelStyle: TextStyle(
+                            labelStyle: GoogleFonts.nunito(
                               color:
                                   isSelected
                                       ? Colors.white
@@ -318,7 +319,7 @@ class _weight_training_pageState extends State<weight_training_page> {
                               children: [
                                 Text(
                                   item['name']!,
-                                  style: const TextStyle(
+                                  style: GoogleFonts.nunito(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
@@ -327,7 +328,7 @@ class _weight_training_pageState extends State<weight_training_page> {
                                 const SizedBox(height: 8),
                                 Text(
                                   item['desc']!,
-                                  style: const TextStyle(
+                                  style: GoogleFonts.nunito(
                                     fontSize: 16,
                                     color: Colors.white,
                                   ),

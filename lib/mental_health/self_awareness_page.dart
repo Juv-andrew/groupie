@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project/main_page.dart';
 import 'package:project/artikel.dart';
 import 'package:project/ProfilPage.dart';
-import 'package:project/notification.dart';
+import 'package:project/consultation/notification.dart';
 import 'package:project/mental_health/self_care_page.dart';
 import 'package:project/mental_health/self_recovery_page.dart';
 
@@ -45,7 +45,7 @@ class SelfAwarenessPage extends StatelessWidget {
                 Image.asset(
                   'img-project/logo.png',
                   width: 250,
-                  height: 220,
+                  height: 250,
                 ),
               ],
             ),

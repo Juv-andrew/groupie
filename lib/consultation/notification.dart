@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/main_page.dart';
-import 'package:project/notification_data.dart';
+import 'package:project/consultation/notification_data.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});

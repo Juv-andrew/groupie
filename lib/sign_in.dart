@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project/forgot_password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ProfilPage.dart';
 import 'sign_up.dart';
@@ -90,11 +91,7 @@ class _SignInState extends State<SignIn> {
               padding: const EdgeInsets.only(top: 60),
               child: Column(
                 children: [
-                  Image.asset(
-                    'img-project/logo.png', // Path to your image
-                    width: 300, // Adjust the size as needed
-                    height: 300, // Adjust the size as needed
-                  ),
+                  Image.asset('img-project/logo.png', width: 300, height: 300),
                   const SizedBox(height: 12),
                 ],
               ),
@@ -130,11 +127,19 @@ class _SignInState extends State<SignIn> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ForgotPasswordPage(),
+                          ),
+                        );
+                      },
                       child: Text(
-                        "Forget password?",
+                        "Lupa Password?",
                         style: GoogleFonts.nunito(
-                          color: const Color(0XFF031716),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
                       ),
                     ),

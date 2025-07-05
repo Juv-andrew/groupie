@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FatBurnPage extends StatelessWidget {
   const FatBurnPage({super.key});
@@ -22,9 +23,9 @@ class FatBurnPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Fat Burn Workout',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: GoogleFonts.nunito(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         backgroundColor: const Color.fromARGB(255, 202, 231, 255) ,
         leading: IconButton(
@@ -53,7 +54,7 @@ class FatBurnPage extends StatelessWidget {
                 leading: Icon(Icons.fitness_center, color: Colors.green.shade700),
                 title: Text(
                   name,
-                  style: const TextStyle(
+                  style: GoogleFonts.nunito(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -68,7 +69,7 @@ class FatBurnPage extends StatelessWidget {
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context),
-                          child: const Text("Tutup"),
+                          child: Text("Tutup", style: GoogleFonts.nunito()),
                         ),
                       ],
                     ),

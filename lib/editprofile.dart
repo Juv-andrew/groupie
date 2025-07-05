@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -20,6 +21,46 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String selectedGender = 'Female';
   String selectedBloodType = 'O';
   DateTime? selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    loadProfileData();
+  }
+
+  Future<void> loadProfileData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      usernameController.text = prefs.getString('name') ?? '';
+      emailController.text = prefs.getString('email') ?? '';
+      passwordController.text = prefs.getString('password') ?? '';
+      phoneController.text = prefs.getString('phone') ?? '';
+      weightController.text = prefs.getString('weight') ?? '';
+      heightController.text = prefs.getString('height') ?? '';
+      selectedGender = prefs.getString('gender') ?? 'Female';
+      selectedBloodType = prefs.getString('bloodType') ?? 'O';
+
+      String? dobString = prefs.getString('dob');
+      if (dobString != null) {
+        selectedDate = DateTime.tryParse(dobString);
+      }
+    });
+  }
+
+  Future<void> saveProfileData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('name', usernameController.text);
+    await prefs.setString('email', emailController.text);
+    await prefs.setString('password', passwordController.text);
+    await prefs.setString('phone', phoneController.text);
+    await prefs.setString('weight', weightController.text);
+    await prefs.setString('height', heightController.text);
+    await prefs.setString('gender', selectedGender);
+    await prefs.setString('bloodType', selectedBloodType);
+    if (selectedDate != null) {
+      await prefs.setString('dob', selectedDate!.toIso8601String());
+    }
+  }
 
   @override
   void dispose() {
@@ -180,6 +221,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                 ),
               ),
+
               _buildDropdown(
                 icon: Icons.female,
                 label: 'Gender',
@@ -230,8 +272,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
               const SizedBox(height: 25),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
+                    await saveProfileData();
+
+                    if (!mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Profile berhasil disimpan!'),
@@ -242,7 +287,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff0D273D),
+                  backgroundColor: const Color(0xff0D273D),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 40,
@@ -314,10 +359,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
             border: InputBorder.none,
           ),
           onChanged: onChanged,
-          items:
-              items.map((String item) {
-                return DropdownMenuItem<String>(value: item, child: Text(item));
-              }).toList(),
+          items: items.map((String item) {
+            return DropdownMenuItem<String>(value: item, child: Text(item));
+          }).toList(),
         ),
       ),
     );

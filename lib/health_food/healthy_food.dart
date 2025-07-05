@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/artikel.dart';
 import 'package:project/main_page.dart';
-import 'package:project/notification.dart';
+import 'package:project/consultation/notification.dart';
 import 'package:project/health_food/recipe_page.dart' show RecipePage;
 import 'package:project/health_food/top3_health.dart';
 import 'package:project/health_food/favorite_page.dart';
@@ -102,11 +102,11 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
           children: [
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 202, 231, 255),
+                color: Color(0xff0D273D),
               ),
               child: Text(
                 'Menu',
-                style: GoogleFonts.nunito(fontSize: 24, color: Colors.black),
+                style: GoogleFonts.nunito(fontSize: 30, color: Colors.white),
               ),
             ),
             ListTile(
@@ -298,7 +298,7 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.nunito(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 12,
+                                  fontSize: 14,
                                 ),
                               ),
                             ),

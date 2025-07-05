@@ -6,7 +6,7 @@ import 'package:project/main_page.dart';
 import 'package:project/artikel.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/mental_health/music.dart';
-import 'package:project/notification.dart';
+import 'package:project/consultation/notification.dart';
 
 class SelfRecoveryPage extends StatelessWidget {
   const SelfRecoveryPage({super.key});
@@ -46,6 +46,7 @@ class SelfRecoveryPage extends StatelessWidget {
           ),
           MenuItem(
             title: 'Need Some Quotes?',
+            subtitle: 'You Are Not Alone',
             onTap: () {
               Navigator.push(
                 context,
@@ -55,6 +56,7 @@ class SelfRecoveryPage extends StatelessWidget {
           ),
           MenuItem(
             title: 'Listen To Your Music Now',
+            subtitle: 'FOLLOW YOUR HEART',
             onTap: () {
               Navigator.push(
                 context,

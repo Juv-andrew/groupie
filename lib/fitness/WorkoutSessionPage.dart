@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class WorkoutSessionPage extends StatefulWidget {
   final String workoutName;
   final String workoutImage;
   final String workoutDescription;
-  final int duration; // dalam menit
+  final int duration;
 
   const WorkoutSessionPage({
     super.key,
@@ -48,15 +49,15 @@ class _WorkoutSessionPageState extends State<WorkoutSessionPage> {
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text("Selesai!"),
-        content: const Text("Latihan telah selesai. Bagus! 💪"),
+        title:  Text("Selesai!", style: GoogleFonts.nunito()),
+        content: Text("Latihan telah selesai. Bagus! 💪", style: GoogleFonts.nunito(),),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.of(context).pop(); 
               Navigator.of(context).pop(); 
             },
-            child: const Text("Kembali"),
+            child: Text("Kembali", style: GoogleFonts.nunito()),
           ),
         ],
       ),
@@ -80,7 +81,7 @@ class _WorkoutSessionPageState extends State<WorkoutSessionPage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       appBar: AppBar(
-        title: const Text("Sesi Latihan"),
+        title: Text("Sesi Latihan", style: GoogleFonts.nunito()),
         backgroundColor: const Color.fromARGB(255, 202, 231, 255),
         elevation: 2,
       ),
@@ -97,16 +98,16 @@ class _WorkoutSessionPageState extends State<WorkoutSessionPage> {
             Text(
               widget.workoutName,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black87),
+              style: GoogleFonts.nunito(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black87),
             ),
             const SizedBox(height: 10),
             Text(
               widget.workoutDescription,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16, color: Colors.black54),
+              style: GoogleFonts.nunito(fontSize: 16, color: Colors.black54),
             ),
             const SizedBox(height: 30),
-            const Text("Waktu Tersisa:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+            Text("Waktu Tersisa:", style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.w500)),
             const SizedBox(height: 10),
             Container(
               width: 150,
@@ -118,7 +119,7 @@ class _WorkoutSessionPageState extends State<WorkoutSessionPage> {
               alignment: Alignment.center,
               child: Text(
                 _formatTime(_remainingSeconds),
-                style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 202, 231, 255)),
+                style: GoogleFonts.nunito(fontSize: 36, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 202, 231, 255)),
               ),
             ),
             const SizedBox(height: 30),
@@ -128,7 +129,7 @@ class _WorkoutSessionPageState extends State<WorkoutSessionPage> {
                 Navigator.pop(context);
               },
               icon: const Icon(Icons.stop_circle, size: 28),
-              label: const Text("Akhiri Latihan", style: TextStyle(fontSize: 18)),
+              label:Text("Akhiri Latihan", style: GoogleFonts.nunito(fontSize: 18)),
               style: ElevatedButton.styleFrom(
                 backgroundColor:const Color(0xff0D273D),
                 foregroundColor: Colors.white,

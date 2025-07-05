@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project/consultation/DoctorDetailPage.dart';
 import 'package:project/ProfilPage.dart';
 import 'package:project/main_page.dart';
-import 'package:project/notification.dart';
+import 'package:project/consultation/notification.dart';
 import '../artikel.dart';
 import 'package:provider/provider.dart';
 import '../provider/favorite_provider.dart';

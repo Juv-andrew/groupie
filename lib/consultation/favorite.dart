@@ -17,10 +17,10 @@ class FavoriteDoctorsPage extends StatelessWidget {
           "Favorite Doctors",
           style: GoogleFonts.nunito(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Colors.green[700],
+        backgroundColor: const Color(0xff0D273D),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      backgroundColor: const Color(0xFFDFFFE1),
+      backgroundColor: const Color.fromARGB(255, 202, 231, 255),
       body: favoriteDoctors.isEmpty
           ? Center(
               child: Text(
