@@ -86,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen> {
           pageBuilder: (context, animation, secondaryAnimation) =>
               const OnboardingScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            const begin = Offset(1.0, 0.0); // Geser dari kanan ke kiri
+            const begin = Offset(1.0, 0.0); 
             const end = Offset.zero;
             final tween = Tween(begin: begin, end: end)
                 .chain(CurveTween(curve: Curves.easeInOut));

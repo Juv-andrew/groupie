@@ -221,7 +221,6 @@ class _MusicPageState extends State<MusicPage> {
                   ),
                 ],
               ),
-              // === Search History Floating Box ===
               if (_focusNode.hasFocus &&
                   _searchController.text.isEmpty &&
                   searchHistory.isNotEmpty)

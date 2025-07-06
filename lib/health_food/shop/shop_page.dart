@@ -222,7 +222,7 @@ class ProductCard extends StatelessWidget {
 
     return SizedBox(
       width: isHorizontal ? 140 : null,
-      height: isHorizontal ? 200 : null, // batasi tinggi jika horizontal
+      height: isHorizontal ? 200 : null, 
       child: Card(
         elevation: 3,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

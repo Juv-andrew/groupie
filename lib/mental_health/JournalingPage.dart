@@ -219,7 +219,6 @@ class _JournalingPageState extends State<JournalingPage> {
                   itemBuilder: (context, index) {
                     final entry = _journalEntries[index];
 
-                    // Pisahkan tanggal dan waktu
                     final parts = entry.dateTime.split(' ');
                     final date = parts.length > 0 ? parts[0] : '';
                     final time = parts.length > 1 ? parts[1] : '';
@@ -238,7 +237,6 @@ class _JournalingPageState extends State<JournalingPage> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Tanggal di pojok kanan atas
                                 Align(
                                   alignment: Alignment.topRight,
                                   child: Text(
@@ -252,7 +250,6 @@ class _JournalingPageState extends State<JournalingPage> {
                                 ),
                                 const SizedBox(height: 4),
 
-                                // Judul
                                 Text(
                                   entry.title,
                                   style: GoogleFonts.nunito(
@@ -263,7 +260,6 @@ class _JournalingPageState extends State<JournalingPage> {
 
                                 const Divider( thickness: 1, color: Colors.black87,),
 
-                                // Isi jurnal
                                 Text(
                                   entry.content,
                                   style: GoogleFonts.nunito(fontSize: 14),
@@ -271,7 +267,6 @@ class _JournalingPageState extends State<JournalingPage> {
 
                                 const SizedBox(height: 12),
 
-                                // Waktu tampil di bawah kiri
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -285,7 +280,6 @@ class _JournalingPageState extends State<JournalingPage> {
                                       ),
                                     ),
 
-                                    // Edit/Delete Menu di pojok kanan bawah
                                     PopupMenuButton<String>(
                                       onSelected: (value) {
                                         if (value == 'edit') {

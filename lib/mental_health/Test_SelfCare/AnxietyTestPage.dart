@@ -74,7 +74,7 @@ class _AnxietyTestPageState extends State<AnxietyTestPage> {
     final prefs = await SharedPreferences.getInstance();
     final date = DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
 
-    await prefs.setInt('anxiety_score', score); // ✅ bukan depression_score
+    await prefs.setInt('anxiety_score', score); 
     await prefs.setString('anxiety_date', date);
   }
 

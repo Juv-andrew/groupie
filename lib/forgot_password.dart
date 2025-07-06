@@ -38,7 +38,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
     await prefs.setString('password', newPassword);
     _showSnackbar("Password berhasil direset!");
-    Navigator.pop(context); // kembali ke login
+    Navigator.pop(context); 
   }
 
   void _showSnackbar(String message) {

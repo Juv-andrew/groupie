@@ -140,11 +140,10 @@ class _SignUpState extends State<SignUp> {
             right: 0,
             child: Column(
               children: [
-                // Replace Icon with Image
                 Image.asset(
-                  'img-project/logo.png', // Path to your image
-                  width: 300, // Adjust the size as needed
-                  height: 300, // Adjust the size as needed
+                  'img-project/logo.png', 
+                  width: 300, 
+                  height: 300,
                 ),
               ],
             ),
